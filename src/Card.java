@@ -19,7 +19,6 @@ public class Card implements Comparable<Card> {
    // instance variables for the card
    private Suit suitValue;
    private Rank rankValue;
-   private ImageIcon cardImage;
    private static boolean sortRankMajorOrder = true;
 
    /**
@@ -27,10 +26,8 @@ public class Card implements Comparable<Card> {
     * 
     * @param suit     the suit value of this card.
     * @param rank     the rank value of this card.
-    * @param cardFace the face image of this card.
     */
-   public Card(Suit suit, Rank rank, ImageIcon cardFace) {
-      cardImage = cardFace;
+   public Card(Suit suit, Rank rank){
       suitValue = suit;
       rankValue = rank;
    }
@@ -78,15 +75,6 @@ public class Card implements Comparable<Card> {
     */
    public Rank getRank() {
       return rankValue;
-   }
-
-   /**
-    * Returns the graphic image of the card.
-    * 
-    * @return an icon containing the graphic image of the card.
-    */
-   public ImageIcon getCardImage() {
-      return cardImage;
    }
 
    /**

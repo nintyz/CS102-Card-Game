@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Deck {
-   private List<Card> deck;
+   private ArrayList<Card> deck;
    private int index;
 
    /**
@@ -31,6 +31,16 @@ public class Deck {
       deck = new ArrayList<Card>();
       index = 0;
    }
+
+   public Deck(List<Suit> suit, List<Rank> rank) {
+      deck = new ArrayList<Card>();
+      for (Suit s : suit) {
+             for (Rank r: rank) {
+               deck.add(new Card(s, r));
+             }
+         }
+     }
+
 
    /**
     * Adds a card to the deck.
