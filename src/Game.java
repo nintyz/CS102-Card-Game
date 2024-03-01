@@ -19,7 +19,7 @@ public class Game {
         }
 
         // Distribute cards to players
-        for (int i = POOLCARD, playerIndex = 0; i < PLAYERCARD * playerCount; i++, playerIndex++) {
+        for (int i = POOLCARD, playerIndex = 0; i < (PLAYERCARD * playerCount) + POOLCARD; i++, playerIndex++) {
             Player currentPlayer = players.get(playerIndex % playerCount);
             currentPlayer.addCard(myDeck.get(i));
         }
