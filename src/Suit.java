@@ -16,19 +16,19 @@ public final class Suit implements Comparable<Suit> {
    /**
     * The suit clubs.
     */
-   public final static Suit CLUBS = new Suit("Clubs", "c");
+   public final static Suit CLUBS = new Suit("Clubs", "clubs");
    /**
     * The suit diamonds.
     */
-   public final static Suit DIAMONDS = new Suit("Diamonds", "d");
+   public final static Suit DIAMONDS = new Suit("Diamonds", "diamonds");
    /**
     * The suit hearts.
     */
-   public final static Suit HEARTS = new Suit("Hearts", "h");
+   public final static Suit HEARTS = new Suit("Hearts", "hearts");
    /**
     * The suit spades.
     */
-   public final static Suit SPADES = new Suit("Spades", "s");
+   public final static Suit SPADES = new Suit("Spades", "spades");
 
    /**
     * List of all suit values. Primarily for use with iteration.

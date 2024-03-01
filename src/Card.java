@@ -56,7 +56,7 @@ public class Card implements Comparable<Card> {
     * @return a string containing the filename of the card.
     */
    public static String getFilename(Suit suit, Rank rank) {
-      return rank.getSymbol() + suit.getSymbol() + ".gif";
+      return rank.getSymbol().toLowerCase() + "_of_" + suit.getSymbol().toLowerCase() + ".png";
    }
 
    /**

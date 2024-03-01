@@ -63,19 +63,19 @@ public class Rank implements Comparable<Rank> {
    /**
     * The rank ten.
     */
-   public final static Rank TEN = new Rank("Ten", "t");
+   public final static Rank TEN = new Rank("Ten", "10");
    /**
     * The rank jack.
     */
-   public final static Rank JACK = new Rank("Jack", "j");
+   public final static Rank JACK = new Rank("Jack", "jack");
    /**
     * The rank queen.
     */
-   public final static Rank QUEEN = new Rank("Queen", "q");
+   public final static Rank QUEEN = new Rank("Queen", "queen");
    /**
     * The rank king.
     */
-   public final static Rank KING = new Rank("King", "k");
+   public final static Rank KING = new Rank("King", "king");
 
    private final static List<Rank> VALUES_KING_HIGH = Collections.unmodifiableList(
          Arrays.asList(new Rank[] { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
