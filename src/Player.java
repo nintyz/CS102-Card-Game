@@ -5,12 +5,22 @@ import java.util.ArrayList;
 public class Player {
 
     // Instance variables for player class
+    private int playerId;
     private double totalScore;
     private ArrayList<Card> handCards;
     private ArrayList<Card> selectedCards;
     private ArrayList<Card> selectedHandCards;
-    private ArrayList<Capture> capturedCards;
+//    private ArrayList<Capture> capturedCards;
     
+    public Player(int id) {
+        this.playerId = playerId;
+        this.handCards = new ArrayList<>();
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
     /**
      * Remove a card from the player's hand if a player 
      * captures/run/combo their card(s).
@@ -94,24 +104,28 @@ public class Player {
      * @Return the capture based on the selected cards
      * and null if player did not select anything.
      */  
-   private Capture formCapture() {
-       if (selectedCards.size == 0 || selectedHandCards != 1) {
-           return null;
-       }
+//    private Capture formCapture() {
+//        if (selectedCards.size == 0 || selectedHandCards != 1) {
+//            return null;
+//        }
 
-       ArrayList<Card> capturingCards = new ArrayList<Card>();
-       for (int i = 0; i < selectedCards.size(); i++) {
-           capturingCards.add(selectedCards.get(i));
-      }
-// Return to be updated   
-       return null;
-   }
+//        ArrayList<Card> capturingCards = new ArrayList<Card>();
+//        for (int i = 0; i < selectedCards.size(); i++) {
+//            capturingCards.add(selectedCards.get(i));
+//       }
+// // Return to be updated   
+//        return null;
+//    }
 
     /**
      * @Return the score of the player as a double.
      */
     public double getScore() {
         return this.totalScore;
+    }
+
+    public ArrayList<Card> getHand() {
+        return this.handCards;
     }
 
 }
