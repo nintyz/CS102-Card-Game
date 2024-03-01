@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Pair extends Capture{
     //Score multiplier for a Pair
     private static final double multiplier = 1;
@@ -37,5 +35,4 @@ public class Pair extends Capture{
     public String getCaptureName(){
         return "Pair";
     }
-
 }
