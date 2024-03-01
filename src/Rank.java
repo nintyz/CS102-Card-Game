@@ -27,7 +27,7 @@ public class Rank implements Comparable<Rank> {
    /**
     * The rank ace.
     */
-   public final static Rank ACE = new Rank("Ace", "a");
+   public final static Rank ACE = new Rank("Ace", "ace");
    /**
     * The rank two.
     */

@@ -26,8 +26,8 @@ public class Card implements Comparable<Card> {
     * @param rank the rank value of this card.
     */
    public Card(Suit suit, Rank rank) {
-      suitValue = suit;
-      rankValue = rank;
+      this.suitValue = suit;
+      this.rankValue = rank;
    }
 
    /**
@@ -53,8 +53,8 @@ public class Card implements Comparable<Card> {
     * @param rank the rank value of the card.
     * @return a string containing the filename of the card.
     */
-   public static String getFilename(Suit suit, Rank rank) {
-      return rank.getSymbol().toLowerCase() + "_of_" + suit.getSymbol().toLowerCase() + ".png";
+   public String getCardImage() {
+      return rankValue.getSymbol().toLowerCase() + "_of_" + suitValue.getSymbol().toLowerCase() + ".png";
    }
 
    /**
