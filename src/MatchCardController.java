@@ -1,4 +1,5 @@
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -12,6 +13,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
 public class MatchCardController implements Initializable {
+
+    final int POOLCARD = 10, PLAYERCARD = 4, PLAYERCOUNT = 2;
+    private ArrayList<Player> players = new ArrayList<>();
 
     @FXML
     private FlowPane cardPool;
@@ -44,16 +48,22 @@ public class MatchCardController implements Initializable {
         startGameButton.setVisible(false);
         handView.setVisible(true);
 
+        // Initlialize players
+        for (int i = 0; i < PLAYERCOUNT; i++) {
+            players.add(new Player(i));
+        }
+
         Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
         deck.shuffle();
 
         populateCardPool(deck);
 
+        populateHand(deck);
+
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
         initializeImageView();
     }
 
@@ -76,10 +86,29 @@ public class MatchCardController implements Initializable {
     private void populateCardPool(Deck deck) {
         for (int i = 0; i < cardPool.getChildren().size(); i++) {
             ImageView imageView = (ImageView) cardPool.getChildren().get(i);
-            String test = deck.dealCard().getCardImage();
-            System.out.println(test);
-            imageView.setImage(new Image("file:resources/img/" + test));
+            imageView.setImage(new Image("file:resources/img/" + deck.dealCard().getCardImage()));
         }
+    }
+
+    private void populateHand(Deck deck) {
+        // Distribute cards to players
+        for (int i = 0; i < (PLAYERCARD * PLAYERCOUNT); i++) {
+            Player currentPlayer = players.get(i % PLAYERCOUNT);
+            currentPlayer.addCard(deck.dealCard());
+        }
+
+        // Print hands of each player after distribution
+        for (Player player : players) {
+            System.out.println("Player's hand: " + player.getHand());
+        }
+
+        // populate cardhand
+        for (int i = 0; i < handCard.getChildren().size(); i++) {
+            ImageView imageView = (ImageView) handCard.getChildren().get(i);
+            imageView.setImage(new Image("file:resources/img/" + players.get(0).getHand().get(i).getCardImage()));
+            imageView.setUserData(i);
+        }
+        
     }
 
 }

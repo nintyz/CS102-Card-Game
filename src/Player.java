@@ -9,17 +9,17 @@ public class Player {
     private double totalScore;
     private ArrayList<Card> handCards;
     private ArrayList<Card> selectedCards;
-    private ArrayList<Card> selectedHandCards;
-//    private ArrayList<Capture> capturedCards;
-    
-    public Player(int id) {
-        this.playerId = playerId;
-        this.handCards = new ArrayList<>();
-    }
+        private ArrayList<Card> selectedHandCards;
+    //    private ArrayList<Capture> capturedCards;
+        
+        public Player(int id) {
+            this.playerId = id;
+            this.handCards = new ArrayList<>();
+        }
 
-    public int getPlayerId() {
-        return playerId;
-    }
+        public int getPlayerId() {
+            return playerId;
+        }
 
     /**
      * Remove a card from the player's hand if a player 

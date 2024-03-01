@@ -18,6 +18,7 @@ public class App extends Application {
         Scene scene = new Scene(loader.load());
         stage.setTitle("Matching Game");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
     }
