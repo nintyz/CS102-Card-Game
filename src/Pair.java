@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Pair extends Capture{
     //Score multiplier for a Pair
     private static final double multiplier = 1;
@@ -21,7 +19,7 @@ public class Pair extends Capture{
             return null;
         }
         //return null if both cards do not have the same RankValue
-        if (handCard.getRank().compareTo(poolCards[0].getRank())) {
+        if (handCard.getRank().compareTo(poolCards[0].getRank()) != 0) {
             return null;
         }
         //returns a Pair
@@ -37,5 +35,4 @@ public class Pair extends Capture{
     public String getCaptureName(){
         return "Pair";
     }
-
 }

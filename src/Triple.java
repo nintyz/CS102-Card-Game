@@ -5,32 +5,30 @@ public class Triple extends Capture {
     
     public Triple(){};
 
-    public Triple(Card hand, Card[] deck) {
+    public Triple(Card handCard, Card[] poolCards) {
         score = 1;
-        capturePile = new Card[deck.length + 1];
-        capturePile[0] = hand;
-        for (int i = 0; i < deck.length; i++) {
-            capturePile[i + 1] = deck[i];
+        capturePile = new Card[poolCards.length + 1];
+        capturePile[0] = handCard;
+        for (int i = 0; i < poolCards.length; i++) {
+            capturePile[i + 1] = poolCards[i];
         }
     }
 
-    public static Capture formTripleCapture(Card hand, Card[] deck) {
-        if (deck.length != 2) {
+    public Capture formCapture(Card handCard, Card[] poolCards) {
+        if (poolCards.length != 2) {
             return null;
         }
-        if (hand.getRank().compareTo(deck[0].getRank()) != 0 || hand.getRank().compareTo(deck[1].getRank()) != 0) {
+        if (!handCard.getRank().equals(poolCards[0].getRank()) || !handCard.getRank().equals(poolCards[1].getRank())) {
             return null;
         }
-        return new Triple(hand, deck);
+        return new Triple(handCard, poolCards);
     }
 
-    public double scoringSystem() {
+    public double getScore() {
         return score * capturePile.length;
     }
 
-    public String captureTripleSuccess() {
-        return "You have captured Triple successfully!";
+    public String getCaptureName() {
+        return "Triple Capture!";
     }
 }
-
-
