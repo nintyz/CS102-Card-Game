@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Straight extends Capture{
+public class Straight extends Capture {
     //Score multiplier for a Straight
     public static final double multiplier = 1.3;
   
@@ -53,3 +53,4 @@ public class Straight extends Capture{
     public String getCaptureName(){
         return "Straight";
     }
+}
