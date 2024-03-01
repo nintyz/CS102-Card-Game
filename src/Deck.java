@@ -109,4 +109,8 @@ public class Deck {
       index = 0;
    }
 
+   public void sortDeck() {
+      Collections.sort(deck);
+   }
+
 }
