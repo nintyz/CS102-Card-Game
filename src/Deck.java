@@ -109,4 +109,7 @@ public class Deck {
       index = 0;
    }
 
+   public Card getCard(int index) {
+      return deck.get(index);
+   }
 }
