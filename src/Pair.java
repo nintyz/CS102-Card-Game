@@ -21,7 +21,7 @@ public class Pair extends Capture{
             return null;
         }
         //return null if both cards do not have the same RankValue
-        if (handCard.getRank().compareTo(poolCards[0].getRank() ) {
+        if (handCard.getRank().compareTo(poolCards[0].getRank())) {
             return null;
         }
         //returns a Pair
