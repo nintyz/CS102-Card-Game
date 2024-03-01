@@ -3,8 +3,6 @@
 // Implementation of a playing card.  Uses classes Rank and Suit for
 // expressing the card value.
 
-import javax.swing.ImageIcon;
-
 /**
  * Representation of a single playing card. A card consists of a suit value
  * (e.g. hearts, spades), a rank value (e.g. ace, 7, king), and an image of
@@ -24,10 +22,10 @@ public class Card implements Comparable<Card> {
    /**
     * Creates a new playing card.
     * 
-    * @param suit     the suit value of this card.
-    * @param rank     the rank value of this card.
+    * @param suit the suit value of this card.
+    * @param rank the rank value of this card.
     */
-   public Card(Suit suit, Rank rank){
+   public Card(Suit suit, Rank rank) {
       suitValue = suit;
       rankValue = rank;
    }
