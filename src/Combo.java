@@ -1,36 +1,46 @@
-public class ComboCapture extends Capture {
-    private int score;
-    private Card[] capturePile;
+public class Combo extends Capture {
 
-    public ComboCapture(Card hand, Card[] deck) {
-        score = 1;
-        capturePile = new Card[deck.length + 1];
-        capturePile[0] = hand;
+    public Combo(){};
+
+    public Combo(Card hand, Card[] deck) {
+        multiplier = 1;
+        captureCards = new Card[deck.length + 1];
+        captureCards[0] = hand;
         for (int i = 0; i < deck.length; i++) {
-            capturePile[i + 1] = deck[i];
+            captureCards[i + 1] = deck[i];
         }
     }
 
-    public static Capture FormComboCapture(Card hand, Card[] deck) {
+    public Capture formCapture(Card hand, Card[] poolCards) {
         int total = 0;
-        if (deck.length < 2) {
+        if (poolCards.length < 2) {
             return null;
         }
-        for (Card card : deck) {
-            total += card.getRank();
+        //check if poolCards contain face cards
+        for (Card c : poolCards) {
+            if (c.getRank().getName() == "King" || c.getRank().getName() == "Queen" || c.getRank().getName() == "Jack") {
+                return null;
+            }
         }
-        if (hand.getRank() != total) {
+        for (Card c : poolCards) {
+            String sym = c.getRank().getSymbol();
+            int value = Integer.parseInt(sym);
+            total += value;
+        }
+        if (Integer.parseInt(hand.getRank().getSymbol()) != total) {
             return null;
-        } else {
-            return new ComboCapture(hand, deck);
         }
+            
+        return new Combo(hand, poolCards);
     }
 
-    public double scoringSystem() {
-        return score * capturePile.length;
+    public double getScore() {
+        return multiplier * captureCards.length;
     }
 
     public String captureComboSuccess() {
         return "You have captured Combo successfully!";
     }
+
+    
 }

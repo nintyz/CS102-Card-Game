@@ -2,6 +2,8 @@ public class Triple extends Capture {
     
     private int score;
     private Card[] capturePile;
+    
+    public Triple(){};
 
     public Triple(Card hand, Card[] deck) {
         score = 1;
