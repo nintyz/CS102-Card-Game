@@ -109,7 +109,14 @@ public class Deck {
       index = 0;
    }
 
+<<<<<<< HEAD
    public Card getCard(int index) {
       return deck.get(index);
    }
+=======
+   public void sortDeck() {
+      Collections.sort(deck);
+   }
+
+>>>>>>> b6070f2bbbc5bec0d0d87e75fa8bfb5b799cdc48
 }

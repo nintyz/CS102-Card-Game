@@ -19,7 +19,7 @@ import java.util.List;
  * @author John K. Estell
  * @version 1.0
  */
-public abstract class Hand implements Comparable<Hand> {
+public class Hand {
 
    private List<Card> hand = new ArrayList<Card>();
 
@@ -130,10 +130,10 @@ public abstract class Hand implements Comparable<Hand> {
     * @return < 0 if this hand is less than the other hand, 0 if the two hands are
     *         the same, or > 0 if this hand is greater then the other hand.
     */
-   public int compareTo(Hand otherHandObject) {
-      Hand otherHand = otherHandObject;
-      return evaluateHand() - otherHand.evaluateHand();
-   }
+   // public int compareTo(Hand otherHandObject) {
+   //    Hand otherHand = otherHandObject;
+   //    return evaluateHand() - otherHand.evaluateHand();
+   // }
 
    /**
     * Evaluates the hand. Must be defined in the subclass that implements the hand
@@ -141,7 +141,7 @@ public abstract class Hand implements Comparable<Hand> {
     * 
     * @return an integer corresponding to the rating of the hand.
     */
-   public abstract int evaluateHand();
+   // public abstract int evaluateHand();
 
    /**
     * Returns a description of the hand.
