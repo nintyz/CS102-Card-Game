@@ -1,36 +1,37 @@
-public class ComboCapture extends Capture {
+public class Combo extends Capture {
+
     private int score;
     private Card[] capturePile;
 
-    public ComboCapture(Card hand, Card[] deck) {
+    public Combo(Card handCard, Card[] poolCards) {
         score = 1;
-        capturePile = new Card[deck.length + 1];
-        capturePile[0] = hand;
-        for (int i = 0; i < deck.length; i++) {
-            capturePile[i + 1] = deck[i];
+        capturePile = new Card[poolCards.length + 1];
+        capturePile[0] = handCard;
+        for (int i = 0; i < poolCards.length; i++) {
+            capturePile[i + 1] = poolCards[i];
         }
     }
 
-    public static Capture FormComboCapture(Card hand, Card[] deck) {
-        int total = 0;
-        if (deck.length < 2) {
-            return null;
-        }
-        for (Card card : deck) {
-            total += card.getRank();
-        }
-        if (hand.getRank() != total) {
-            return null;
-        } else {
-            return new ComboCapture(hand, deck);
-        }
+    public Capture formCapture(Card handCard, Card[] poolCards) {
+    int total = 0;
+    if (poolCards.length < 2) {
+        return null;
     }
+    for (Card card : poolCards) {
+        total += card.getRank().compareTo(Rank.TWO); 
+    }
+    if (handCard.getRank().compareTo(Rank.TWO) != total) { 
+        return null;
+    } else {
+        return new Combo(handCard, poolCards);
+    }
+}
 
-    public double scoringSystem() {
+    public double getScore() {
         return score * capturePile.length;
     }
 
-    public String captureComboSuccess() {
+    public String getCaptureName() {
         return "You have captured Combo successfully!";
     }
 }
