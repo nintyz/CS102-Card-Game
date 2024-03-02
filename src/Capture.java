@@ -1,5 +1,3 @@
-import java.util.*;
-
 public abstract class Capture {
     protected double multiplier;
     protected Card[] captureCards;
