@@ -23,7 +23,7 @@
             "request": "launch",
             "mainClass": "App",
             "projectName": "CS102-Card-Game_1bcda6d6",
-            "vmArgs": "--module-path \"javafx-sdk-21.0.2/lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"libraries/javafx-sdk-21.0.2/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
