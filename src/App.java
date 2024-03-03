@@ -11,7 +11,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         // Load the FXML(UI) file
-        FXMLLoader loader = new FXMLLoader(new File("resources/match-cards.fxml").toURI().toURL());
+        FXMLLoader loader = new FXMLLoader(new File("resources/view/match-cards.fxml").toURI().toURL());
         Scene scene = new Scene(loader.load());
 
         // Set the parameters of the stage(game window)
