@@ -4,13 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "CS102-Card-Game-1_53c07c3d"
-        },
+        
         {
             "type": "java",
             "name": "Game",
