@@ -119,7 +119,7 @@ public class Player {
     /**
      * @Return the score of the player as a double.
      */
-    public double getScore() {
+    public double getTotalScore() {
         return this.totalScore;
     }
 
