@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class Player {
 
     // Instance variables for player class
@@ -8,20 +7,20 @@ public class Player {
     private double totalScore;
     private ArrayList<Card> handCards;
     private ArrayList<Card> selectedCards;
-        private ArrayList<Card> selectedHandCards;
-    //    private ArrayList<Capture> capturedCards;
-        
-        public Player(int id) {
-            this.playerId = id;
-            this.handCards = new ArrayList<>();
-        }
+    private ArrayList<Card> selectedHandCards;
+    // private ArrayList<Capture> capturedCards;
 
-        public int getPlayerId() {
-            return playerId;
-        }
+    public Player(int id) {
+        this.playerId = id;
+        this.handCards = new ArrayList<>();
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
 
     /**
-     * Remove a card from the player's hand if a player 
+     * Remove a card from the player's hand if a player
      * captures/run/combo their card(s).
      * 
      * @param selectedCard a card object removed by player
@@ -31,7 +30,7 @@ public class Player {
     }
 
     /**
-     * Remove cards from the player's hand if a player 
+     * Remove cards from the player's hand if a player
      * captures/run/combo their card(s).
      * 
      * @param selectedCards a list of cards selected by player
@@ -41,7 +40,7 @@ public class Player {
     }
 
     /**
-     * Add a card to the player's hand if a player 
+     * Add a card to the player's hand if a player
      * captures/run/combo card(s) from the pool deck.
      * 
      * @param card a card object obtained by player
@@ -51,7 +50,7 @@ public class Player {
     }
 
     /**
-     * Add cards to the player's hand if a player 
+     * Add cards to the player's hand if a player
      * captures/run/combo card(s) from the pool deck.
      * 
      * @param cards a list of cards obtained by player
@@ -71,7 +70,7 @@ public class Player {
      * 
      * @param card a card object selected by the player
      */
-    public void addSelectedCard(Card card){
+    public void addSelectedCard(Card card) {
         if (handCards.contains(card)) {
             selectedHandCards.add(card);
         } else {
@@ -92,7 +91,7 @@ public class Player {
         if (handCards.contains(card)) {
             selectedHandCards.remove(card);
         } else {
-            selectedCards.remove(card); 
+            selectedCards.remove(card);
         }
     }
 
@@ -101,20 +100,20 @@ public class Player {
      * selected cards into the arraylist.
      * 
      * @Return the capture based on the selected cards
-     * and null if player did not select anything.
-     */  
-//    private Capture formCapture() {
-//        if (selectedCards.size == 0 || selectedHandCards != 1) {
-//            return null;
-//        }
+     *         and null if player did not select anything.
+     */
+    // private Capture formCapture() {
+    // if (selectedCards.size == 0 || selectedHandCards != 1) {
+    // return null;
+    // }
 
-//        ArrayList<Card> capturingCards = new ArrayList<Card>();
-//        for (int i = 0; i < selectedCards.size(); i++) {
-//            capturingCards.add(selectedCards.get(i));
-//       }
-// // Return to be updated   
-//        return null;
-//    }
+    // ArrayList<Card> capturingCards = new ArrayList<Card>();
+    // for (int i = 0; i < selectedCards.size(); i++) {
+    // capturingCards.add(selectedCards.get(i));
+    // }
+    // // Return to be updated
+    // return null;
+    // }
 
     /**
      * @Return the score of the player as a double.

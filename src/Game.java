@@ -1,13 +1,14 @@
-import java.util.*;
+import java.util.ArrayList;
+
 public class Game {
-    
+
     final static int POOLCARD = 10, PLAYERCARD = 4;
     private int playerCount;
     private Player currentPlayer;
     private static ArrayList<Player> players;
     private static ArrayList<Card> poolCards;
     private ArrayList<Card> deck;
-    
+
     public static void initializeRound(int playerCount) {
         Deck myDeck = new Deck(Suit.VALUES, Rank.VALUES);
         myDeck.shuffle();
@@ -44,18 +45,18 @@ public class Game {
         // Hand myHand = new Hand();
         // System.out.println("Before:");
         // for (int i = 0; i < 4; i++) {
-        //     myHand.addCard(myDeck.dealCard());
-        //     System.out.println(myHand.getCard(i));
+        // myHand.addCard(myDeck.dealCard());
+        // System.out.println(myHand.getCard(i));
         // }
         // System.out.println("After");
         // myHand.sort();
         // for(int i = 0; i < 4; i++) {
-        //     System.out.println(myHand.getCard(i));
+        // System.out.println(myHand.getCard(i));
         // }
-    
+
         // while (!myDeck.isEmpty()) {
-        //     Card dealt = myDeck.dealCard();
-        //     System.out.println(dealt);
+        // Card dealt = myDeck.dealCard();
+        // System.out.println(dealt);
         // }
 
     }
