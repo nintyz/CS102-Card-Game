@@ -11,3 +11,7 @@
 .button {
     -fx-background-radius: 20px;
 }
+
+.image-view-wrapper:border {
+    -fx-background-color: #de0909;
+}

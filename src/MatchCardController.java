@@ -2,6 +2,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,18 +12,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
 public class MatchCardController implements Initializable {
 
     final int POOLCARD = 10, PLAYERCARD = 4, PLAYERCOUNT = 2;
-    private boolean hasDistributedCards = false;
 
     private Deck deck = initializeDeck();
 
     private ArrayList<Player> players = initializePlayers();
     private ArrayList<Card> poolCards = initializeCardPool();
+
+    private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
 
     @FXML
     private FlowPane cardPool;
@@ -53,19 +58,15 @@ public class MatchCardController implements Initializable {
     @FXML
     void startGame(ActionEvent event) {
 
-        if (!hasDistributedCards) {
-            hasDistributedCards = true;
+        // Distribute cards to players
+        for (int i = 0; i < (PLAYERCARD * PLAYERCOUNT); i++) {
+            Player currentPlayer = players.get(i % PLAYERCOUNT);
+            currentPlayer.addCard(deck.dealCard());
+        }
 
-            // Distribute cards to players
-            for (int i = 0; i < (PLAYERCARD * PLAYERCOUNT); i++) {
-                Player currentPlayer = players.get(i % PLAYERCOUNT);
-                currentPlayer.addCard(deck.dealCard());
-            }
-
-            // Print hands of each player after distribution
-            for (Player player : players) {
-                System.out.println("Player's hand: " + player.getHand());
-            }
+        // Print hands of each player after distribution
+        for (Player player : players) {
+            System.out.println("Player's hand: " + player.getHand());
         }
 
         startGameButton.setVisible(false);
@@ -91,19 +92,20 @@ public class MatchCardController implements Initializable {
 
         for (int i = 0; i < cardPool.getChildren().size(); i++) {
             // "cast" the Node to be of type ImageView
-            ImageView imageView = (ImageView) cardPool.getChildren().get(i);
+            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+
+            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
             imageView.setImage(new Image("file:resources/img/back.png"));
-            imageView.setUserData(i);
         }
     }
 
     private void clearImageView() {
 
         for (int i = 0; i < cardPool.getChildren().size(); i++) {
-            // "cast" the Node to be of type ImageView
-            ImageView imageView = (ImageView) cardPool.getChildren().get(i);
+            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+
+            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
             imageView.setImage(null);
-            imageView.setUserData(i);
         }
     }
 
@@ -136,13 +138,39 @@ public class MatchCardController implements Initializable {
         return poolCards;
     }
 
+    private void registerClickListener(BorderPane borderPane, ImageView imageView) {
+
+        // Assign a css class to the borderPane
+        borderPane.getStyleClass().add("image-view-wrapper");
+
+        // Create a property to hold the state of the border of borderPane
+        BooleanProperty imageViewBorderActive = new SimpleBooleanProperty() {
+            @Override
+            protected void invalidated() {
+                borderPane.pseudoClassStateChanged(imageViewBorder, get());
+            }
+        };
+
+        // register a click listener
+        imageView.setOnMouseClicked(event -> {
+            System.out.println("You clicked on card " + imageView.getUserData() + " in the pool");
+            imageViewBorderActive.set(!imageViewBorderActive.get());
+        });
+
+    }
+
     private void populateCardPool(ArrayList<Card> cards) {
 
         clearImageView();
 
         for (int i = 0; i < POOLCARD; i++) {
-            ImageView imageView = (ImageView) cardPool.getChildren().get(i);
+            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+
+            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
             imageView.setImage(new Image("file:resources/img/" + cards.get(i).getCardImage()));
+            imageView.setUserData(i);
+
+            registerClickListener(borderPane, imageView);
         }
     }
 
@@ -150,9 +178,13 @@ public class MatchCardController implements Initializable {
 
         // populate cardhand with the first player's hand
         for (int i = 0; i < PLAYERCARD; i++) {
-            ImageView imageView = (ImageView) handCard.getChildren().get(i);
+            BorderPane borderPane = (BorderPane) handCard.getChildren().get(i);
+
+            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
             imageView.setImage(new Image("file:resources/img/" + players.get(0).getHand().get(i).getCardImage()));
             imageView.setUserData(i);
+
+            registerClickListener(borderPane, imageView);
         }
 
         // Switch player label
