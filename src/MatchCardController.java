@@ -18,11 +18,12 @@ import javafx.scene.layout.HBox;
 
 public class MatchCardController implements Initializable {
 
-    final int POOLCARD = 10, PLAYERCARD = 4, PLAYERCOUNT = 2;
+    private final int PLAYERCOUNT = 2;
+    private int poolCardCount = 10, playerCardCount = 4;
 
     private Deck deck = initializeDeck();
 
-    private ArrayList<Player> players = initializePlayers();
+    private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Card> poolCards = initializeCardPool();
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
@@ -51,30 +52,24 @@ public class MatchCardController implements Initializable {
     @FXML
     void matchButton(ActionEvent event) {
 
-        populateHand(deck);
+        switchPlayer(deck);
+        poolCards.remove(0);
+        poolCardCount--;
+        populateCardPool(poolCards);
 
     }
 
     @FXML
     void startGame(ActionEvent event) {
 
-        // Distribute cards to players
-        for (int i = 0; i < (PLAYERCARD * PLAYERCOUNT); i++) {
-            Player currentPlayer = players.get(i % PLAYERCOUNT);
-            currentPlayer.addCard(deck.dealCard());
-        }
-
-        // Print hands of each player after distribution
-        for (Player player : players) {
-            System.out.println("Player's hand: " + player.getHand());
-        }
+        initializePlayers();
 
         startGameButton.setVisible(false);
         handView.setVisible(true);
 
         populateCardPool(poolCards);
 
-        populateHand(deck);
+        switchPlayer(deck);
     }
 
     @Override
@@ -116,22 +111,31 @@ public class MatchCardController implements Initializable {
         return deck;
     }
 
-    private ArrayList<Player> initializePlayers() {
+    private void initializePlayers() {
 
-        ArrayList<Player> players = new ArrayList<Player>();
-
+        // Create players
         for (int i = 0; i < PLAYERCOUNT; i++) {
             players.add(new Player(i));
         }
 
-        return players;
+        // Distribute cards to players
+        for (int i = 0; i < (playerCardCount * PLAYERCOUNT); i++) {
+            Player currentPlayer = players.get(i % PLAYERCOUNT);
+            currentPlayer.addCard(deck.dealCard());
+        }
+
+        // Print hands of each player after distribution
+        for (Player player : players) {
+            System.out.println("Player's hand: " + player.getHand());
+        }
+
     }
 
     private ArrayList<Card> initializeCardPool() {
 
         ArrayList<Card> poolCards = new ArrayList<Card>();
 
-        for (int i = 0; i < POOLCARD; i++) {
+        for (int i = 0; i < poolCardCount; i++) {
             poolCards.add(deck.dealCard());
         }
 
@@ -163,7 +167,7 @@ public class MatchCardController implements Initializable {
 
         clearImageView();
 
-        for (int i = 0; i < POOLCARD; i++) {
+        for (int i = 0; i < poolCardCount; i++) {
             BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
@@ -177,7 +181,7 @@ public class MatchCardController implements Initializable {
     private void populateHand(Deck deck) {
 
         // populate cardhand with the first player's hand
-        for (int i = 0; i < PLAYERCARD; i++) {
+        for (int i = 0; i < playerCardCount; i++) {
             BorderPane borderPane = (BorderPane) handCard.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
@@ -186,6 +190,10 @@ public class MatchCardController implements Initializable {
 
             registerClickListener(borderPane, imageView);
         }
+
+    }
+
+    private void switchPlayer(Deck deck) {
 
         // Switch player label
         playerLabel.setText(Integer.toString(players.get(0).getPlayerId() + 1));
@@ -196,6 +204,9 @@ public class MatchCardController implements Initializable {
         // Switch player
         players.add(players.get(0));
         players.remove(0);
+
+        // Populate hand with the new player's hand
+        populateHand(deck);
 
     }
 

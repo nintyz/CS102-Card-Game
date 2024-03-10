@@ -1,3 +1,6 @@
 MatchCardController.java - reorganise code for repeated functions
+                         - reset all selected cards after player switch
                          - passing of data of cards in imagView to identify selected cards
                          - add game logic
+
+Player.java - add resetScore
