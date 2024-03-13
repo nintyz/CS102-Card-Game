@@ -16,3 +16,28 @@ GENERAL
         (https://code.makery.ch/blog/javafx-dialogs-official/#confirmation-dialog:~:text=.showAndWait()%3B-,Confirmation%20Dialog,-Alert%20alert%20%3D)
         
 - 
+
+Andre
+-------------------
+matchButton
+    for (int i = 0; i < poolCardCount; i++) {
+        BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+        borderPane.getStyleClass().remove("selected");
+    }
+
+style.css
+    .image-view-wrapper {
+        -fx-background-color: transparent;
+    }
+
+    .image-view-wrapper.selected {
+        -fx-background-color: #de0909;
+    }
+
+registerClickListener
+    ObservableList<String> styleClass = borderPane.getStyleClass();
+    if (styleClass.contains("selected")) {
+        styleClass.remove("selected");
+    } else {
+        styleClass.add("selected");
+    }

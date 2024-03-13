@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,6 +58,11 @@ public class MatchCardController implements Initializable {
         poolCards.remove(0);
         poolCardCount--;
         populateCardPool(poolCards);
+
+        for (int i = 0; i < poolCardCount; i++) {
+            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+            borderPane.getStyleClass().remove("selected");
+        }
 
     }
 
@@ -173,9 +179,11 @@ public class MatchCardController implements Initializable {
         // register a click listener
         imageView.setOnMouseClicked(event -> {
             System.out.println("You clicked on card " + imageView.getUserData() + " in the pool");
-            imageViewBorderActive.set(!imageViewBorderActive.get());
-            if (!imageViewBorderActive.get()) {
-                borderPane.getStyleClass().remove("image-view-wrapper");
+            ObservableList<String> styleClass = borderPane.getStyleClass();
+            if (styleClass.contains("selected")) {
+                styleClass.remove("selected");
+            } else {
+                styleClass.add("selected");
             }
         });
 
