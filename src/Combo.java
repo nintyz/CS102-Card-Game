@@ -1,9 +1,11 @@
 public class Combo extends Capture {
     
+    //Score multiplier for a Combo
+    private static final double multiplier = 1.3;
+
     public Combo(){};
 
     public Combo(Card handCard, Card[] poolCards) {
-        multiplier = 1;
         captureCards = new Card[poolCards.length + 1];
         captureCards[0] = handCard;
         for (int i = 0; i < poolCards.length; i++) {

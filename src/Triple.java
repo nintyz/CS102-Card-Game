@@ -1,12 +1,12 @@
 public class Triple extends Capture {
+    //Score multiplier for a Triple
+    private static final double multiplier = 1.8;
     
-    private int score;
     private Card[] capturePile;
     
     public Triple(){};
 
     public Triple(Card handCard, Card[] poolCards) {
-        score = 1;
         capturePile = new Card[poolCards.length + 1];
         capturePile[0] = handCard;
         for (int i = 0; i < poolCards.length; i++) {

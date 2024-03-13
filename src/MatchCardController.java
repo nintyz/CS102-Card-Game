@@ -52,6 +52,7 @@ public class MatchCardController implements Initializable {
     @FXML
     void matchButton(ActionEvent event) {
 
+        capture();
         switchPlayer(deck);
         poolCards.remove(0);
         poolCardCount--;
@@ -75,6 +76,20 @@ public class MatchCardController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         initializeImageView();
+    }
+
+    private void capture() {
+        // Test data
+        Suit CLUBS = new Suit("Clubs", "clubs");
+        Rank ACE = new Rank("Ace", "ace");
+        Card handCard = new Card(CLUBS, ACE);
+        Card poolCard = new Card(CLUBS, ACE);
+
+        Pair pairCapture = Pair.formCapture(handCard, poolCard);
+        if (pairCapture != null) {
+            System.out.println(pairCapture.getScore());
+            players.get(1).setTotalScore(pairCapture.getScore());
+        }
     }
 
     /**
@@ -159,6 +174,9 @@ public class MatchCardController implements Initializable {
         imageView.setOnMouseClicked(event -> {
             System.out.println("You clicked on card " + imageView.getUserData() + " in the pool");
             imageViewBorderActive.set(!imageViewBorderActive.get());
+            if (!imageViewBorderActive.get()) {
+                borderPane.getStyleClass().remove("image-view-wrapper");
+            }
         });
 
     }

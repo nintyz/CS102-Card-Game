@@ -122,6 +122,10 @@ public class Player {
         return this.totalScore;
     }
 
+    public void setTotalScore(double score) {
+        this.totalScore += score;
+    }
+
     public ArrayList<Card> getHand() {
         return this.handCards;
     }

@@ -38,7 +38,7 @@ public final class Suit implements Comparable<Suit> {
 
    // Constructor - declared private as only the predefined values should
    // be used by the client.
-   private Suit(String nameValue, String symbolValue) {
+   public Suit(String nameValue, String symbolValue) {
       name = nameValue;
       symbol = symbolValue;
    }
