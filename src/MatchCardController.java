@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +25,9 @@ public class MatchCardController implements Initializable {
 
     private ArrayList<Player> players = initializePlayers();
     private ArrayList<Card> poolCards = initializeCardPool();
+
+    private ArrayList<Card> selectedPoolCards = new ArrayList<>();
+    private ArrayList<Card> selectedPlayerCards = new ArrayList<>();
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
 
@@ -63,7 +65,7 @@ public class MatchCardController implements Initializable {
         switchPlayer();
         poolCards.remove(0);
         poolCardCount--;
-        populateCardPool(poolCards);
+        populateBoard(poolCards, false);
 
         for (int i = 0; i < poolCardCount; i++) {
             BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
@@ -78,7 +80,7 @@ public class MatchCardController implements Initializable {
         startGameButton.setVisible(false);
         handView.setVisible(true);
 
-        populateCardPool(poolCards);
+        populateBoard(poolCards, false);
 
         switchPlayer();
     }
@@ -111,34 +113,10 @@ public class MatchCardController implements Initializable {
         handView.setVisible(false);
 
         for (int i = 0; i < cardPool.getChildren().size(); i++) {
-            // "cast" the Node to be of type ImageView
             BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
             imageView.setImage(new Image("file:resources/img/back.png"));
-        }
-    }
-
-    private void clearImageView() {
-
-        for (int i = 0; i < cardPool.getChildren().size(); i++) {
-            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
-
-            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
-            imageView.setOnMouseClicked(null);
-            imageView.setImage(null);
-
-            // Assuming you have a way to get the BooleanProperty and PseudoClass for this
-            // ImageView
-            BooleanProperty imageViewBorderActive = getImageViewBorderActive(imageView);
-            PseudoClass imageViewBorder = getImageViewBorder(imageView);
-
-            
-
-            // Reset the state
-            imageViewBorderActive.set(false);
-            borderPane.pseudoClassStateChanged(imageViewBorder, false);
-
         }
     }
 
@@ -147,6 +125,17 @@ public class MatchCardController implements Initializable {
         deck.shuffle();
 
         return deck;
+    }
+
+    private ArrayList<Card> initializeCardPool() {
+
+        ArrayList<Card> poolCards = new ArrayList<Card>();
+
+        for (int i = 0; i < poolCardCount; i++) {
+            poolCards.add(deck.dealCard());
+        }
+
+        return poolCards;
     }
 
     private ArrayList<Player> initializePlayers() {
@@ -172,15 +161,38 @@ public class MatchCardController implements Initializable {
 
     }
 
-    private ArrayList<Card> initializeCardPool() {
+    private void populateBoard(ArrayList<Card> cards, Boolean isPlayer) {
 
-        ArrayList<Card> poolCards = new ArrayList<Card>();
+        FlowPane pool = isPlayer ? handCard : cardPool;
+        clearBoard(pool);
 
-        for (int i = 0; i < poolCardCount; i++) {
-            poolCards.add(deck.dealCard());
+        // populate cardhand with the first player's hand
+        for (int i = 0; i < cards.size(); i++) {
+            BorderPane borderPane = (BorderPane) pool.getChildren().get(i);
+
+            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
+            imageView.setImage(new Image("file:resources/img/" + cards.get(i).getCardImage()));
+            imageView.setUserData(cards.get(i));
+
+            registerClickListener(borderPane, imageView);
         }
+    }
 
-        return poolCards;
+    private void clearBoard(FlowPane flowPane) {
+
+        for (int i = 0; i < flowPane.getChildren().size(); i++) {
+            BorderPane borderPane = (BorderPane) flowPane.getChildren().get(i);
+
+            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
+
+            // Remove the click listener and the image
+            imageView.setOnMouseClicked(null);
+            imageView.setImage(null);
+
+            // Reset the state of the border of the ImageView
+            borderPane.pseudoClassStateChanged(imageViewBorder, false);
+
+        }
     }
 
     private void registerClickListener(BorderPane borderPane, ImageView imageView) {
@@ -199,71 +211,17 @@ public class MatchCardController implements Initializable {
 
         // register a click listener
         imageView.setOnMouseClicked(event -> {
-            System.out.println("You clicked on card " + imageView.getUserData() + " in the pool");
-            ObservableList<String> styleClass = borderPane.getStyleClass();
-            if (styleClass.contains("selected")) {
-                styleClass.remove("selected");
-            } else {
-                styleClass.add("selected");
-            }
+            System.out.println("You clicked on card " + imageView.getUserData());
+            imageViewBorderActive.set(!imageViewBorderActive.get());
+
         });
 
     }
 
-    // private void removeClickListener() {
-
-    // for (int i = 0; i < 10; i++) {
-    // BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
-
-    // ImageView imageView = (ImageView) borderPane.getChildren().get(0);
-
-    // // Assign a css class to the borderPane.
-    // borderPane.getStyleClass().remove("image-view-wrapper");
-
-    // // Create a property to hold the state of the border of borderPane
-    // BooleanProperty imageViewBorderActive = new SimpleBooleanProperty() {
-    // @Override
-    // protected void invalidated() {
-    // borderPane.pseudoClassStateChanged(imageViewBorder, get());
-    // }
-    // };
-
-    // }
-
-    // }
-
-    private void populateCardPool(ArrayList<Card> cards) {
-
-        clearImageView();
-
-        for (int i = 0; i < poolCardCount; i++) {
-            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
-
-            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
-            imageView.setImage(new Image("file:resources/img/" + cards.get(i).getCardImage()));
-            imageView.setUserData(i);
-
-            registerClickListener(borderPane, imageView);
-        }
-    }
-
-    private void populateHand() {
-
-        // clearImageView(player hand);
-
-        // populate cardhand with the first player's hand
-        for (int i = 0; i < playerCardCount; i++) {
-            BorderPane borderPane = (BorderPane) handCard.getChildren().get(i);
-
-            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
-            imageView.setImage(new Image("file:resources/img/" + players.get(0).getHand().get(i).getCardImage()));
-            imageView.setUserData(i);
-
-            registerClickListener(borderPane, imageView);
-        }
-
-    }
-
+    /**
+     * This method sets the player view and score view to first player on first run,
+     * then switches to the next player on subsequent runs
+     **/
     private void switchPlayer() {
 
         // Switch player label
@@ -272,12 +230,12 @@ public class MatchCardController implements Initializable {
         // Switch player score
         scoreLabel.setText(String.valueOf(players.get(0).getTotalScore() + 1));
 
+        // Populate hand with the new player's hand
+        populateBoard(players.get(0).getHand(), true);
+
         // Switch player
         players.add(players.get(0));
         players.remove(0);
-
-        // Populate hand with the new player's hand
-        populateHand();
 
     }
 
