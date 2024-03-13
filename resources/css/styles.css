@@ -12,7 +12,11 @@
     -fx-background-radius: 20px;
 }
 
-.image-view-wrapper:border {
+.image-view-wrapper {
+    -fx-background-color: transparent;
+}
+
+.image-view-wrapper.selected {
     -fx-background-color: #de0909;
 }
 

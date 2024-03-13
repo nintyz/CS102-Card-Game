@@ -1,11 +1,12 @@
 import java.util.*;
 
 public class Run extends Capture{ 
+    //Score multiplier for a Run
+    private static final double multiplier = 2.0;
 
     public Run(){};
     
     public Run(Card[] runCards) {
-        multiplier = 1.5;
         captureCards = new Card[runCards.length];
         for(int i = 0; i < runCards.length; i++) {
             captureCards[i] = runCards[i];
@@ -13,7 +14,7 @@ public class Run extends Capture{
         captureName = "Run";
     }
 
-    public Capture formCapture(Card handCard, Card[] poolCards) {
+    public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         // check if length of selected cards is at least 2
         if(poolCards.length < 2) {
             return null;

@@ -2,12 +2,12 @@ import java.util.*;
 
 public class Straight extends Capture {
     //Score multiplier for a Straight
+    private static final double multiplier = 1.5;
   
     public Straight(){};
 
     //Forms a Straight by placing the handCard and poolCards in an Array
     private Straight(Card handCard, Card[] poolCards){
-        multiplier = 1.3;
         captureName = "Straight";
         captureCards = new Card[poolCards.length+1];
         captureCards[0] = handCard;

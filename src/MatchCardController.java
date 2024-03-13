@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,10 +59,16 @@ public class MatchCardController implements Initializable {
 
         // alert.showAndWait();
 
+        capture();
         switchPlayer();
         poolCards.remove(0);
         poolCardCount--;
         populateCardPool(poolCards);
+
+        for (int i = 0; i < poolCardCount; i++) {
+            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+            borderPane.getStyleClass().remove("selected");
+        }
 
     }
 
@@ -79,6 +86,20 @@ public class MatchCardController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         initializeImageView();
+    }
+
+    private void capture() {
+        // Test data
+        Suit CLUBS = new Suit("Clubs", "clubs");
+        Rank ACE = new Rank("Ace", "ace");
+        Card handCard = new Card(CLUBS, ACE);
+        Card poolCard = new Card(CLUBS, ACE);
+
+        Pair pairCapture = Pair.formCapture(handCard, poolCard);
+        if (pairCapture != null) {
+            System.out.println(pairCapture.getScore());
+            players.get(1).setTotalScore(pairCapture.getScore());
+        }
     }
 
     /**
@@ -179,7 +200,12 @@ public class MatchCardController implements Initializable {
         // register a click listener
         imageView.setOnMouseClicked(event -> {
             System.out.println("You clicked on card " + imageView.getUserData() + " in the pool");
-            imageViewBorderActive.set(!imageViewBorderActive.get());
+            ObservableList<String> styleClass = borderPane.getStyleClass();
+            if (styleClass.contains("selected")) {
+                styleClass.remove("selected");
+            } else {
+                styleClass.add("selected");
+            }
         });
 
     }

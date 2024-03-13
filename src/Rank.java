@@ -92,7 +92,7 @@ public class Rank implements Comparable<Rank> {
 
    // Constructor - declared private as only the predefined values should
    // be used by the client.
-   private Rank(String nameValue, String symbolValue) {
+   public Rank(String nameValue, String symbolValue) {
       name = nameValue;
       symbol = symbolValue;
    }

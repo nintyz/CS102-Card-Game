@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Capture {
     protected double multiplier;
     protected Card[] captureCards;
@@ -6,14 +8,14 @@ public abstract class Capture {
 
     //return capture object of own type if valid capture, null otherwise
     
-    public abstract Capture formCapture(Card handCard, Card[] poolCards);
+    public abstract Capture formCapture(Card handCard, ArrayList<Card> poolCards);
     
     public abstract double getScore();
 
     public abstract String getCaptureName();
 
     //run through all possible captures, return highest score if can form, null otherwise;
-    public static Capture returnHighestCapture(Card handCard, Card[] poolCards) {
+    public static Capture returnHighestCapture(Card handCard, ArrayList<Card> poolCards) {
         for(Capture c: allPossibleCapture) {
             if(c.formCapture(handCard, poolCards) != null) {
                 return c.formCapture(handCard, poolCards);
