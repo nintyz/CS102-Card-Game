@@ -14,6 +14,16 @@ Player.java - add resetScore
 
 GENERAL
 -------------------
+- need to restructure how capture and all the combo types work together
+    -> fix abstract classes (errors cuz abstract methods not overriding)
+    -> current code too messy and hard to understand
+(pair.java works i guess)
+
+- ending screen
+    -> end screen show when player reaches specified number of points
+    -> option to play again or quit
+    -> need move all initialize calls at top to its own function to properly reset game
+
 - implement logic for discarding cards
     - add discard button below match button
     - if ONLY 1 card is selected from PLAYER HAND, remove card and append to the card pool
