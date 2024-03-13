@@ -1,6 +1,18 @@
 MatchCardController.java - reorganise code for repeated functions
                          - reset all selected cards after player switch
+                         - when selecting 
                          - passing of data of cards in imagView to identify selected cards
                          - add game logic
 
 Player.java - add resetScore
+
+GENERAL
+-------------------
+- implement logic for discarding cards
+    - add discard button below match button
+    - if ONLY 1 card is selected from PLAYER HAND, remove card and append to the card pool
+    - logic to prevent action from discard button if above condition doesnt meet (display alert for this as well)
+    - display alert if they want discard, if not, continue code and dont do anything
+        (https://code.makery.ch/blog/javafx-dialogs-official/#confirmation-dialog:~:text=.showAndWait()%3B-,Confirmation%20Dialog,-Alert%20alert%20%3D)
+        
+- 
