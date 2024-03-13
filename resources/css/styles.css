@@ -15,3 +15,7 @@
 .image-view-wrapper:border {
     -fx-background-color: #de0909;
 }
+
+.image-view-wrapper-remove:border {
+    -fx-background-color: none;
+}

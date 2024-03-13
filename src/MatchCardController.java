@@ -23,7 +23,7 @@ public class MatchCardController implements Initializable {
 
     private Deck deck = initializeDeck();
 
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Player> players = initializePlayers();
     private ArrayList<Card> poolCards = initializeCardPool();
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
@@ -51,8 +51,14 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void matchButton(ActionEvent event) {
+        // Alert alert = new Alert(AlertType.INFORMATION);
+        // alert.setTitle("Information Dialog");
+        // alert.setHeaderText("Look, an Information Dialog");
+        // alert.setContentText("I have a great message for you!");
 
-        switchPlayer(deck);
+        // alert.showAndWait();
+
+        switchPlayer();
         poolCards.remove(0);
         poolCardCount--;
         populateCardPool(poolCards);
@@ -62,14 +68,12 @@ public class MatchCardController implements Initializable {
     @FXML
     void startGame(ActionEvent event) {
 
-        initializePlayers();
-
         startGameButton.setVisible(false);
         handView.setVisible(true);
 
         populateCardPool(poolCards);
 
-        switchPlayer(deck);
+        switchPlayer();
     }
 
     @Override
@@ -100,7 +104,20 @@ public class MatchCardController implements Initializable {
             BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
+            imageView.setOnMouseClicked(null);
             imageView.setImage(null);
+
+            // Assuming you have a way to get the BooleanProperty and PseudoClass for this
+            // ImageView
+            BooleanProperty imageViewBorderActive = getImageViewBorderActive(imageView);
+            PseudoClass imageViewBorder = getImageViewBorder(imageView);
+
+            
+
+            // Reset the state
+            imageViewBorderActive.set(false);
+            borderPane.pseudoClassStateChanged(imageViewBorder, false);
+
         }
     }
 
@@ -111,7 +128,8 @@ public class MatchCardController implements Initializable {
         return deck;
     }
 
-    private void initializePlayers() {
+    private ArrayList<Player> initializePlayers() {
+        ArrayList<Player> players = new ArrayList<Player>();
 
         // Create players
         for (int i = 0; i < PLAYERCOUNT; i++) {
@@ -129,6 +147,8 @@ public class MatchCardController implements Initializable {
             System.out.println("Player's hand: " + player.getHand());
         }
 
+        return players;
+
     }
 
     private ArrayList<Card> initializeCardPool() {
@@ -144,7 +164,7 @@ public class MatchCardController implements Initializable {
 
     private void registerClickListener(BorderPane borderPane, ImageView imageView) {
 
-        // Assign a css class to the borderPane
+        // Assign a css class to the borderPane.
         borderPane.getStyleClass().add("image-view-wrapper");
 
         // Create a property to hold the state of the border of borderPane
@@ -153,6 +173,7 @@ public class MatchCardController implements Initializable {
             protected void invalidated() {
                 borderPane.pseudoClassStateChanged(imageViewBorder, get());
             }
+
         };
 
         // register a click listener
@@ -162,6 +183,28 @@ public class MatchCardController implements Initializable {
         });
 
     }
+
+    // private void removeClickListener() {
+
+    // for (int i = 0; i < 10; i++) {
+    // BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
+
+    // ImageView imageView = (ImageView) borderPane.getChildren().get(0);
+
+    // // Assign a css class to the borderPane.
+    // borderPane.getStyleClass().remove("image-view-wrapper");
+
+    // // Create a property to hold the state of the border of borderPane
+    // BooleanProperty imageViewBorderActive = new SimpleBooleanProperty() {
+    // @Override
+    // protected void invalidated() {
+    // borderPane.pseudoClassStateChanged(imageViewBorder, get());
+    // }
+    // };
+
+    // }
+
+    // }
 
     private void populateCardPool(ArrayList<Card> cards) {
 
@@ -178,7 +221,9 @@ public class MatchCardController implements Initializable {
         }
     }
 
-    private void populateHand(Deck deck) {
+    private void populateHand() {
+
+        // clearImageView(player hand);
 
         // populate cardhand with the first player's hand
         for (int i = 0; i < playerCardCount; i++) {
@@ -193,7 +238,7 @@ public class MatchCardController implements Initializable {
 
     }
 
-    private void switchPlayer(Deck deck) {
+    private void switchPlayer() {
 
         // Switch player label
         playerLabel.setText(Integer.toString(players.get(0).getPlayerId() + 1));
@@ -206,7 +251,7 @@ public class MatchCardController implements Initializable {
         players.remove(0);
 
         // Populate hand with the new player's hand
-        populateHand(deck);
+        populateHand();
 
     }
 
