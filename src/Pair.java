@@ -26,7 +26,7 @@ public class Pair extends Capture{
     //     return new Pair(handCard, poolCards);
     // }
 
-    public Pair formCapture(Card handCard, ArrayList<Card> poolCards){
+    public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
         /*Pair can only involve 1 handCard and 1 poolCard
          *return null if more than 1 poolCard is selected
         */
