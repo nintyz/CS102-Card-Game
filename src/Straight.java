@@ -5,7 +5,7 @@ public class Straight extends Capture {
 
     //Forms a Straight by placing the handCard and poolCards in an Array
     public Straight(Card[] captureCards){
-        multiplier = 1.5;
+        multiplier = 1.8;
         captureName = "Straight";
         this.captureCards = captureCards;
     }

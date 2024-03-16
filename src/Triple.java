@@ -5,7 +5,7 @@ public class Triple extends Capture {
     public Triple(){};
 
     public Triple(Card[] captureCards) {
-        multiplier = 1.8;
+        multiplier = 1.5;
         captureName = "Triple";
         this.captureCards = captureCards;
     }
