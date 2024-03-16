@@ -1,16 +1,14 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Pair extends Capture{
-    //Score multiplier for a Pair
-    private static final double multiplier = 1.0;
   
     public Pair(){};
 
     //forms a Pair by placing both the handCard and poolCard in an array of length = 2
-    private Pair(Card handCard, Card poolCards){
-        captureCards = new Card[2];
-        captureCards[0] = handCard;
-        captureCards[1] = poolCards;
+    public Pair(Card[] captureCards){
+        multiplier = 1.0;
+        captureName = "Pair";
+        this.captureCards = captureCards;
     }
 
     // public Pair formCapture(Card handCard, ArrayList<Card> poolCards){
@@ -28,28 +26,21 @@ public class Pair extends Capture{
     //     return new Pair(handCard, poolCards);
     // }
 
-    public static Pair formCapture(Card handCard, Card poolCard){
+    public Pair formCapture(Card handCard, ArrayList<Card> poolCards){
         /*Pair can only involve 1 handCard and 1 poolCard
          *return null if more than 1 poolCard is selected
         */
-        if (poolCard == null) {
+        if (poolCards.size() != 1) {
             return null;
         }
         //return null if both cards do not have the same RankValue
-        if (handCard.getRank() == poolCard.getRank()) {
-            return new Pair(handCard, poolCard);
+        if (handCard.getRank() != poolCards.get(0).getRank()) {
+            return null;
         }
         //returns a Pair
-        return null;
-    }
-
-    //returns the score of a Pair
-    public double getScore(){
-        return multiplier * captureCards.length;
-    }
-
-    //returns the name of Capture of type "Pair"
-    public String getCaptureName(){
-        return "Pair";
+        poolCards.add(handCard);
+        Collections.sort(poolCards);
+        Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
+        return new Pair(captureCards);
     }
 }

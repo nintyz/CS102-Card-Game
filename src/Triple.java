@@ -1,34 +1,27 @@
+import java.util.*;
+
 public class Triple extends Capture {
-    //Score multiplier for a Triple
-    private static final double multiplier = 1.8;
-    
-    private Card[] capturePile;
     
     public Triple(){};
 
-    public Triple(Card handCard, Card[] poolCards) {
-        capturePile = new Card[poolCards.length + 1];
-        capturePile[0] = handCard;
-        for (int i = 0; i < poolCards.length; i++) {
-            capturePile[i + 1] = poolCards[i];
-        }
+    public Triple(Card[] captureCards) {
+        multiplier = 1.8;
+        captureName = "Triple";
+        this.captureCards = captureCards;
     }
 
-    public Capture formCapture(Card handCard, Card[] poolCards) {
+    public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         if (poolCards.length != 2) {
             return null;
         }
-        if (!handCard.getRank().equals(poolCards[0].getRank()) || !handCard.getRank().equals(poolCards[1].getRank())) {
+        if (!handCard.getRank().equals(poolCards.get(0).getRank()) || !handCard.getRank().equals(poolCards.get(1).getRank())) {
             return null;
         }
-        return new Triple(handCard, poolCards);
+
+        poolCards.add(handCard);
+        Collections.sort(poolCards); // sort in ascending order of value
+        Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
+        return new Triple(captureCards);
     }
 
-    public double getScore() {
-        return score * capturePile.length;
-    }
-
-    public String getCaptureName() {
-        return "Triple Capture!";
-    }
 }

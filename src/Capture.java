@@ -10,9 +10,13 @@ public abstract class Capture {
     
     public abstract Capture formCapture(Card handCard, ArrayList<Card> poolCards);
     
-    public abstract double getScore();
+    public double getScore() {
+        return multiplier * captureCards.length;
+    }
 
-    public abstract String getCaptureName();
+    public String getCaptureName() {
+        return captureName;
+    }
 
     //run through all possible captures, return highest score if can form, null otherwise;
     public static Capture returnHighestCapture(Card handCard, ArrayList<Card> poolCards) {
@@ -26,11 +30,6 @@ public abstract class Capture {
 
     //return cards that are captured
     public Card[] getCaptureCards() {
-        // Card[] returnCards = new Card[captureCards.length];
-        // for(int i = 0; i < captureCards.length; i++) {
-        //     returnCards[i] = captureCards[i];
-        // }
-        // Arrays.sort(captureCards);
         return captureCards;
     } 
 }

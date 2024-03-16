@@ -1,22 +1,20 @@
 import java.util.*;
 
 public class Run extends Capture{ 
-    //Score multiplier for a Run
-    private static final double multiplier = 2.0;
+    // Run formed when two or more poolCards are captured such that their ranks are in sequence with the selected handCard. All;cards must
+    // be of the same suit.
 
     public Run(){};
     
-    public Run(Card[] runCards) {
-        captureCards = new Card[runCards.length];
-        for(int i = 0; i < runCards.length; i++) {
-            captureCards[i] = runCards[i];
-        }
+    public Run(Card[] captureCards) {
+        multiplier = 2.0;
         captureName = "Run";
+        this.captureCards = captureCards;
     }
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         // check if length of selected cards is at least 2
-        if(poolCards.length < 2) {
+        if(poolCards.size() < 2) {
             return null;
         }
         // check if all selected cards are of the same suit
@@ -28,10 +26,10 @@ public class Run extends Capture{
         }
 
         //check if the ranks of the cards are in sequence
-        Card[] possibleRun = new Card[poolCards.length + 1];
+        Card[] possibleRun = new Card[poolCards.size() + 1];
         possibleRun[0] = handCard;
         for(int i = 1; i < possibleRun.length; i++) {
-            possibleRun[i] = poolCards[i - 1];
+            possibleRun[i] = poolCards.get(i - 1);
         }
         Arrays.sort(possibleRun);
         for (int i = 0; i < possibleRun.length - 1; i++) {
@@ -39,16 +37,7 @@ public class Run extends Capture{
                 return null;
             }
         }
-
         return new Run(possibleRun);
-    }
-
-    public double getScore(){
-        return multiplier * captureCards.length;
-    }
-    
-    public String getCaptureName() {
-        return captureName;
     }
 }
 

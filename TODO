@@ -15,9 +15,8 @@ Player.java - add resetScore
 GENERAL
 -------------------
 - need to restructure how capture and all the combo types work together
-    -> fix abstract classes (errors cuz abstract methods not overriding)
-    -> current code too messy and hard to understand
-(pair.java works i guess)
+    -> fix abstract classes (errors cuz abstract methods not overriding) (DONE - Xavier)
+    -> current code too messy and hard to understand (eliminated redundant overriding - Xavier)
 
 - ending screen
     -> end screen show when player reaches specified number of points

@@ -2,35 +2,33 @@ import java.util.*;
 
 public class Straight extends Capture {
     //Score multiplier for a Straight
-    private static final double multiplier = 1.5;
   
     public Straight(){};
 
     //Forms a Straight by placing the handCard and poolCards in an Array
-    private Straight(Card handCard, Card[] poolCards){
+    public Straight(Card[] captureCards){
+        multiplier = 1.5;
         captureName = "Straight";
-        captureCards = new Card[poolCards.length+1];
-        captureCards[0] = handCard;
-        for(int i = 0; i < poolCards.length; i++){
-            captureCards[i + 1] = poolCards[i];
-        }
+        this.captureCards = captureCards;
     }
 
-    public Capture formCapture(Card handCard, Card[] poolCards){
+    public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
         /* Straight involves 1 handCard and at least 2 poolCards
          * Return null if less than 2 poolCards are selected
         */
-        if(poolCards.length < 2)
+        if(poolCards.size() < 2)
             return null;
 
         //Create a new Array to store the Ranks of the selected Cards
-        Rank[] allCardRank = new Rank[poolCards.length + 1];
+        Rank[] allCardRank = new Rank[poolCards.size() + 1];
 
         //Get the RankValue of the handCard to be compared with that of the poolCards and store it in the Array
         allCardRank[0] = handCard.getRank();
+
         //Store the RankValues of the poolCards in the same Array
-        for (int i = 0; i < poolCards.length; i++)
-            allCardRank[i + 1] = poolCards[i].getRank();
+        for (int i = 0; i < poolCards.size(); i++) {
+            allCardRank[i + 1] = poolCards.get(i).getRank();
+        }
 
         //Sorts the array in Ascending order of RankValue
         Arrays.sort(allCardRank);
@@ -40,18 +38,11 @@ public class Straight extends Capture {
             if (allCardRank[i].compareTo(allCardRank[i - 1]) != 1) {
                 return null;
             }
-      
+        poolCards.add(handCard);
+        Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
+        
         //Returns a Straight
-        return new Straight(handCard, poolCards);
+        return new Straight(captureCards);
     }
-
-    //Get the Score of a Straight depending on the number of Cards captured
-    public double getScore(){
-        return multiplier * captureCards.length;
-    }
-
-    //returns the name of Capture of type "Straight"
-    public String getCaptureName(){
-        return "Straight";
-    }
+    
 }
