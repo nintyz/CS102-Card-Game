@@ -20,7 +20,7 @@ public class Run extends Capture{
         // check if all selected cards are of the same suit
         Suit suit = handCard.getSuit();
         for(Card c: poolCards) {
-            if(c.getSuit() != suit) {
+            if(!c.getSuit().equals(suit)) {
                 return null;
             }
         }

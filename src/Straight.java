@@ -1,8 +1,6 @@
 import java.util.*;
 
 public class Straight extends Capture {
-    //Score multiplier for a Straight
-  
     public Straight(){};
 
     //Forms a Straight by placing the handCard and poolCards in an Array
@@ -32,15 +30,16 @@ public class Straight extends Capture {
 
         //Sorts the array in Ascending order of RankValue
         Arrays.sort(allCardRank);
-
+       
         //Compare the RankValues by checking whether the RankValues of its neighbours differ by 1
-        for (int i = 1; i < allCardRank.length; i++)
+        for (int i = 1; i < allCardRank.length; i++) {
             if (allCardRank[i].compareTo(allCardRank[i - 1]) != 1) {
                 return null;
             }
+        }
         poolCards.add(handCard);
         Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
-        
+
         //Returns a Straight
         return new Straight(captureCards);
     }

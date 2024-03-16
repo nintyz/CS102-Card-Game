@@ -92,12 +92,14 @@ public class MatchCardController implements Initializable {
 
     private void capture() {
         // Test data
-        Suit CLUBS = new Suit("Clubs", "clubs");
-        Rank ACE = new Rank("Ace", "ace");
-        Card handCard = new Card(CLUBS, ACE);
-        Card poolCard = new Card(CLUBS, ACE);
-
-        Pair pairCapture = Pair.formCapture(handCard, poolCard);
+        Card handCard = new Card(Suit.CLUBS, Rank.SIX);
+        Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
+        Card poolCard2 = new Card(Suit.CLUBS, Rank.FOUR);
+        ArrayList<Card> poolCards = new ArrayList<>();
+        poolCards.add(poolCard);
+        poolCards.add(poolCard2);
+        Combo run = new Combo();
+        Capture pairCapture = run.formCapture(handCard, poolCards);
         if (pairCapture != null) {
             System.out.println(pairCapture.getScore());
             players.get(1).setTotalScore(pairCapture.getScore());

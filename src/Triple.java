@@ -11,7 +11,7 @@ public class Triple extends Capture {
     }
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
-        if (poolCards.length != 2) {
+        if (poolCards.size() != 2) {
             return null;
         }
         if (!handCard.getRank().equals(poolCards.get(0).getRank()) || !handCard.getRank().equals(poolCards.get(1).getRank())) {

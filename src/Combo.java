@@ -1,38 +1,39 @@
+import java.util.*;
+
 public class Combo extends Capture {
     
-    //Score multiplier for a Combo
-    private static final double multiplier = 1.3;
+    //if sum of value of Rank of selected poolCards equals that of selected handCard
 
     public Combo(){};
 
-    public Combo(Card handCard, Card[] poolCards) {
-        captureCards = new Card[poolCards.length + 1];
-        captureCards[0] = handCard;
-        for (int i = 0; i < poolCards.length; i++) {
-            captureCards[i + 1] = poolCards[i];
-        }
+    public Combo(Card[] captureCards) {
+        multiplier = 1.3;
+        captureName = "Combo";
+        this.captureCards = captureCards;
     }
+    
 
-    public Capture formCapture(Card handCard, Card[] poolCards) {
+    public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         int total = 0;
-        if (poolCards.length < 2) {
+        if (poolCards.size() < 2) {
             return null;
         }
+
+        Rank zeroIdxCard = Rank.ACE;
+        if (Rank.isAceHigh())
+            zeroIdxCard = Rank.TWO;
+            
         for (Card card : poolCards) {
-            total += card.getRank().compareTo(Rank.TWO);
+            total += card.getRank().compareTo(zeroIdxCard) + 1;
         }
-        if (handCard.getRank().compareTo(Rank.TWO) != total) {
+        
+        if (handCard.getRank().compareTo(zeroIdxCard) + 1 != total) {
             return null;
-        } else {
-            return new Combo(handCard, poolCards);
-        }
-    }
+        } 
 
-    public double getScore() {
-        return multiplier * captureCards.length;
-    }
-
-    public String getCaptureName() {
-        return "You have captured Combo successfully!";
+        poolCards.add(handCard);
+        Collections.sort(poolCards);
+        Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
+        return new Combo(captureCards); 
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 public class Rank implements Comparable<Rank> {
    private String name;
    private String symbol;
-   private static boolean aceHigh = false;
+   private static boolean isAceHigh = false;
 
    /**
     * The rank ace.
@@ -102,7 +102,7 @@ public class Rank implements Comparable<Rank> {
     * reduced to the lowest rank.
     */
    public static void setKingHigh() {
-      aceHigh = false;
+      isAceHigh = false;
    }
 
    /**
@@ -110,9 +110,11 @@ public class Rank implements Comparable<Rank> {
     * the lowest rank.
     */
    public static void setAceHigh() {
-      aceHigh = true;
+      isAceHigh = true;
    }
-
+   public static boolean isAceHigh() {
+      return isAceHigh;
+   }
    /**
     * Returns a description of this rank.
     * 
@@ -156,7 +158,7 @@ public class Rank implements Comparable<Rank> {
     */
    public int compareTo(Rank otherRankObject) {
       Rank otherRank = otherRankObject;
-      if (aceHigh)
+      if (isAceHigh)
          return VALUES_ACE_HIGH.indexOf(this) - VALUES_ACE_HIGH.indexOf(otherRank);
       else
          return VALUES_KING_HIGH.indexOf(this) - VALUES_KING_HIGH.indexOf(otherRank);
