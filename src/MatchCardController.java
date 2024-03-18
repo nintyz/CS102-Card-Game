@@ -266,8 +266,8 @@ public class MatchCardController implements Initializable {
                 currentPlayer.addSelectedCard(selectedCard);
             }
 
-            System.out.println(currentPlayer.getSelectedCards());
-            System.out.println(currentPlayer.getSelectedHandCards());
+            System.out.println("Selected pool cards: " + currentPlayer.getSelectedCards());
+            System.out.println("Selected hand cards: " + currentPlayer.getSelectedHandCards());
 
             gameButton.setDisable(currentPlayer.getSelectedCards().isEmpty() || 
                                   currentPlayer.getSelectedHandCards().isEmpty());
