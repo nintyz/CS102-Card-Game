@@ -73,6 +73,7 @@ public class MatchCardController implements Initializable {
         }
 
         gameButton.setDisable(true);
+        clearSelect();
 }
 
     @FXML
@@ -134,6 +135,13 @@ public class MatchCardController implements Initializable {
             System.out.println(comboCapture.getScore());
             players.get(1).setTotalScore(comboCapture.getScore());
         }
+    }
+
+    public void clearSelect() {
+        players.get(0).getSelectedCards().clear();
+        players.get(1).getSelectedCards().clear();
+        players.get(0).getSelectedHandCards().clear();
+        players.get(0).getSelectedHandCards().clear();
     }
 
     /**
@@ -244,7 +252,7 @@ public class MatchCardController implements Initializable {
         // register a click listener
         imageView.setOnMouseClicked(event -> {
             Player currentPlayer = players.get(1);
-            Card selectedCard = new Card(((Card) imageView.getUserData()).getSuit(), ((Card) imageView.getUserData()).getRank());
+            Card selectedCard = (Card) imageView.getUserData();
 
             boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
             boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
@@ -257,6 +265,9 @@ public class MatchCardController implements Initializable {
             } else {
                 currentPlayer.addSelectedCard(selectedCard);
             }
+
+            System.out.println(currentPlayer.getSelectedCards());
+            System.out.println(currentPlayer.getSelectedHandCards());
 
             gameButton.setDisable(currentPlayer.getSelectedCards().isEmpty() || 
                                   currentPlayer.getSelectedHandCards().isEmpty());
