@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Run extends Capture{ 
-    // Run formed when two or more poolCards are captured such that their ranks are in sequence with the selected handCard. All;cards must
+    // Run formed when two or more poolCards are captured such that their ranks are in sequence with the selected handCard. All cards must
     // be of the same suit.
 
     public Run(){};
@@ -26,18 +26,17 @@ public class Run extends Capture{
         }
 
         //check if the ranks of the cards are in sequence
-        Card[] possibleRun = new Card[poolCards.size() + 1];
-        possibleRun[0] = handCard;
-        for(int i = 1; i < possibleRun.length; i++) {
-            possibleRun[i] = poolCards.get(i - 1);
-        }
-        Arrays.sort(possibleRun);
-        for (int i = 0; i < possibleRun.length - 1; i++) {
-            if(possibleRun[i].getRank().compareTo(possibleRun[i + 1].getRank()) != -1) {
+        poolCards.add(handCard);
+        Collections.sort(poolCards);
+
+        for (int i = 0; i < poolCards.size() - 1; i++) {
+            if(poolCards.get(i).getRank().compareTo(poolCards.get(i + 1).getRank()) != -1) {
                 return null;
             }
         }
-        return new Run(possibleRun);
+
+        Card[] run = poolCards.toArray(new Card[poolCards.size()]);
+        return new Run(run);
     }
 }
 

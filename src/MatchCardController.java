@@ -101,18 +101,36 @@ public class MatchCardController implements Initializable {
         // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
         // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
-        //combo
-        Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
-        Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        // combo
+        // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
+        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
+        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        //triple
+        // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
+        // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
+        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        //pair
+        // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
+        // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
+        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        //pair
+        Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
+        Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
+        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        
         ArrayList<Card> poolCards = new ArrayList<>();
         poolCards.add(poolCard);
-        poolCards.add(poolCard2);
-        
-        Capture cap = Capture.returnHighestCapture(handCard, poolCards);
-        if (cap != null) {
-            System.out.println(cap.getScore());
-            players.get(1).setTotalScore(cap.getScore());
+        //poolCards.add(poolCard2);
+
+        // Straight combo = new Straight();
+        // Capture comboCapture = combo.formCapture(handCard, poolCards);
+        // if (comboCapture == null) {
+        //     System.out.println("null");
+        // }
+        Capture comboCapture = Capture.returnHighestCapture(handCard, poolCards);
+        if (comboCapture != null) {
+            System.out.println(comboCapture.getScore());
+            players.get(1).setTotalScore(comboCapture.getScore());
         }
     }
 

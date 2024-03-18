@@ -15,14 +15,16 @@ public class Combo extends Capture {
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         int total = 0;
+
         if (poolCards.size() < 2) {
             return null;
         }
 
         Rank zeroIdxCard = Rank.ACE;
-        if (Rank.isAceHigh())
+        if (Rank.isAceHigh()) {
             zeroIdxCard = Rank.TWO;
-            
+        }
+              
         for (Card card : poolCards) {
             total += card.getRank().compareTo(zeroIdxCard) + 1;
         }

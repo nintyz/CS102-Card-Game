@@ -21,8 +21,9 @@ public abstract class Capture {
     //run through all possible captures, return highest score if can form, null otherwise;
     public static Capture returnHighestCapture(Card handCard, ArrayList<Card> poolCards) {
         for(Capture c: allPossibleCapture) {
-            if(c.formCapture(handCard, poolCards) != null) {
-                return c.formCapture(handCard, poolCards);
+            Capture capture = c.formCapture(handCard, poolCards);
+            if (capture != null) {
+                return capture;
             }
         }
         return null;
