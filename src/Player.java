@@ -5,7 +5,7 @@ public class Player {
     // Instance variables for player class
     private int playerId;
     private double totalScore;
-    private ArrayList<Card> handCards;
+    private Hand hand;
     private ArrayList<Card> selectedCards;
     private ArrayList<Card> selectedHandCards;
     // private ArrayList<Capture> capturedCards;
@@ -126,8 +126,12 @@ public class Player {
         this.totalScore += score;
     }
 
+    public void resetScore() {
+        this.totalScore = 0;
+    }
+
     public ArrayList<Card> getHand() {
-        return this.handCards;
+        return this.hand.getHand();
     }
 
 }

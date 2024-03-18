@@ -167,4 +167,8 @@ public class Hand {
       return true;
    }
 
+   public ArrayList<Card> getHand() {
+      return this.hand;
+   }
+
 }

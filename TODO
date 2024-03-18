@@ -10,7 +10,7 @@ MatchCardController.java - reorganise code for repeated functions (DONE)
                                         *** capture should remove any valid combinations from hand/pool
                          - add game logic
 
-Player.java - add resetScore
+Player.java - add resetScore (DONE)
 
 GENERAL
 -------------------
