@@ -152,7 +152,7 @@ public class MatchCardController implements Initializable {
         // Distribute cards to players
         for (int i = 0; i < (playerCardCount * PLAYERCOUNT); i++) {
             Player currentPlayer = players.get(i % PLAYERCOUNT);
-            currentPlayer.addCard(deck.dealCard());
+            currentPlayer.getHand().add(deck.dealCard());
         }
 
         // Print hands of each player after distribution
