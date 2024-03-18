@@ -5,8 +5,6 @@ import java.util.List;
 public class Hand {
 
    private ArrayList<Card> hand;
-   private ArrayList<Card> selectedCards;
-   private ArrayList<Card> selectedHandCards;
 
    public Hand() {
       this.hand = new ArrayList<Card>();
@@ -49,6 +47,11 @@ public class Hand {
    }
 
    public boolean containsCard(Card card) {
+      for (Card c: getHand()) {
+         if (c.isSameAs(card)) {
+            return true;
+         }
+      }
       return false;
    }
 
@@ -71,22 +74,6 @@ public class Hand {
    public ArrayList<Card> getHand() {
       return this.hand;
    }
-
-    public void addSelectedCard(Card card) {
-      if (handCards.contains(card)) {
-          selectedHandCards.add(card);
-      } else {
-          selectedCards.add(card);
-      }
-  }
-
-  public void removeSelectedCard(Card card) {
-      if (handCards.contains(card)) {
-          selectedHandCards.remove(card);
-      } else {
-          selectedCards.remove(card);
-      }
-  }
 
   /**
    * Create an arraylist of capturingCards and add the

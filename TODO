@@ -3,9 +3,9 @@ MatchCardController.java - reorganise code for repeated functions (DONE)
                          - passing of data of cards in imagView to identify selected cards
                          - when selecting or deselecting cards add/remove from array
                          - remove selected cards from view after match button clicked
-                         - implement logic when pressing match button
-                                -> no selected cards, disable button
-                                -> only hand/cardpool selected, disable button
+                         - implement logic when pressing match button (DONE)
+                                -> no selected cards, disable button (DONE)
+                                -> only hand/cardpool selected, disable button (DONE)
                                 -> valid, run capture, calculate score into Player
                                         *** capture should remove any valid combinations from hand/pool
                          - add game logic

@@ -27,8 +27,8 @@ public class MatchCardController implements Initializable {
     private ArrayList<Player> players = initializePlayers();
     private ArrayList<Card> poolCards = initializeCardPool();
 
-    private ArrayList<Card> selectedPoolCards = new ArrayList<>();
-    private ArrayList<Card> selectedPlayerCards = new ArrayList<>();
+    private ArrayList<Card> selectedCards = new ArrayList<>();
+    private ArrayList<Card> selectedHandCards = new ArrayList<>();
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
 
@@ -61,7 +61,6 @@ public class MatchCardController implements Initializable {
         // alert.setContentText("I have a great message for you!");
 
         // alert.showAndWait();
-
         capture();
         switchPlayer();
         poolCards.remove(0);
@@ -73,7 +72,8 @@ public class MatchCardController implements Initializable {
             borderPane.getStyleClass().remove("selected");
         }
 
-    }
+        gameButton.setDisable(true);
+}
 
     @FXML
     void startGame(ActionEvent event) {
@@ -84,6 +84,8 @@ public class MatchCardController implements Initializable {
         populateBoard(poolCards, false);
 
         switchPlayer();
+
+        gameButton.setDisable(true);
     }
 
     @Override
@@ -214,9 +216,23 @@ public class MatchCardController implements Initializable {
 
         // register a click listener
         imageView.setOnMouseClicked(event -> {
+            Player currentPlayer = players.get(1);
+            Card selectedCard = new Card(imageView.getUserData().toString());
+
+            boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
+            boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
+
             System.out.println("You clicked on card " + imageView.getUserData());
             imageViewBorderActive.set(!imageViewBorderActive.get());
 
+            if (isHandSelected || isSelected) {
+                currentPlayer.removeSelectedCard(selectedCard);
+            } else {
+                currentPlayer.addSelectedCard(selectedCard);
+            }
+
+            gameButton.setDisable(currentPlayer.getSelectedCards().isEmpty() || 
+                                  currentPlayer.getSelectedHandCards().isEmpty());
         });
 
     }
