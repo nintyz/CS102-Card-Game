@@ -244,7 +244,7 @@ public class MatchCardController implements Initializable {
         // register a click listener
         imageView.setOnMouseClicked(event -> {
             Player currentPlayer = players.get(1);
-            Card selectedCard = new Card(imageView.getUserData().toString());
+            Card selectedCard = new Card(((Card) imageView.getUserData()).getSuit(), ((Card) imageView.getUserData()).getRank());
 
             boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
             boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);

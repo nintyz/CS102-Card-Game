@@ -9,12 +9,6 @@ public class Card implements Comparable<Card> {
       this.rankValue = rank;
    }
 
-   public Card(String cardImageFileName) {
-      String[] cardArr = cardImageFileName.split(" ");
-      this.rankValue = new Rank(cardArr[0], cardArr[0].toLowerCase());
-      this.suitValue = new Suit(cardArr[2], cardArr[2].toLowerCase());
-   }
-
    public String getCardImage() {
       return rankValue.getSymbol().toLowerCase() + "_of_" + suitValue.getSymbol().toLowerCase() + ".png";
    }
