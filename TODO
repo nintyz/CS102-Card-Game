@@ -6,7 +6,7 @@ MatchCardController.java - reorganise code for repeated functions (DONE)
                          - implement logic when pressing match button (DONE)
                                 -> no selected cards, disable button (DONE)
                                 -> only hand/cardpool selected, disable button (DONE)
-                                -> valid, run capture, calculate score into Player
+                                -> if there's card selected in hand and in pool, run capture, calculate score into Player
                                         *** capture should remove any valid combinations from hand/pool
                          - add game logic
 
