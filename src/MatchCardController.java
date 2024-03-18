@@ -1,5 +1,6 @@
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
@@ -160,7 +161,7 @@ public class MatchCardController implements Initializable {
         // Distribute cards to players
         for (int i = 0; i < (playerCardCount * PLAYERCOUNT); i++) {
             Player currentPlayer = players.get(i % PLAYERCOUNT);
-            currentPlayer.addCard(deck.dealCard());
+            currentPlayer.getHand().add(deck.dealCard());
         }
 
         // Print hands of each player after distribution
@@ -172,7 +173,7 @@ public class MatchCardController implements Initializable {
 
     }
 
-    private void populateBoard(ArrayList<Card> cards, Boolean isPlayer) {
+    private void populateBoard(List<Card> cards, Boolean isPlayer) {
 
         FlowPane pool = isPlayer ? handCard : cardPool;
         clearBoard(pool);
