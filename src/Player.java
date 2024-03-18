@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -12,7 +13,7 @@ public class Player {
 
     public Player(int id) {
         this.playerId = id;
-        this.handCards = new ArrayList<>();
+        this.hand = new Hand();
     }
 
     public int getPlayerId() {
@@ -46,7 +47,7 @@ public class Player {
      * @param card a card object obtained by player
      */
     public void addCard(Card card) {
-        handCards.add(card);
+        hand.addCard(card);
     }
 
     /**
@@ -130,7 +131,7 @@ public class Player {
         this.totalScore = 0;
     }
 
-    public ArrayList<Card> getHand() {
+    public List<Card> getHand() {
         return this.hand.getHand();
     }
 

@@ -1,5 +1,6 @@
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
@@ -163,7 +164,7 @@ public class MatchCardController implements Initializable {
 
     }
 
-    private void populateBoard(ArrayList<Card> cards, Boolean isPlayer) {
+    private void populateBoard(List<Card> cards, Boolean isPlayer) {
 
         FlowPane pool = isPlayer ? handCard : cardPool;
         clearBoard(pool);

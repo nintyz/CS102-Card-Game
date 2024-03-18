@@ -21,7 +21,11 @@ import java.util.List;
  */
 public class Hand {
 
-   private List<Card> hand = new ArrayList<Card>();
+   private List<Card> hand;
+
+   public Hand() {
+      this.hand = new ArrayList<Card>();
+   }
 
    /**
     * Adds a card to this hand.
@@ -167,7 +171,7 @@ public class Hand {
       return true;
    }
 
-   public ArrayList<Card> getHand() {
+   public List<Card> getHand() {
       return this.hand;
    }
 
