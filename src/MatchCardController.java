@@ -27,9 +27,6 @@ public class MatchCardController implements Initializable {
     private ArrayList<Player> players = initializePlayers();
     private ArrayList<Card> poolCards = initializeCardPool();
 
-    private ArrayList<Card> selectedCards = new ArrayList<>();
-    private ArrayList<Card> selectedHandCards = new ArrayList<>();
-
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
 
     @FXML
@@ -63,30 +60,26 @@ public class MatchCardController implements Initializable {
         // alert.showAndWait();
         capture();
         switchPlayer();
+
+        // For testing, REMOVE LATER
         poolCards.remove(0);
-        poolCardCount--;
+        players.get(0).getHand().remove(0);
+
         populateBoard(poolCards, false);
-
-        for (int i = 0; i < poolCardCount; i++) {
-            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
-            borderPane.getStyleClass().remove("selected");
-        }
-
         gameButton.setDisable(true);
-        clearSelect();
-}
+    }
 
     @FXML
     void startGame(ActionEvent event) {
 
         startGameButton.setVisible(false);
+        gameButton.setDisable(true);
         handView.setVisible(true);
 
         populateBoard(poolCards, false);
 
         switchPlayer();
 
-        gameButton.setDisable(true);
     }
 
     @Override
@@ -96,11 +89,11 @@ public class MatchCardController implements Initializable {
 
     private void capture() {
         // Test data
-        //run
+        // run
         // Card handCard = new Card(Suit.CLUBS, Rank.FOUR);
         // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
-        //Straight
+        // Straight
         // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
         // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
@@ -108,27 +101,27 @@ public class MatchCardController implements Initializable {
         // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
         // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        //triple
+        // triple
         // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
         // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        //pair
+        // pair
         // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
         // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        //pair
+        // pair
         Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
         Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
         // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        
+
         ArrayList<Card> poolCards = new ArrayList<>();
         poolCards.add(poolCard);
-        //poolCards.add(poolCard2);
+        // poolCards.add(poolCard2);
 
         // Straight combo = new Straight();
         // Capture comboCapture = combo.formCapture(handCard, poolCards);
         // if (comboCapture == null) {
-        //     System.out.println("null");
+        // System.out.println("null");
         // }
         Capture comboCapture = Capture.returnHighestCapture(handCard, poolCards);
         if (comboCapture != null) {
@@ -137,11 +130,14 @@ public class MatchCardController implements Initializable {
         }
     }
 
-    public void clearSelect() {
-        players.get(0).getSelectedCards().clear();
-        players.get(1).getSelectedCards().clear();
-        players.get(0).getSelectedHandCards().clear();
-        players.get(0).getSelectedHandCards().clear();
+    private void clearSelectedCards() {
+
+        // Clear selected cards after each player's turn
+        for (Player player : players) {
+            player.getSelectedCards().clear();
+            player.getSelectedHandCards().clear();
+        }
+
     }
 
     /**
@@ -206,7 +202,6 @@ public class MatchCardController implements Initializable {
         FlowPane pool = isPlayer ? handCard : cardPool;
         clearBoard(pool);
 
-        // populate cardhand with the first player's hand
         for (int i = 0; i < cards.size(); i++) {
             BorderPane borderPane = (BorderPane) pool.getChildren().get(i);
 
@@ -233,6 +228,8 @@ public class MatchCardController implements Initializable {
             borderPane.pseudoClassStateChanged(imageViewBorder, false);
 
         }
+
+        clearSelectedCards();
     }
 
     private void registerClickListener(BorderPane borderPane, ImageView imageView) {
@@ -251,28 +248,33 @@ public class MatchCardController implements Initializable {
 
         // register a click listener
         imageView.setOnMouseClicked(event -> {
-            Player currentPlayer = players.get(1);
-            Card selectedCard = (Card) imageView.getUserData();
-
-            boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
-            boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
 
             System.out.println("You clicked on card " + imageView.getUserData());
             imageViewBorderActive.set(!imageViewBorderActive.get());
 
-            if (isHandSelected || isSelected) {
-                currentPlayer.removeSelectedCard(selectedCard);
-            } else {
-                currentPlayer.addSelectedCard(selectedCard);
-            }
-
-            System.out.println("Selected pool cards: " + currentPlayer.getSelectedCards());
-            System.out.println("Selected hand cards: " + currentPlayer.getSelectedHandCards());
-
-            gameButton.setDisable(currentPlayer.getSelectedCards().isEmpty() || 
-                                  currentPlayer.getSelectedHandCards().isEmpty());
+            setMatchButtonState((Card) imageView.getUserData());
         });
 
+    }
+
+    private void setMatchButtonState(Card selectedCard) {
+
+        Player currentPlayer = players.get(1);
+
+        boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
+        boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
+
+        if (isHandSelected || isSelected) {
+            currentPlayer.removeSelectedCard(selectedCard);
+        } else {
+            currentPlayer.addSelectedCard(selectedCard);
+        }
+
+        System.out.println("Selected pool cards: " + currentPlayer.getSelectedCards());
+        System.out.println("Selected hand cards: " + currentPlayer.getSelectedHandCards());
+
+        gameButton.setDisable(currentPlayer.getSelectedCards().isEmpty() ||
+                currentPlayer.getSelectedHandCards().isEmpty());
     }
 
     /**

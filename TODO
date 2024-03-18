@@ -1,14 +1,16 @@
 MatchCardController.java - reorganise code for repeated functions (DONE)
                          - reset all selected cards after player switch (DONE)
-                         - passing of data of cards in imagView to identify selected cards
-                         - when selecting or deselecting cards add/remove from array
+                         - passing of data of cards in imagView to identify selected cards (DONE)
+                         - when selecting or deselecting cards add/remove from array (DONE)
                          - remove selected cards from view after match button clicked
                          - implement logic when pressing match button (DONE)
                                 -> no selected cards, disable button (DONE)
                                 -> only hand/cardpool selected, disable button (DONE)
-                                -> if there's card selected in hand and in pool, run capture, calculate score into Player
+                                -> if there's card selected in hand and in pool, run capture, calculate score into Player (TO BE DONE IN matchButton)
                                         *** capture should remove any valid combinations from hand/pool
                          - add game logic
+
+fxml - fix when card removed from player hand the border bugs out
 
 Player.java - add resetScore (DONE)
 
