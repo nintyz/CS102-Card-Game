@@ -92,17 +92,26 @@ public class MatchCardController implements Initializable {
 
     private void capture() {
         // Test data
-        Card handCard = new Card(Suit.CLUBS, Rank.SIX);
+        //run
+        // Card handCard = new Card(Suit.CLUBS, Rank.FOUR);
+        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
+        // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
+        //Straight
+        // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
+        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
+        // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
+        //combo
+        Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
         Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        Card poolCard2 = new Card(Suit.CLUBS, Rank.FOUR);
+        Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
         ArrayList<Card> poolCards = new ArrayList<>();
         poolCards.add(poolCard);
         poolCards.add(poolCard2);
-        Combo run = new Combo();
-        Capture pairCapture = run.formCapture(handCard, poolCards);
-        if (pairCapture != null) {
-            System.out.println(pairCapture.getScore());
-            players.get(1).setTotalScore(pairCapture.getScore());
+        
+        Capture cap = Capture.returnHighestCapture(handCard, poolCards);
+        if (cap != null) {
+            System.out.println(cap.getScore());
+            players.get(1).setTotalScore(cap.getScore());
         }
     }
 

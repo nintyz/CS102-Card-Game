@@ -37,10 +37,10 @@ public class Straight extends Capture {
                 return null;
             }
         }
-        poolCards.add(handCard);
-        Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
 
-        //Returns a Straight
+        poolCards.add(handCard);
+        Collections.sort(poolCards);
+        Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
         return new Straight(captureCards);
     }
     
