@@ -171,7 +171,7 @@
                            <children>
                               <BorderPane>
                                  <center>
-                                    <ImageView fitHeight="110.0" fitWidth="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="100.0" fitWidth="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                        <BorderPane.margin>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </BorderPane.margin>
@@ -183,7 +183,7 @@
                               </BorderPane>
                               <BorderPane>
                                  <center>
-                                    <ImageView fitHeight="110.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <BorderPane.margin>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </BorderPane.margin>
@@ -195,7 +195,7 @@
                               </BorderPane>
                               <BorderPane>
                                  <center>
-                                    <ImageView fitHeight="110.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <BorderPane.margin>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </BorderPane.margin>
@@ -207,7 +207,7 @@
                               </BorderPane>
                               <BorderPane>
                                  <center>
-                                    <ImageView fitHeight="110.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <BorderPane.margin>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </BorderPane.margin>
@@ -219,14 +219,23 @@
                               </BorderPane>
                            </children>
                         </FlowPane>
-                        <Button fx:id="gameButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#matchButton" prefWidth="200.0" text="Match">
+                        <VBox spacing="10.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Button>
+                           <children>
+                              <Button fx:id="gameButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#matchButton" prefWidth="200.0" text="Match">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="discardButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#discardButton" prefWidth="200.0" text="Discard">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#startGame" text="Start Game" />

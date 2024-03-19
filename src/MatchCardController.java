@@ -33,6 +33,9 @@ public class MatchCardController implements Initializable {
     private FlowPane cardPool;
 
     @FXML
+    private Button discardButton;
+
+    @FXML
     private Button gameButton;
 
     @FXML
@@ -49,6 +52,11 @@ public class MatchCardController implements Initializable {
 
     @FXML
     private Button startGameButton;
+
+    @FXML
+    void discardButton(ActionEvent event) {
+        System.out.println("Discard button clicked");
+    }
 
     @FXML
     void matchButton(ActionEvent event) {
