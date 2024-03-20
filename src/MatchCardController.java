@@ -97,11 +97,33 @@ public class MatchCardController implements Initializable {
         
         Player currentPlayer = players.get(1);
         
-        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
-        ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
+        // Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        // ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
+        Card selectedHandCard = new Card(Suit.DIAMONDS, Rank.TWO);
+        ArrayList<Card> selectedPoolCard = new ArrayList<>();
+        selectedPoolCard.add(new Card(Suit.HEARTS, Rank.TWO));
+
         Capture comboCapture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
         if (comboCapture != null) {
+            //creates an alert dialog displaying the capture type, value and captureCards involved
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Congratulations!");
+            ArrayList<ImageView> cardList = new ArrayList<>();
+            for (Card c : comboCapture.getCaptureCards()) {
+                ImageView cardImage = new ImageView("file:resources/img/" + c.getCardImage());
+                cardImage.setFitHeight(250);
+                cardImage.setFitWidth(250);
+                cardImage.setPreserveRatio(true);
+                cardList.add(cardImage);
+            }
+            ObservableList<ImageView> obsCardList = FXCollections.observableArrayList(cardList);
+            ListView<ImageView> cardListView = new ListView<>(obsCardList);
+            alert.setGraphic(cardListView);
+            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", comboCapture.getCaptureName(), comboCapture.getScore()));
+            alert.setContentText("Click close to end your turn.");
+            alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            alert.showAndWait();
 
             currentPlayer.getHand().remove(selectedHandCard);
             currentPlayer.setTotalScore(comboCapture.getScore());
