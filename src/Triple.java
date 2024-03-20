@@ -16,7 +16,7 @@ public class Triple extends Capture {
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         
-        if (poolCards.size() != 3) {
+        if (poolCards.size() != 2) {
             return null;
         }
 
