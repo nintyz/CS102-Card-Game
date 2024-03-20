@@ -1,9 +1,9 @@
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.io.File;
-import java.io.IOException;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -76,12 +75,12 @@ public class MatchCardController implements Initializable {
         if (players.get(1).getTotalScore() > 1) {
             try {
                 FXMLLoader loader = new FXMLLoader(new File("resources/view/end-game-scene.fxml").toURI().toURL());
-                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(loader.load());
                 stage.close();
                 stage.setScene(scene);
                 stage.show();
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -94,12 +93,13 @@ public class MatchCardController implements Initializable {
     }
 
     // void getEndPrompt(Capture capture) {
-    //     Alert endGameAlert = new Alert(Alert.AlertType.NONE);
-    //     endGameAlert.setTitle("Game End");
-    //     endGameAlert.setHeaderText(String.format("Player %d wins! %n Last Capture: %s", players.get(1).getPlayerId(), capture.getCaptureName()));
-    //     endGameAlert.setContentText("Click close to restart");
-    //     endGameAlert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-    //     endGameAlert.showAndWait();
+    // Alert endGameAlert = new Alert(Alert.AlertType.NONE);
+    // endGameAlert.setTitle("Game End");
+    // endGameAlert.setHeaderText(String.format("Player %d wins! %n Last Capture:
+    // %s", players.get(1).getPlayerId(), capture.getCaptureName()));
+    // endGameAlert.setContentText("Click close to restart");
+    // endGameAlert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+    // endGameAlert.showAndWait();
     // }
 
     @FXML
@@ -116,34 +116,36 @@ public class MatchCardController implements Initializable {
     }
 
     // public void getEndScene(ActionEvent event) {
-    //     try {
-    //         FXMLLoader loader = new FXMLLoader(new File("resources/view/end-game-scene.fxml").toURI().toURL());
-    //         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-    //         Scene scene = new Scene(loader.load());
-    //         stage.close();
-    //         stage.setScene(scene);
-    //         stage.show();
-    //     }catch (IOException e){
-    //         e.printStackTrace();
-    //     }
+    // try {
+    // FXMLLoader loader = new FXMLLoader(new
+    // File("resources/view/end-game-scene.fxml").toURI().toURL());
+    // Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    // Scene scene = new Scene(loader.load());
+    // stage.close();
+    // stage.setScene(scene);
+    // stage.show();
+    // }catch (IOException e){
+    // e.printStackTrace();
+    // }
     // }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        initializeImageView();
+        handView.setVisible(false);
     }
 
     private void capture() {
-        
+
         Player currentPlayer = players.get(1);
-        
+
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
 
         Capture comboCapture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
         if (comboCapture != null) {
-            //creates an alert dialog displaying the capture type, value and captureCards involved
+            // creates an alert dialog displaying the capture type, value and captureCards
+            // involved
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Congratulations!");
             ArrayList<ImageView> cardList = new ArrayList<>();
@@ -157,7 +159,8 @@ public class MatchCardController implements Initializable {
             ObservableList<ImageView> obsCardList = FXCollections.observableArrayList(cardList);
             ListView<ImageView> cardListView = new ListView<>(obsCardList);
             alert.setGraphic(cardListView);
-            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", comboCapture.getCaptureName(), comboCapture.getScore()));
+            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", comboCapture.getCaptureName(),
+                    comboCapture.getScore()));
             alert.setContentText("Click close to end your turn.");
             alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             alert.showAndWait();
@@ -165,7 +168,7 @@ public class MatchCardController implements Initializable {
             currentPlayer.getHand().remove(selectedHandCard);
             currentPlayer.setTotalScore(comboCapture.getScore());
 
-            for (Card poolCard: selectedPoolCard) {
+            for (Card poolCard : selectedPoolCard) {
                 poolCards.remove(poolCard);
             }
         }
@@ -180,22 +183,6 @@ public class MatchCardController implements Initializable {
             player.getSelectedHandCards().clear();
         }
 
-    }
-
-    /**
-     * This will add a number to each ImageView and set the image to be the back of
-     * a Card
-     */
-    private void initializeImageView() {
-
-        handView.setVisible(false);
-
-        for (int i = 0; i < cardPool.getChildren().size(); i++) {
-            BorderPane borderPane = (BorderPane) cardPool.getChildren().get(i);
-
-            ImageView imageView = (ImageView) borderPane.getChildren().get(0);
-            imageView.setImage(new Image("file:resources/img/back.png"));
-        }
     }
 
     private Deck initializeDeck() {
@@ -248,7 +235,7 @@ public class MatchCardController implements Initializable {
     private void populateBoard(List<Card> cards, Boolean isPlayer) {
 
         FlowPane pool = isPlayer ? handCard : cardPool;
-        clearBoard(pool);
+        clearBoard(pool, false);
 
         for (int i = 0; i < cards.size(); i++) {
             BorderPane borderPane = (BorderPane) pool.getChildren().get(i);
@@ -261,23 +248,29 @@ public class MatchCardController implements Initializable {
         }
     }
 
-    private void clearBoard(FlowPane flowPane) {
+    private void clearBoard(FlowPane flowPane, boolean isHandBoard) {
 
         for (int i = 0; i < flowPane.getChildren().size(); i++) {
             BorderPane borderPane = (BorderPane) flowPane.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
 
-            // Remove the click listener and the image
-            imageView.setOnMouseClicked(null);
-            imageView.setImage(null);
+            if (!isHandBoard) {
+                // Remove the click listener and the image
+                imageView.setOnMouseClicked(null);
+                imageView.setImage(null);
+
+            }
 
             // Reset the state of the border of the ImageView
             borderPane.pseudoClassStateChanged(imageViewBorder, false);
 
         }
 
-        clearSelectedCards();
+        if (!isHandBoard) {
+            clearSelectedCards();
+        }
+
     }
 
     private void registerClickListener(BorderPane borderPane, ImageView imageView) {
@@ -300,18 +293,27 @@ public class MatchCardController implements Initializable {
             System.out.println("You clicked on card " + imageView.getUserData());
             imageViewBorderActive.set(!imageViewBorderActive.get());
 
-            setMatchButtonState((Card) imageView.getUserData());
+            setMatchButtonState((Card) imageView.getUserData(), borderPane);
         });
 
     }
 
-    private void setMatchButtonState(Card selectedCard) {
+    private void setMatchButtonState(Card selectedCard, BorderPane borderPane) {
         Player currentPlayer = players.get(1);
 
         boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
         boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
 
-        if (isHandSelected && currentPlayer.getSelectedHandCards().size() > 0) {
+        // clear border of all hand cards
+        if (borderPane.getParent().equals(handCard)) {
+            clearBoard(handCard, true);
+        }
+
+        // Set the state of the border of the selected card if its from the hand.
+        // As player can only select 1 card from the hand at a time, we clear the
+        // selected card each time a new card is selected
+        if (currentPlayer.getHand().contains(selectedCard)) {
+            borderPane.pseudoClassStateChanged(imageViewBorder, !isHandSelected);
             currentPlayer.getSelectedHandCards().clear();
         }
 
