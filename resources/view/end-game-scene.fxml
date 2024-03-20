@@ -55,7 +55,6 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <BorderPane />
                      </children>
                   </FlowPane>
                </children>

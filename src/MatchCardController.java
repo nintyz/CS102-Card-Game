@@ -2,6 +2,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.io.File;
+import java.io.IOException;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,8 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -22,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class MatchCardController implements Initializable {
 
@@ -67,13 +73,34 @@ public class MatchCardController implements Initializable {
     @FXML
     void matchButton(ActionEvent event) {
         capture();
+        if (players.get(1).getTotalScore() > 1) {
+            try {
+                FXMLLoader loader = new FXMLLoader(new File("resources/view/end-game-scene.fxml").toURI().toURL());
+                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(loader.load());
+                stage.close();
+                stage.setScene(scene);
+                stage.show();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return;
+        }
         switchPlayer();
-
         replaceCardPool();
-
         populateBoard(poolCards, false);
         gameButton.setDisable(true);
     }
+
+    // void getEndPrompt(Capture capture) {
+    //     Alert endGameAlert = new Alert(Alert.AlertType.NONE);
+    //     endGameAlert.setTitle("Game End");
+    //     endGameAlert.setHeaderText(String.format("Player %d wins! %n Last Capture: %s", players.get(1).getPlayerId(), capture.getCaptureName()));
+    //     endGameAlert.setContentText("Click close to restart");
+    //     endGameAlert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+    //     endGameAlert.showAndWait();
+    // }
 
     @FXML
     void startGame(ActionEvent event) {
@@ -88,6 +115,19 @@ public class MatchCardController implements Initializable {
 
     }
 
+    // public void getEndScene(ActionEvent event) {
+    //     try {
+    //         FXMLLoader loader = new FXMLLoader(new File("resources/view/end-game-scene.fxml").toURI().toURL());
+    //         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    //         Scene scene = new Scene(loader.load());
+    //         stage.close();
+    //         stage.setScene(scene);
+    //         stage.show();
+    //     }catch (IOException e){
+    //         e.printStackTrace();
+    //     }
+    // }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         initializeImageView();
@@ -97,11 +137,8 @@ public class MatchCardController implements Initializable {
         
         Player currentPlayer = players.get(1);
         
-        // Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
-        // ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
-        Card selectedHandCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        ArrayList<Card> selectedPoolCard = new ArrayList<>();
-        selectedPoolCard.add(new Card(Suit.HEARTS, Rank.TWO));
+        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
 
         Capture comboCapture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
@@ -132,6 +169,7 @@ public class MatchCardController implements Initializable {
                 poolCards.remove(poolCard);
             }
         }
+
     }
 
     private void clearSelectedCards() {
