@@ -66,12 +66,8 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void matchButton(ActionEvent event) {
-        
         capture();
         switchPlayer();
-        // For testing, REMOVE LATER
-        poolCards.remove(0);
-        players.get(0).getHand().remove(0);
 
         replaceCardPool();
 
@@ -98,66 +94,21 @@ public class MatchCardController implements Initializable {
     }
 
     private void capture() {
-        // Test data
-        // run
-        // Card handCard = new Card(Suit.CLUBS, Rank.FOUR);
-        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
-        // Straight
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
-        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
-        // combo
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
-        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        // triple
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        // pair
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        // pair
-        Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        
+        Player currentPlayer = players.get(1);
+        
+        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
+        Capture comboCapture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
-        ArrayList<Card> poolCards = new ArrayList<>();
-        poolCards.add(poolCard);
-        // poolCards.add(poolCard2);
+        if (comboCapture != null) {
 
-        // Straight combo = new Straight();
-        // Capture comboCapture = combo.formCapture(handCard, poolCards);
-        // if (comboCapture == null) {
-        // System.out.println("null");
-        // }
-        Capture capture = Capture.returnHighestCapture(handCard, poolCards);
-        if (capture != null) {
-            //generate alert displaying the name, value and cards in capture 
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setTitle("Congratulations!");
+            currentPlayer.getHand().remove(selectedHandCard);
+            currentPlayer.setTotalScore(comboCapture.getScore());
 
-            ArrayList<ImageView> captureImages = new ArrayList<>();
-            for(Card c : capture.getCaptureCards()) {
-                ImageView toAdd = new ImageView("file:resources/img/" + c.getCardImage());
-                toAdd.setFitWidth(300);
-                toAdd.setFitHeight(300);
-                toAdd.setPreserveRatio(true);
-                captureImages.add(toAdd);
+            for (Card poolCard: selectedPoolCard) {
+                poolCards.remove(poolCard);
             }
-            ObservableList<ImageView> cards = FXCollections.observableArrayList(captureImages);
-            ListView<ImageView> cardsListView = new ListView<>(cards);
-            alert.setGraphic(cardsListView);
-            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", capture.getCaptureName(), capture.getScore()));
-            alert.setContentText("Click close to end your turn.");
-            alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-            alert.showAndWait();
-            
-            switchPlayer();
-            System.out.println(capture.getScore());
-            players.get(1).setTotalScore(capture.getScore());
         }
     }
 
@@ -295,11 +246,14 @@ public class MatchCardController implements Initializable {
     }
 
     private void setMatchButtonState(Card selectedCard) {
-
         Player currentPlayer = players.get(1);
 
         boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
         boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
+
+        if (isHandSelected && currentPlayer.getSelectedHandCards().size() > 0) {
+            currentPlayer.getSelectedHandCards().clear();
+        }
 
         if (isHandSelected || isSelected) {
             currentPlayer.removeSelectedCard(selectedCard);
