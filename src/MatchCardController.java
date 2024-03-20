@@ -60,18 +60,8 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void matchButton(ActionEvent event) {
-        // Alert alert = new Alert(AlertType.INFORMATION);
-        // alert.setTitle("Information Dialog");
-        // alert.setHeaderText("Look, an Information Dialog");
-        // alert.setContentText("I have a great message for you!");
-
-        // alert.showAndWait();
         capture();
         switchPlayer();
-
-        // For testing, REMOVE LATER
-        poolCards.remove(0);
-        players.get(0).getHand().remove(0);
 
         replaceCardPool();
 
@@ -98,46 +88,24 @@ public class MatchCardController implements Initializable {
     }
 
     private void capture() {
-        // Test data
-        // run
-        // Card handCard = new Card(Suit.CLUBS, Rank.FOUR);
-        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
-        // Straight
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
-        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.THREE);
-        // combo
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.FOUR);
-        // Card poolCard = new Card(Suit.CLUBS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        // triple
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        // pair
-        // Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        // Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
-        // pair
-        Card handCard = new Card(Suit.DIAMONDS, Rank.TWO);
-        Card poolCard = new Card(Suit.HEARTS, Rank.TWO);
-        // Card poolCard2 = new Card(Suit.CLUBS, Rank.TWO);
+        
+        Player currentPlayer = players.get(1);
+        
+        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
+        Capture comboCapture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
-        ArrayList<Card> poolCards = new ArrayList<>();
-        poolCards.add(poolCard);
-        // poolCards.add(poolCard2);
-
-        // Straight combo = new Straight();
-        // Capture comboCapture = combo.formCapture(handCard, poolCards);
-        // if (comboCapture == null) {
-        // System.out.println("null");
-        // }
-        Capture comboCapture = Capture.returnHighestCapture(handCard, poolCards);
         if (comboCapture != null) {
-            System.out.println(comboCapture.getScore());
-            players.get(1).setTotalScore(comboCapture.getScore());
+
+            currentPlayer.getHand().remove(selectedHandCard);
+            currentPlayer.setTotalScore(comboCapture.getScore());
+
+            for (Card poolCard: selectedPoolCard) {
+                poolCards.remove(poolCard);
+            }
+
         }
+
     }
 
     private void clearSelectedCards() {
@@ -174,9 +142,11 @@ public class MatchCardController implements Initializable {
     }
 
     private void replaceCardPool() {
+        
         while (poolCards.size() < poolCardCount) {
             poolCards.add(deck.dealCard());
         }
+
     }
 
     private ArrayList<Card> initializeCardPool() {
@@ -274,11 +244,14 @@ public class MatchCardController implements Initializable {
     }
 
     private void setMatchButtonState(Card selectedCard) {
-
         Player currentPlayer = players.get(1);
 
         boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
         boolean isHandSelected = currentPlayer.getSelectedHandCards().contains(selectedCard);
+
+        if (isHandSelected && currentPlayer.getSelectedHandCards().size() > 0) {
+            currentPlayer.getSelectedHandCards().clear();
+        }
 
         if (isHandSelected || isSelected) {
             currentPlayer.removeSelectedCard(selectedCard);
