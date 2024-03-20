@@ -9,17 +9,24 @@ public class Triple extends Capture {
         captureName = "Triple";
         this.captureCards = captureCards;
     }
+    
+    /**
+     * Creates and returns a Triple object when the selected handCard and poolCards all have the same rank and total number of cards is 3
+     **/
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
-        if (poolCards.size() != 2) {
+        
+        if (poolCards.size() != 3) {
             return null;
         }
+
+        //checks if the rank of any card is different from the rest, return null
         if (!handCard.getRank().equals(poolCards.get(0).getRank()) || !handCard.getRank().equals(poolCards.get(1).getRank())) {
             return null;
         }
-
+        
         poolCards.add(handCard);
-        Collections.sort(poolCards); // sort in ascending order of value
+        Collections.sort(poolCards); 
         Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
         return new Triple(captureCards);
     }

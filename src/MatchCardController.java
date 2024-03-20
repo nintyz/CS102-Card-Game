@@ -73,6 +73,8 @@ public class MatchCardController implements Initializable {
         poolCards.remove(0);
         players.get(0).getHand().remove(0);
 
+        replaceCardPool();
+
         populateBoard(poolCards, false);
         gameButton.setDisable(true);
     }
@@ -169,6 +171,12 @@ public class MatchCardController implements Initializable {
         deck.shuffle();
 
         return deck;
+    }
+
+    private void replaceCardPool() {
+        while (poolCards.size() < poolCardCount) {
+            poolCards.add(deck.dealCard());
+        }
     }
 
     private ArrayList<Card> initializeCardPool() {

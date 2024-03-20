@@ -1,8 +1,9 @@
 import java.util.*;
 
 public class Run extends Capture{ 
-    // Run formed when two or more poolCards are captured such that their ranks are in sequence with the selected handCard. All cards must
-    // be of the same suit.
+    /*  Run formed when two or more poolCards are captured such that their ranks are in sequence with the selected handCard. All cards must
+        be of the same suit. 
+    */
 
     public Run(){};
     
@@ -11,7 +12,8 @@ public class Run extends Capture{
         captureName = "Run";
         this.captureCards = captureCards;
     }
-
+    
+    // returns run object with 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         // check if length of selected cards is at least 2
         if(poolCards.size() < 2) {
