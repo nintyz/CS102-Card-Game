@@ -5,12 +5,18 @@ import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -60,15 +66,9 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void matchButton(ActionEvent event) {
-        // Alert alert = new Alert(AlertType.INFORMATION);
-        // alert.setTitle("Information Dialog");
-        // alert.setHeaderText("Look, an Information Dialog");
-        // alert.setContentText("I have a great message for you!");
-
-        // alert.showAndWait();
+        
         capture();
         switchPlayer();
-
         // For testing, REMOVE LATER
         poolCards.remove(0);
         players.get(0).getHand().remove(0);
@@ -133,10 +133,31 @@ public class MatchCardController implements Initializable {
         // if (comboCapture == null) {
         // System.out.println("null");
         // }
-        Capture comboCapture = Capture.returnHighestCapture(handCard, poolCards);
-        if (comboCapture != null) {
-            System.out.println(comboCapture.getScore());
-            players.get(1).setTotalScore(comboCapture.getScore());
+        Capture capture = Capture.returnHighestCapture(handCard, poolCards);
+        if (capture != null) {
+            //generate alert displaying the name, value and cards in capture 
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Congratulations!");
+
+            ArrayList<ImageView> captureImages = new ArrayList<>();
+            for(Card c : capture.getCaptureCards()) {
+                ImageView toAdd = new ImageView("file:resources/img/" + c.getCardImage());
+                toAdd.setFitWidth(300);
+                toAdd.setFitHeight(300);
+                toAdd.setPreserveRatio(true);
+                captureImages.add(toAdd);
+            }
+            ObservableList<ImageView> cards = FXCollections.observableArrayList(captureImages);
+            ListView<ImageView> cardsListView = new ListView<>(cards);
+            alert.setGraphic(cardsListView);
+            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", capture.getCaptureName(), capture.getScore()));
+            alert.setContentText("Click close to end your turn.");
+            alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            alert.showAndWait();
+            
+            switchPlayer();
+            System.out.println(capture.getScore());
+            players.get(1).setTotalScore(capture.getScore());
         }
     }
 
