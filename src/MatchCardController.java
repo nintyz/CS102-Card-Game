@@ -103,9 +103,7 @@ public class MatchCardController implements Initializable {
             for (Card poolCard: selectedPoolCard) {
                 poolCards.remove(poolCard);
             }
-
         }
-
     }
 
     private void clearSelectedCards() {
@@ -142,11 +140,9 @@ public class MatchCardController implements Initializable {
     }
 
     private void replaceCardPool() {
-        
         while (poolCards.size() < poolCardCount) {
             poolCards.add(deck.dealCard());
         }
-
     }
 
     private ArrayList<Card> initializeCardPool() {
