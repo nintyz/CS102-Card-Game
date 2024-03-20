@@ -1,6 +1,10 @@
 import java.util.*;
 
 public class Straight extends Capture {
+    /** 
+     * Represnts a Straight capture where the rank of each card selected is in sequence
+     * else return null
+    **/
     public Straight(){};
 
     //Forms a Straight by placing the handCard and poolCards in an Array
@@ -10,10 +14,10 @@ public class Straight extends Capture {
         this.captureCards = captureCards;
     }
 
+    /** Returns a Straight object containing the capturecards if they form a valid straight (Rank of each card is in sequence)
+     * else return null
+    **/
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
-        /* Straight involves 1 handCard and at least 2 poolCards
-         * Return null if less than 2 poolCards are selected
-        */
         if(poolCards.size() < 2)
             return null;
 
