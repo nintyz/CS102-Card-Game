@@ -7,10 +7,10 @@ MatchCardController.java - reorganise code for repeated functions (DONE)
                                 -> no selected cards, disable button (DONE)
                                 -> only hand/cardpool selected, disable button (DONE)
                                 -> if there's card selected in hand and in pool, run capture, calculate score into Player (TO BE DONE IN matchButton)
-                                        *** capture should remove any valid combinations from hand/pool
+                                        *** capture should remove any valid combinations from hand/pool (NOT IMPLEMENTING)
                          - add game logic
 
-fxml - fix when card removed from player hand the border bugs out
+fxml - fix when card removed from player hand the border bugs out (DONE)
 
 Player.java - add resetScore (DONE)
 
@@ -25,6 +25,7 @@ GENERAL
     -> option to play again or quit
     -> need move all initialize calls at top to its own function to properly reset game
 
+(NEED TO REIMPLEMENT LOGIC FOR THIS)
 - implement logic for discarding cards
     - add discard button below match button
     - if ONLY 1 card is selected from PLAYER HAND, remove card and append to the card pool
@@ -32,6 +33,9 @@ GENERAL
     - logic to prevent action from discard button if above condition doesnt meet (display alert for this as well)
     - display alert if they want discard, if not, continue code and dont do anything
         (https://code.makery.ch/blog/javafx-dialogs-official/#confirmation-dialog:~:text=.showAndWait()%3B-,Confirmation%20Dialog,-Alert%20alert%20%3D)
+-NEW LOGIC
+    - if ONLY 1 card is selected from PLAYER HAND, REMOVE CARD TO DECK, and REPLACE CARD FROM DECK
+    - then skip turn
 
 - instruction screen (how to play game step by step) *if needed*
 
