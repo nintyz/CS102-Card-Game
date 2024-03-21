@@ -1,19 +1,43 @@
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
+import java.io.File;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * SceneController class handles the switching of scenes between the main game scene and end scene
+**/ 
 
 public class SceneController{
-    private Scene nextScene;
-
-    public void setNextScene(Scene nextScene) {
-        this.nextScene = nextScene;
+    private static final String endScenePath = "resources/view/end-game-scene.fxml";
+    private static final String mainScenePath = "resources/view/match-cards.fxml";
+    
+    public static void switchEndScene(Stage stage) {
+        try {
+                FXMLLoader loader = new FXMLLoader(new File(endScenePath).toURI().toURL());
+                Scene scene = new Scene(loader.load());
+                stage.close();
+                stage.setTitle("Game Over");
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
-
-    public void openNextScene(ActionEvent actionEvent) {
-        Stage currentStage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        currentStage.setScene(nextScene);
+    
+    public static void switchStartScene(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(new File(mainScenePath).toURI().toURL());
+            Scene scene = new Scene(loader.load());
+            stage.close();
+            stage.setTitle("Matching Game");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error occurred during loading");;
+        }
     }
 
 

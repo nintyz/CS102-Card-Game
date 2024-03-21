@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -73,17 +69,8 @@ public class MatchCardController implements Initializable {
     void matchButton(ActionEvent event) {
         capture();
         if (players.get(1).getTotalScore() > 1) {
-            try {
-                FXMLLoader loader = new FXMLLoader(new File("resources/view/end-game-scene.fxml").toURI().toURL());
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                stage.close();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            SceneController.switchEndScene(currentStage);
             return;
         }
         switchPlayer();
@@ -104,7 +91,11 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void startGame(ActionEvent event) {
-
+        if (players.get(1).getTotalScore() > 1) {
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            SceneController.switchStartScene(currentStage);
+            return;
+        }
         startGameButton.setVisible(false);
         gameButton.setDisable(true);
         handView.setVisible(true);
@@ -112,22 +103,7 @@ public class MatchCardController implements Initializable {
         populateBoard(poolCards, false);
 
         switchPlayer();
-
     }
-
-    // public void getEndScene(ActionEvent event) {
-    // try {
-    // FXMLLoader loader = new FXMLLoader(new
-    // File("resources/view/end-game-scene.fxml").toURI().toURL());
-    // Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-    // Scene scene = new Scene(loader.load());
-    // stage.close();
-    // stage.setScene(scene);
-    // stage.show();
-    // }catch (IOException e){
-    // e.printStackTrace();
-    // }
-    // }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -141,15 +117,24 @@ public class MatchCardController implements Initializable {
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
 
-        Capture comboCapture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
+        Capture capture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
-        if (comboCapture != null) {
-            // creates an alert dialog displaying the capture type, value and captureCards
-            // involved
-            Alert alert = new Alert(Alert.AlertType.NONE);
+        if (capture != null) {
+            createCaptureAlert(capture);
+            currentPlayer.getHand().remove(selectedHandCard);
+            currentPlayer.setTotalScore(capture.getScore());
+            for (Card poolCard : selectedPoolCard) {
+                poolCards.remove(poolCard);
+            }
+        }
+
+    }
+
+    private void createCaptureAlert(Capture capture) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Congratulations!");
             ArrayList<ImageView> cardList = new ArrayList<>();
-            for (Card c : comboCapture.getCaptureCards()) {
+            for (Card c : capture.getCaptureCards()) {
                 ImageView cardImage = new ImageView("file:resources/img/" + c.getCardImage());
                 cardImage.setFitHeight(250);
                 cardImage.setFitWidth(250);
@@ -159,20 +144,11 @@ public class MatchCardController implements Initializable {
             ObservableList<ImageView> obsCardList = FXCollections.observableArrayList(cardList);
             ListView<ImageView> cardListView = new ListView<>(obsCardList);
             alert.setGraphic(cardListView);
-            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", comboCapture.getCaptureName(),
-                    comboCapture.getScore()));
+            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", capture.getCaptureName(),
+            capture.getScore()));
             alert.setContentText("Click close to end your turn.");
             alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             alert.showAndWait();
-
-            currentPlayer.getHand().remove(selectedHandCard);
-            currentPlayer.setTotalScore(comboCapture.getScore());
-
-            for (Card poolCard : selectedPoolCard) {
-                poolCards.remove(poolCard);
-            }
-        }
-
     }
 
     private void clearSelectedCards() {
