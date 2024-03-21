@@ -27,10 +27,11 @@ import javafx.stage.Stage;
 public class MatchCardController implements Initializable {
 
     private final int PLAYERCOUNT = 2;
-    private int poolCardCount = 10, playerCardCount = 4;
+    private final int poolCardCount = 10;
+    private final int playerCardCount = 4;
+    private final int winningScore = 10;
 
     private Deck deck = initializeDeck();
-
     private ArrayList<Player> players = initializePlayers();
     private ArrayList<Card> poolCards = initializeCardPool();
 
@@ -62,25 +63,36 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void discardButton(ActionEvent event) {
+        Player currentPlayer = players.get(1);
+        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        currentPlayer.getHand().remove(selectedHandCard);
+        replaceHandCard(currentPlayer);
         System.out.println("Discard button clicked");
     }
 
     @FXML
     void matchButton(ActionEvent event) {
-        capture();
+        Capture capture = capture();
+
+        // return to main method when captureAttempt is null (capture is invalid)
+        if (capture == null) {
+            return;
+        }
 
         /*
-         * switch to end scene if current player's total score goes above the maximum score of 100
+         * checks if current player has reached the winning score, if yes switch to end game scene
          */
-        if (players.get(1).getTotalScore() > 100) {
+        if (players.get(1).getTotalScore() > winningScore) {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             SceneController.switchEndScene(currentStage);
             return;
         }
+
         switchPlayer();
         replaceCardPool();
         populateBoard(poolCards, false);
         gameButton.setDisable(true);
+        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
     // void getEndPrompt(Capture capture) {
@@ -113,7 +125,7 @@ public class MatchCardController implements Initializable {
         handView.setVisible(false);
     }
 
-    private void capture() {
+    private Capture capture() {
 
         Player currentPlayer = players.get(1);
 
@@ -122,26 +134,31 @@ public class MatchCardController implements Initializable {
 
         Capture capture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
-        if (capture != null) {
-            createCaptureAlert(capture);
-            
-            currentPlayer.getHand().remove(selectedHandCard);
-            replaceHandCard(currentPlayer);
-
-            currentPlayer.setTotalScore(capture.getScore());
-
-            for (Card poolCard : selectedPoolCard) {
-                poolCards.remove(poolCard);
-            }
-
+        //create and show invalidCaptureAlert when capture is null (i.e capture is invalid)
+        if (capture == null) {
+            invalidCaptureAlert();
+            return capture;
         }
+        
+        //
+        validCaptureAlert(capture);
+            
+        currentPlayer.getHand().remove(selectedHandCard);
+        replaceHandCard(currentPlayer);
 
+        currentPlayer.setTotalScore(capture.getScore());
+
+        for (Card poolCard : selectedPoolCard) {
+            poolCards.remove(poolCard);
+        }
+        
+        return capture;
     }
 
     /*
      * creates an alert prompting the user that a valid capture has been made, dsiplaying its type, value, and card captures
      */
-    private void createCaptureAlert(Capture capture) {
+    private void validCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Congratulations!");
             ArrayList<ImageView> cardList = new ArrayList<>();
@@ -165,6 +182,15 @@ public class MatchCardController implements Initializable {
             alert.setContentText("Click close to end your turn.");
             alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             alert.showAndWait();
+    }
+
+    private void invalidCaptureAlert() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Oh No!");
+        alert.setHeaderText("Invalid Capture! Please try again!");
+        alert.setContentText("Click close to return to game screen.");
+        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        alert.showAndWait();
     }
 
     private void clearSelectedCards() {
@@ -192,12 +218,12 @@ public class MatchCardController implements Initializable {
             }
 
             poolCards.add(deck.dealCard());
-            
+
         }
     }
     
     private void replaceHandCard(Player currentPlayer) {
-        while (currentPlayer.getHand().size() < 4) {
+        while (currentPlayer.getHand().size() < playerCardCount) {
 
             if(deck.isEmpty()) {
                 deck.restoreDeck(Suit.VALUES, Rank.VALUES);
