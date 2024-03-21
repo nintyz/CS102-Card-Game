@@ -35,11 +35,11 @@ public class Deck {
    public Deck(List<Suit> suit, List<Rank> rank) {
       deck = new ArrayList<Card>();
       for (Suit s : suit) {
-             for (Rank r: rank) {
-               deck.add(new Card(s, r));
-             }
+         for (Rank r: rank) {
+            deck.add(new Card(s, r));
          }
-     }
+      }
+   }
 
 
    /**
@@ -105,8 +105,12 @@ public class Deck {
    /**
     * Restores the deck to "full deck" status.
     */
-   public void restoreDeck() {
-      index = 0;
+   public void restoreDeck(List<Suit> suit, List<Rank> rank) {
+      for (Suit s : suit) {
+         for (Rank r: rank) {
+            deck.add(new Card(s, r));
+         }
+      }
    }
 
    public Card getCard(int index) {

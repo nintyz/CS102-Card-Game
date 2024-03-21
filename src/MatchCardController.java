@@ -95,7 +95,6 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void startGame(ActionEvent event) {
-
         // if (players.get(1).getTotalScore() > 1) {
         //     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         //     SceneController.switchStartScene(currentStage);
@@ -187,15 +186,28 @@ public class MatchCardController implements Initializable {
 
     private void replaceCardPool() {
         while (poolCards.size() < poolCardCount) {
+
+            if(deck.isEmpty()) {
+                deck.restoreDeck(Suit.VALUES, Rank.VALUES);
+            }
+
             poolCards.add(deck.dealCard());
+            
         }
     }
     
     private void replaceHandCard(Player currentPlayer) {
         while (currentPlayer.getHand().size() < 4) {
+
+            if(deck.isEmpty()) {
+                deck.restoreDeck(Suit.VALUES, Rank.VALUES);
+            }
+
             currentPlayer.getHand().add(deck.dealCard());
+
         }
     }
+
     
     private ArrayList<Card> initializeCardPool() {
 

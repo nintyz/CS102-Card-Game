@@ -14,8 +14,11 @@ public class SceneController{
     
     public static void switchEndScene(Stage stage) {
         try {
+                // load FXML file into loader and creates new scene to switch to
                 FXMLLoader loader = new FXMLLoader(new File(endScenePath).toURI().toURL());
                 Scene scene = new Scene(loader.load());
+
+                //sets new scene are reconfiguring stage parameters
                 stage.close();
                 stage.setTitle("Game Over");
                 stage.setScene(scene);
