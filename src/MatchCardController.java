@@ -68,7 +68,11 @@ public class MatchCardController implements Initializable {
     @FXML
     void matchButton(ActionEvent event) {
         capture();
-        if (players.get(1).getTotalScore() > 1) {
+
+        /*
+         * switch to end scene if current player's total score goes above the maximum score of 100
+         */
+        if (players.get(1).getTotalScore() > 100) {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             SceneController.switchEndScene(currentStage);
             return;
@@ -91,17 +95,17 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void startGame(ActionEvent event) {
-        if (players.get(1).getTotalScore() > 1) {
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SceneController.switchStartScene(currentStage);
-            return;
-        }
+
+        // if (players.get(1).getTotalScore() > 1) {
+        //     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        //     SceneController.switchStartScene(currentStage);
+        //     return;
+        // }
+
         startGameButton.setVisible(false);
         gameButton.setDisable(true);
         handView.setVisible(true);
-
         populateBoard(poolCards, false);
-
         switchPlayer();
     }
 
@@ -121,19 +125,29 @@ public class MatchCardController implements Initializable {
 
         if (capture != null) {
             createCaptureAlert(capture);
+            
             currentPlayer.getHand().remove(selectedHandCard);
+            replaceHandCard(currentPlayer);
+
             currentPlayer.setTotalScore(capture.getScore());
+
             for (Card poolCard : selectedPoolCard) {
                 poolCards.remove(poolCard);
             }
+
         }
 
     }
 
+    /*
+     * creates an alert prompting the user that a valid capture has been made, dsiplaying its type, value, and card captures
+     */
     private void createCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Congratulations!");
             ArrayList<ImageView> cardList = new ArrayList<>();
+            
+            // create ImageView objects storing the images of the capture cards and adding them to an ArrayList
             for (Card c : capture.getCaptureCards()) {
                 ImageView cardImage = new ImageView("file:resources/img/" + c.getCardImage());
                 cardImage.setFitHeight(250);
@@ -141,11 +155,14 @@ public class MatchCardController implements Initializable {
                 cardImage.setPreserveRatio(true);
                 cardList.add(cardImage);
             }
+
+            // casting to obervablelist and then ListView for future storing
             ObservableList<ImageView> obsCardList = FXCollections.observableArrayList(cardList);
             ListView<ImageView> cardListView = new ListView<>(obsCardList);
+
             alert.setGraphic(cardListView);
-            alert.setHeaderText(String.format("%s of value %.1f captured successfully!", capture.getCaptureName(),
-            capture.getScore()));
+            alert.setHeaderText(String.format("%s of value %.1f captured successfully!",
+                                capture.getCaptureName(), capture.getScore()));
             alert.setContentText("Click close to end your turn.");
             alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             alert.showAndWait();
@@ -173,7 +190,13 @@ public class MatchCardController implements Initializable {
             poolCards.add(deck.dealCard());
         }
     }
-
+    
+    private void replaceHandCard(Player currentPlayer) {
+        while (currentPlayer.getHand().size() < 4) {
+            currentPlayer.getHand().add(deck.dealCard());
+        }
+    }
+    
     private ArrayList<Card> initializeCardPool() {
 
         ArrayList<Card> poolCards = new ArrayList<Card>();

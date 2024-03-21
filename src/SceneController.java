@@ -36,7 +36,7 @@ public class SceneController{
             stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
-            System.out.println("Error occurred during loading");;
+            e.printStackTrace();;
         }
     }
 
