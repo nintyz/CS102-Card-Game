@@ -153,7 +153,6 @@ public class MatchCardController implements Initializable {
         }
         
         switchPlayer();
-        clearBoard(handCard, true);
 
         return capture;
     }
@@ -218,6 +217,8 @@ public class MatchCardController implements Initializable {
 
             if(deck.isEmpty()) {
                 deck.restoreDeck(Suit.VALUES, Rank.VALUES);
+                // use deck = new deck;
+                // deck.shuffle();
             }
 
             poolCards.add(deck.dealCard());

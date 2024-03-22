@@ -1,3 +1,5 @@
+LOOK AT CONTROLLER line 221
+
 MatchCardController.java - reorganise code for repeated functions (DONE)
                          - reset all selected cards after player switch (DONE)
                          - passing of data of cards in imagView to identify selected cards (DONE)
