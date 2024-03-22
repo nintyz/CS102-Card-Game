@@ -16,7 +16,7 @@ public class Run extends Capture{
     // returns run object with 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         // check if length of selected cards is at least 2
-        if(poolCards.size() < 2) {
+        if(poolCards.size() != 2) {
             return null;
         }
         // check if all selected cards are of the same suit

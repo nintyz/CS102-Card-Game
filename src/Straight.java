@@ -18,9 +18,10 @@ public class Straight extends Capture {
      * else return null
     **/
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
-        if(poolCards.size() < 2)
+        if(poolCards.size() != 2) {
             return null;
-
+        }
+        
         //Create a new Array to store the Ranks of the selected Cards
         Rank[] allCardRank = new Rank[poolCards.size() + 1];
 

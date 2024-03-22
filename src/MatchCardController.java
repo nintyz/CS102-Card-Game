@@ -152,6 +152,9 @@ public class MatchCardController implements Initializable {
             poolCards.remove(poolCard);
         }
         
+        switchPlayer();
+        clearBoard(handCard, true);
+
         return capture;
     }
 
