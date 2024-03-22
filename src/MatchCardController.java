@@ -66,8 +66,11 @@ public class MatchCardController implements Initializable {
         Player currentPlayer = players.get(1);
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         currentPlayer.getHand().remove(selectedHandCard);
+        currentPlayer.getSelectedCards().clear();
         replaceHandCard(currentPlayer);
-        System.out.println("Discard button clicked");
+        populateBoard(poolCards, false);
+
+        switchPlayer();
     }
 
     @FXML
@@ -84,14 +87,13 @@ public class MatchCardController implements Initializable {
          */
         if (players.get(1).getTotalScore() > winningScore) {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SceneController.switchEndScene(currentStage);
+//            SceneController.switchEndScene(currentStage);
             return;
         }
 
         switchPlayer();
         replaceCardPool();
         populateBoard(poolCards, false);
-        gameButton.setDisable(true);
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
@@ -114,7 +116,6 @@ public class MatchCardController implements Initializable {
         // }
 
         startGameButton.setVisible(false);
-        gameButton.setDisable(true);
         handView.setVisible(true);
         populateBoard(poolCards, false);
         switchPlayer();
@@ -368,6 +369,9 @@ public class MatchCardController implements Initializable {
 
         gameButton.setDisable(currentPlayer.getSelectedCards().isEmpty() ||
                 currentPlayer.getSelectedHandCards().isEmpty());
+
+        discardButton.setDisable(currentPlayer.getSelectedHandCards().isEmpty() ||
+                                currentPlayer.getSelectedCards().isEmpty() == false);
     }
 
     /**
@@ -375,6 +379,9 @@ public class MatchCardController implements Initializable {
      * then switches to the next player on subsequent runs
      **/
     private void switchPlayer() {
+
+        discardButton.setDisable(true);
+        gameButton.setDisable(true);
 
         // Switch player label
         playerLabel.setText(Integer.toString(players.get(0).getPlayerId() + 1));
