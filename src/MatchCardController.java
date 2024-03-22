@@ -91,7 +91,6 @@ public class MatchCardController implements Initializable {
             return;
         }
 
-        switchPlayer();
         replaceCardPool();
         populateBoard(poolCards, false);
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
@@ -380,9 +379,6 @@ public class MatchCardController implements Initializable {
      **/
     private void switchPlayer() {
 
-        discardButton.setDisable(true);
-        gameButton.setDisable(true);
-
         // Switch player label
         playerLabel.setText(Integer.toString(players.get(0).getPlayerId() + 1));
 
@@ -395,6 +391,9 @@ public class MatchCardController implements Initializable {
         // Switch player
         players.add(players.get(0));
         players.remove(0);
+
+        discardButton.setDisable(true);
+        gameButton.setDisable(true);
 
     }
 
