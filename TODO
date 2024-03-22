@@ -1,25 +1,44 @@
 LOOK AT CONTROLLER line 221
 
+FIX BUG FOR END SCREEN WHERE winningText.setText invokes nullpointerexception
+    - and some other null pointers when rematch button clicked
+
+setMatchButtonState method - try to reorganise code (put in different function). 
+                           - rename this method.
+
+clearBoard isHandBoard - rename as well. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=============================================================================================================================================
 MatchCardController.java - reorganise code for repeated functions (DONE)
                          - reset all selected cards after player switch (DONE)
                          - passing of data of cards in imagView to identify selected cards (DONE)
                          - when selecting or deselecting cards add/remove from array (DONE)
-                         - remove selected cards from view after match button clicked (DONE BUT NOT TESTED)
+                         - remove selected cards from view after match button clicked (DONE)
                          - implement logic when pressing match button (DONE)
                                 -> no selected cards, disable button (DONE)
                                 -> only hand/cardpool selected, disable button (DONE)
-                                -> if there's card selected in hand and in pool, run capture, calculate score into Player (TO BE DONE IN matchButton)
+                                -> if there's card selected in hand and in pool, run capture, calculate score into Player (TO BE DONE IN matchButton) (DONE)
                                         *** capture should remove any valid combinations from hand/pool (NOT IMPLEMENTING)
                          - add game logic
 
 fxml - fix when card removed from player hand the border bugs out (DONE)
 
-setMatchButtonState method - try to reorganise code (put in different function). 
-                           - rename this method.
 
-INVALID CAPTURE NEEDS HANDLING
+INVALID CAPTURE NEEDS HANDLING (DONE)
 
-clearBoard isHandBoard - rename as well. 
 
 Player.java - add resetScore (DONE)
 
