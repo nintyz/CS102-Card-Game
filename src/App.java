@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class App extends Application{
+public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -15,8 +16,7 @@ public class App extends Application{
         Platform.setImplicitExit(false);
 
         // Load the main game FXML(UI) file
-        FXMLLoader loader = new FXMLLoader(new File("resources/view/match-cards.fxml").toURI().toURL());
-        Parent mainParent = loader.load();
+        Parent mainParent = FXMLLoader.load(new File("resources/view/match-cards.fxml").toURI().toURL());
         Scene mainScene = new Scene(mainParent);
 
         // Set the parameters of the stage(game window)
@@ -26,16 +26,6 @@ public class App extends Application{
         stage.show();
 
     }
-    
-    // @Override
-    // public void run() {
-    //         try {
-    //             start(new Stage());
-    //         } catch (Exception e) {
-    //             e.printStackTrace();
-    //         }
-    // }
-
 
     public static void main(String[] args) {
         launch();
