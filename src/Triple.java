@@ -1,8 +1,16 @@
 import java.util.*;
-
 /**
-* This class represents a Triple capture where the total capture cards is 3 and all cards have the same rank
-**/
+ * Triple.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class represents a Triple capture where the total capture cards is 3 and all cards have the same rank
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class Triple extends Capture {
     
     public Triple(){};

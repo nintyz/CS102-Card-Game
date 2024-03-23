@@ -1,15 +1,18 @@
-/*
-* Combo
-* 
-* Version info: Matching Game version 1.0
-* 
-* created as part of CS102 Programming Fundamentals II coding
-*/
 import java.util.*;
+
 /**
+ * Combo.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
  * This class represents a Combo capture where the sum of the rank value of selected poolcards
  * equals the rank value of the selected hand card
-*/
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class Combo extends Capture {
     
     public Combo(){};

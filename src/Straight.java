@@ -1,27 +1,32 @@
 import java.util.*;
 
+/**
+ * Straight.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class represents a Straight capture where the rank of each card captured is in sequence
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class Straight extends Capture {
-    /** 
-     * This class represents a Straight capture where the rank of each card captured is in sequence
-    **/
+    
     public Straight(){};
 
-    //Forms a Straight by placing the handCard and poolCards in an Array
     public Straight(Card[] captureCards){
         multiplier = 1.8;
         captureName = "Straight";
         this.captureCards = captureCards;
     }
 
-    /** Returns a Straight object containing the capturecards if they form a valid straight (Rank of each card is in sequence)
-     * else return null
-    **/
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
         if(poolCards.size() != 2) {
             return null;
         }
         
-        //Create a new Array to store the Ranks of the selected Cards
         Rank[] allCardRank = new Rank[poolCards.size() + 1];
 
         //Get the RankValue of the handCard to be compared with that of the poolCards and store it in the Array
@@ -31,8 +36,7 @@ public class Straight extends Capture {
         for (int i = 0; i < poolCards.size(); i++) {
             allCardRank[i + 1] = poolCards.get(i).getRank();
         }
-
-        //Sorts the array in Ascending order of RankValue
+        
         Arrays.sort(allCardRank);
        
         //Compare the RankValues by checking whether the RankValues of its neighbours differ by 1

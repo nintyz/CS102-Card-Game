@@ -30,6 +30,18 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * MatchCardController.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class controls the FX elements of the application, as well as the game logic
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class MatchCardController implements Initializable {
 
     private final int PLAYERCOUNT = 2;

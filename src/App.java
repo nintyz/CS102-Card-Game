@@ -8,6 +8,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * App.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class is the entry point of the application
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class App extends Application {
 
     @Override

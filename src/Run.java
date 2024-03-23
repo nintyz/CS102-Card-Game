@@ -1,8 +1,17 @@
 import java.util.*;
 
 /**
- * This class represents a Run capture where the total number of cards captured is greater than tw all cards have the same rank and they are in sequence
-**/
+ * Run.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class represents a Run capture where the total number of cards captured is greater than two,
+ * all cards have the same rank and they are in sequence
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
 
 public class Run extends Capture{ 
     public Run(){};
@@ -13,7 +22,6 @@ public class Run extends Capture{
         this.captureCards = captureCards;
     }
     
-    // returns run object with 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         // check if length of selected cards is at least 2
         if(poolCards.size() != 2) {

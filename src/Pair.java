@@ -1,8 +1,18 @@
 import java.util.*;
 
 /**
-* This class represents a Pair capture where the total capture cards is 2 and all cards have the same rank
-**/
+ * Pair.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class represents a Pair capture where the total capture cards is 2 and all cards have the same rank
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ * 
+ */
+
 public class Pair extends Capture{
   
     public Pair(){};

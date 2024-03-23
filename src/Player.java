@@ -1,5 +1,17 @@
 import java.util.ArrayList;
 
+/**
+ * Player.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class represents a Player in the game
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class Player {
 
     private int playerId;
