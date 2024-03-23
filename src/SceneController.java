@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * SceneController class handles the switching of scenes between the main game scene and end scene
+ * This class handles the switching of scenes between the main game scene and end scene
 **/ 
 
 public class SceneController{
@@ -18,7 +18,7 @@ public class SceneController{
                 FXMLLoader loader = new FXMLLoader(new File(endScenePath).toURI().toURL());
                 Scene scene = new Scene(loader.load());
 
-                //sets new scene are reconfiguring stage parameters
+                //sets new scene and reestablishes stage parameters
                 stage.close();
                 stage.setTitle("Game Over");
                 stage.setScene(scene);

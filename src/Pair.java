@@ -1,5 +1,8 @@
 import java.util.*;
 
+/**
+* This class represents a Pair capture where the total capture cards is 2 and all cards have the same rank
+**/
 public class Pair extends Capture{
   
     public Pair(){};
@@ -10,21 +13,6 @@ public class Pair extends Capture{
         captureName = "Pair";
         this.captureCards = captureCards;
     }
-
-    // public Pair formCapture(Card handCard, ArrayList<Card> poolCards){
-    //     /*Pair can only involve 1 handCard and 1 poolCard
-    //      *return null if more than 1 poolCard is selected
-    //     */
-    //     if (poolCards.size() != 1) {
-    //         return null;
-    //     }
-    //     //return null if both cards do not have the same RankValue
-    //     if (handCard.getRank().compareTo(poolCards.get(0).getRank()) == 0) {
-    //         return null;
-    //     }
-    //     //returns a Pair
-    //     return new Pair(handCard, poolCards);
-    // }
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
         /*Pair can only involve 1 handCard and 1 poolCard

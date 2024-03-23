@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class Run extends Capture{ 
-    /*  Run formed when two or more poolCards are captured such that their ranks are in sequence with the selected handCard. All cards must
-        be of the same suit. 
-    */
+/**
+ * This class represents a Run capture where the total number of cards captured is greater than tw all cards have the same rank and they are in sequence
+**/
 
+public class Run extends Capture{ 
     public Run(){};
     
     public Run(Card[] captureCards) {

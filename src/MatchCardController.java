@@ -176,12 +176,12 @@ public class MatchCardController implements Initializable {
         // create and show invalidCaptureAlert when capture is null (i.e capture is
         // invalid)
         if (capture == null) {
-            invalidCaptureAlert();
+            getInvalidCaptureAlert();
             return capture;
         }
 
         //
-        validCaptureAlert(capture);
+        getValidCaptureAlert(capture);
 
         currentPlayer.getHand().remove(selectedHandCard);
         replaceHandCard(currentPlayer);
@@ -201,7 +201,7 @@ public class MatchCardController implements Initializable {
      * creates an alert prompting the user that a valid capture has been made,
      * dsiplaying its type, value, and card captures
      */
-    private void validCaptureAlert(Capture capture) {
+    private void getValidCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Congratulations!");
         ArrayList<ImageView> cardList = new ArrayList<>();
@@ -228,7 +228,7 @@ public class MatchCardController implements Initializable {
         alert.showAndWait();
     }
 
-    private void invalidCaptureAlert() {
+    private void getInvalidCaptureAlert() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Oh No!");
         alert.setHeaderText("Invalid Capture! Please try again!");

@@ -1,5 +1,8 @@
 import java.util.*;
 
+/**
+* This class represents a Triple capture where the total capture cards is 3 and all cards have the same rank
+**/
 public class Triple extends Capture {
     
     public Triple(){};
@@ -9,10 +12,6 @@ public class Triple extends Capture {
         captureName = "Triple";
         this.captureCards = captureCards;
     }
-    
-    /**
-     * Creates and returns a Triple object when the selected handCard and poolCards all have the same rank and total number of cards is 3
-     **/
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         

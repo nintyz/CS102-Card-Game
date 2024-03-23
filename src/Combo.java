@@ -6,7 +6,10 @@
 * created as part of CS102 Programming Fundamentals II coding
 */
 import java.util.*;
-
+/**
+ * This class represents a Combo capture where the sum of the rank value of selected poolcards
+ * equals the rank value of the selected hand card
+*/
 public class Combo extends Capture {
     
     public Combo(){};
@@ -17,9 +20,7 @@ public class Combo extends Capture {
         this.captureCards = captureCards;
     }
     
-    /**
-     * returns Combo object storing the capture cards of they form a valid combo (i.e value sum of poolcards = value of handcard), else return null
-    */
+    
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
         int total = 0;
         

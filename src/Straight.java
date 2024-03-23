@@ -2,8 +2,7 @@ import java.util.*;
 
 public class Straight extends Capture {
     /** 
-     * Represnts a Straight capture where the rank of each card selected is in sequence
-     * else return null
+     * This class represents a Straight capture where the rank of each card captured is in sequence
     **/
     public Straight(){};
 
