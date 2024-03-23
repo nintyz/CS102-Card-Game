@@ -16,13 +16,15 @@ public class Player {
 
     private int playerId;
     private double totalScore;
-    private Hand hand;
-    private ArrayList<Card> selectedCards = new ArrayList<>();
-    private ArrayList<Card> selectedHandCards = new ArrayList<>();
+    private Hand hand; 
+    private ArrayList<Card> selectedCards;
+    private ArrayList<Card> selectedHandCards;
 
     public Player(int id) {
         this.playerId = id;
         this.hand = new Hand();
+        selectedCards = new ArrayList<>();
+        selectedHandCards = new ArrayList<>();
     }
 
     public int getPlayerId() {
