@@ -2,11 +2,16 @@ LOOK AT CONTROLLER line 221
 
 FIX BUG FOR END SCREEN WHERE winningText.setText invokes nullpointerexception
     - and some other null pointers when rematch button clicked
+(DONE)
 
 setMatchButtonState method - try to reorganise code (put in different function). 
                            - rename this method.
 
 clearBoard isHandBoard - rename as well. 
+
+update end game screen capture type + show the capture
+
+Change successful capture alert style
 
 
 
