@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,7 +36,8 @@ import javafx.stage.Stage;
  * 
  * Last modified: 31 Mar 2024
  * 
- * This class controls the FX elements of the application and intergrates the game logic into them
+ * This class controls the FX elements of the application and intergrates the
+ * game logic into them
  * 
  * @author Aaron, Andre, En Ting, Gerald, Xavier
  * 
@@ -44,10 +46,14 @@ import javafx.stage.Stage;
 
 public class MatchCardController implements Initializable {
 
+    private MatchCardController controller = this;
+
+    private final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
+
     private final int PLAYERCOUNT = 2;
     private final int poolCardCount = 10;
     private final int playerCardCount = 4;
-    private final int winningScore = 7;
+    private final int winningScore = 2;
 
     private Deck deck = initializeDeck();
     private ArrayList<Player> players = initializePlayers();
@@ -83,16 +89,16 @@ public class MatchCardController implements Initializable {
     private HBox endingCapture;
 
     @FXML
-    private Label playerOneScore;
+    private Label playerOneScoreLabel;
 
     @FXML
-    private Label playerTwoScore;
+    private Label playerTwoScoreLabel;
 
     @FXML
     private Button quitButton;
 
     @FXML
-    private Label winningText;
+    private Label winningTextLabel;
 
     @FXML
     void discardButton(ActionEvent event) {
@@ -108,8 +114,6 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void matchButton(ActionEvent event) throws IOException {
-        System.out.println("current" + players.get(1).getPlayerId());
-        System.out.println(players.get(0).getPlayerId());
         Player currentPlayer = players.get(1);
 
         Capture capture = capture(currentPlayer);
@@ -123,11 +127,7 @@ public class MatchCardController implements Initializable {
          * checks if current player has reached the winning score, if yes switch to end
          * game scene
          */
-        if (players.get(1).getTotalScore() >= winningScore) {
-            switchScene(event, "end-game-scene.fxml");
-
-            winningText.setText("Player " + (players.get(1).getPlayerId() + 1) + " wins!");
-
+        if (compareScores(event, capture)) {
             return;
         }
 
@@ -136,28 +136,72 @@ public class MatchCardController implements Initializable {
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
+    // Function to compare player scores and switch scene if necessary
+    private boolean compareScores(ActionEvent event, Capture capture) throws IOException {
+        Player currentPlayer = players.get(0);
+        Player nextPlayer = players.get(1);
+
+        double currentPlayerScore = currentPlayer.getTotalScore();
+        double nextPlayerScore = nextPlayer.getTotalScore();
+
+        if (currentPlayerScore >= winningScore || nextPlayerScore >= winningScore) {
+            switchScene(event, "end-game-scene.fxml");
+
+            updateScoreLabels(currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore);
+            updateWinningTextLabel(currentPlayer.getPlayerId());
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // Function to update the score labels in the end game scene
+    private void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
+            double nextPlayerScore) {
+
+        String currentPlayerScoreText = getPlayerScoreText(currentPlayer, currentPlayerScore, nextPlayerScore);
+        String nextPlayerScoreText = getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
+
+        controller.playerOneScoreLabel.setText(currentPlayerScoreText);
+        controller.playerTwoScoreLabel.setText(nextPlayerScoreText);
+    }
+
+    // Function to get the score text for a player
+    private String getPlayerScoreText(Player player, double score1, double score2) {
+        return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
+    }
+
+    private String formatScore(double score) {
+        return String.valueOf(DECFORMAT.format(score));
+    }
+
+    // Function to update the winning text label in the end game scene
+    private void updateWinningTextLabel(int playerId) {
+        String winnerText = "Player " + (playerId + 1) + " wins!";
+        controller.winningTextLabel.setText(winnerText);
+    }
+
     private void switchScene(ActionEvent event, String sceneName) throws IOException {
 
-        Parent root = FXMLLoader.load(new File("resources/view/" + sceneName).toURI().toURL());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
 
-        stage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(new File("resources/view/" + sceneName).toURI().toURL());
+        Parent mainParent = loader.load();
+        Scene mainScene = new Scene(mainParent);
+
+        stage.setScene(mainScene);
         stage.show();
+
+        controller = (MatchCardController) loader.getController();
 
     }
 
     @FXML
     void startGame(ActionEvent event) {
-        // if (players.get(1).getTotalScore() > 1) {
-        // Stage currentStage = (Stage) ((Node)
-        // event.getSource()).getScene().getWindow();
-        // SceneController.switchStartScene(currentStage);
-        // return;
-        // }
-
         startGameButton.setVisible(false);
         handView.setVisible(true);
+
         populateBoard(poolCards, false);
         switchPlayer();
     }
@@ -165,7 +209,14 @@ public class MatchCardController implements Initializable {
     @FXML
     void restartGame(ActionEvent event) throws IOException {
         switchScene(event, "match-cards.fxml");
-        startGame(event);
+
+        try {
+            startGame(event);
+
+        } catch (Exception e) {
+            System.out.println("New Game Started!");
+        }
+
     }
 
     @FXML
@@ -439,7 +490,7 @@ public class MatchCardController implements Initializable {
         playerLabel.setText(Integer.toString(player.getPlayerId() + 1));
 
         // Switch player score
-        scoreLabel.setText(String.valueOf(player.getTotalScore()));
+        scoreLabel.setText(String.valueOf(DECFORMAT.format(player.getTotalScore())));
 
         // Populate hand with the new player's hand
         populateBoard(player.getHand(), true);
