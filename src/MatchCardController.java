@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -155,6 +156,7 @@ public class MatchCardController implements Initializable {
             updateScoreLabels(currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore);
             updateWinningTextLabel(currentPlayer.getPlayerId());
             updateWinningCaptureLabel(capture.getCaptureName());
+            populateCapturedCards(capture.getCaptureCards());
             return true;
         }
 
@@ -198,6 +200,22 @@ public class MatchCardController implements Initializable {
 
     private void updateWinningCaptureLabel(String captureName) {
         controller.winningCaptureLabel.setText(captureName);
+    }
+
+    /**
+     * Function to update the captured cards in the end game scene
+     */
+
+    private void populateCapturedCards(Card[] capturedCards) {
+        HBox endingCapture = controller.endingCapture;
+        endingCapture.getChildren().clear(); // Clear previous captured cards
+
+        for (Card card : capturedCards) {
+            ImageView cardImageView = new ImageView(new Image("file:resources/img/" + card.getCardImage()));
+            cardImageView.setFitHeight(170.0);
+            cardImageView.setFitWidth(120.0);
+            endingCapture.getChildren().add(cardImageView);
+        }
     }
 
     private void switchScene(ActionEvent event, String sceneName) throws IOException {

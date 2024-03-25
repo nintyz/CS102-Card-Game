@@ -9,7 +9,7 @@ setMatchButtonState method - try to reorganise code (put in different function).
 
 clearBoard isHandBoard - rename as well. 
 
-update end game screen capture type + show the capture
+update end game screen capture type + show the capture (DONE)
 
 Change successful capture alert style
 
