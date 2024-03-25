@@ -101,6 +101,9 @@ public class MatchCardController implements Initializable {
     private Label winningTextLabel;
 
     @FXML
+    private Label winningCaptureLabel;
+
+    @FXML
     void discardButton(ActionEvent event) {
         Player currentPlayer = players.get(1);
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
@@ -136,7 +139,9 @@ public class MatchCardController implements Initializable {
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
-    // Function to compare player scores and switch scene if necessary
+    /**
+     * This function compares player scores and switches scene if necessary
+     */
     private boolean compareScores(ActionEvent event, Capture capture) throws IOException {
         Player currentPlayer = players.get(0);
         Player nextPlayer = players.get(1);
@@ -149,14 +154,17 @@ public class MatchCardController implements Initializable {
 
             updateScoreLabels(currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore);
             updateWinningTextLabel(currentPlayer.getPlayerId());
-
+            updateWinningCaptureLabel(capture.getCaptureName());
             return true;
         }
 
         return false;
     }
 
-    // Function to update the score labels in the end game scene
+    /**
+     * Function to update the score labels in the end game scene
+     */ 
+
     private void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
             double nextPlayerScore) {
 
@@ -167,7 +175,10 @@ public class MatchCardController implements Initializable {
         controller.playerTwoScoreLabel.setText(nextPlayerScoreText);
     }
 
-    // Function to get the score text for a player
+    /**
+     * Function to get the score text for a player
+     */
+
     private String getPlayerScoreText(Player player, double score1, double score2) {
         return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
     }
@@ -176,10 +187,17 @@ public class MatchCardController implements Initializable {
         return String.valueOf(DECFORMAT.format(score));
     }
 
-    // Function to update the winning text label in the end game scene
+    /**
+     * Function to update the winning text label in the end game scene
+     */
+
     private void updateWinningTextLabel(int playerId) {
         String winnerText = "Player " + (playerId + 1) + " wins!";
         controller.winningTextLabel.setText(winnerText);
+    }
+
+    private void updateWinningCaptureLabel(String captureName) {
+        controller.winningCaptureLabel.setText(captureName);
     }
 
     private void switchScene(ActionEvent event, String sceneName) throws IOException {
@@ -236,14 +254,12 @@ public class MatchCardController implements Initializable {
 
         Capture capture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
-        // create and show invalidCaptureAlert when capture is null (i.e capture is
-        // invalid)
+        // create and show invalidCaptureAlert when capture is null (i.e capture is invalid), else show validCaptureAlert
         if (capture == null) {
             getInvalidCaptureAlert();
             return capture;
         }
 
-        //
         getValidCaptureAlert(capture);
 
         currentPlayer.getHand().remove(selectedHandCard);
@@ -260,10 +276,6 @@ public class MatchCardController implements Initializable {
         return capture;
     }
 
-    /*
-     * creates an alert prompting the user that a valid capture has been made,
-     * dsiplaying its type, value, and card captures
-     */
     private void getValidCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Congratulations!");

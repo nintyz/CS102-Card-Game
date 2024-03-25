@@ -35,7 +35,7 @@
                            </rowConstraints>
                            <children>
                               <Label alignment="CENTER" prefHeight="66.0" prefWidth="281.0" text="Winning Capture:" GridPane.halignment="RIGHT" />
-                              <Label alignment="CENTER" prefHeight="66.0" prefWidth="81.0" text="Run" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
+                              <Label fx:id="winningCaptureLabel" alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="125.0" text="Run" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                            </children>
                         </GridPane>
                         <HBox fx:id="endingCapture" prefHeight="173.0" prefWidth="513.0">
