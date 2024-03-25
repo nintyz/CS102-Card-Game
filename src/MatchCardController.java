@@ -212,8 +212,8 @@ public class MatchCardController implements Initializable {
 
         for (Card card : capturedCards) {
             ImageView cardImageView = new ImageView(new Image("file:resources/img/" + card.getCardImage()));
-            cardImageView.setFitHeight(170.0);
-            cardImageView.setFitWidth(120.0);
+            cardImageView.setFitHeight(169.0);
+            cardImageView.setFitWidth(117.0);
             endingCapture.getChildren().add(cardImageView);
         }
     }
