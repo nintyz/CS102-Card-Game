@@ -38,7 +38,7 @@
                               <Label fx:id="winningCaptureLabel" alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="125.0" text="Run" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                            </children>
                         </GridPane>
-                        <HBox fx:id="endingCapture" alignment="CENTER" prefHeight="173.0" prefWidth="513.0">
+                        <HBox fx:id="endingCapture" alignment="CENTER" prefHeight="173.0" prefWidth="513.0" spacing="3.0">
                            <children>
                               <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
