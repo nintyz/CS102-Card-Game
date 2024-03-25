@@ -9,27 +9,26 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -61,6 +60,9 @@ public class MatchCardController implements Initializable {
     private ArrayList<Card> poolCards = initializeCardPool();
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
+
+    @FXML
+    private Label startGameLabel;
 
     @FXML
     private FlowPane cardPool;
@@ -165,7 +167,7 @@ public class MatchCardController implements Initializable {
 
     /**
      * Function to update the score labels in the end game scene
-     */ 
+     */
 
     private void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
             double nextPlayerScore) {
@@ -236,6 +238,7 @@ public class MatchCardController implements Initializable {
     @FXML
     void startGame(ActionEvent event) {
         startGameButton.setVisible(false);
+        startGameLabel.setVisible(false);
         handView.setVisible(true);
 
         populateBoard(poolCards, false);
@@ -272,7 +275,8 @@ public class MatchCardController implements Initializable {
 
         Capture capture = Capture.returnHighestCapture(selectedHandCard, selectedPoolCard);
 
-        // create and show invalidCaptureAlert when capture is null (i.e capture is invalid), else show validCaptureAlert
+        // create and show invalidCaptureAlert when capture is null (i.e capture is
+        // invalid), else show validCaptureAlert
         if (capture == null) {
             getInvalidCaptureAlert();
             return capture;
@@ -297,25 +301,38 @@ public class MatchCardController implements Initializable {
     private void getValidCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Congratulations!");
-        ArrayList<ImageView> cardList = new ArrayList<>();
 
-        // create ImageView objects storing the images of the capture cards and adding
-        // them to an ArrayList
+        DialogPane dialogPane = alert.getDialogPane();
+
+        // create Label object
+        Label headerLabel = new Label(String.format("%s of value %.1f captured successfully!",
+                capture.getCaptureName(), capture.getScore()));
+        headerLabel.setAlignment(Pos.CENTER);
+        headerLabel.setMaxWidth(Double.MAX_VALUE);
+        headerLabel.setMaxHeight(Double.MAX_VALUE);
+        headerLabel.setStyle("-fx-font-size: 20px;");
+
+        // create FlowPane object and adding the images of the capture cards
+        FlowPane imagePane = new FlowPane();
+        imagePane.setAlignment(Pos.CENTER);
+        imagePane.setHgap(4);
+
         for (Card c : capture.getCaptureCards()) {
             ImageView cardImage = new ImageView("file:resources/img/" + c.getCardImage());
-            cardImage.setFitHeight(250);
-            cardImage.setFitWidth(250);
+            cardImage.setFitHeight(120);
+            cardImage.setFitWidth(120);
             cardImage.setPreserveRatio(true);
-            cardList.add(cardImage);
+
+            imagePane.getChildren().add(cardImage);
         }
 
-        // casting to obervablelist and then ListView for future storing
-        ObservableList<ImageView> obsCardList = FXCollections.observableArrayList(cardList);
-        ListView<ImageView> cardListView = new ListView<>(obsCardList);
+        // Create new grid and add the headerLabel and imagePane
+        GridPane grid = new GridPane();
+        grid.add(headerLabel, 0, 0);
+        grid.add(imagePane, 0, 1);
 
-        alert.setGraphic(cardListView);
-        alert.setHeaderText(String.format("%s of value %.1f captured successfully!",
-                capture.getCaptureName(), capture.getScore()));
+        dialogPane.setHeader(grid);
+        
         alert.setContentText("Click close to end your turn.");
         alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
@@ -351,9 +368,8 @@ public class MatchCardController implements Initializable {
         while (poolCards.size() < poolCardCount) {
 
             if (deck.isEmpty()) {
-                deck.restoreDeck(Suit.VALUES, Rank.VALUES);
-                // use deck = new deck;
-                // deck.shuffle();
+                deck = new Deck(Suit.VALUES, Rank.VALUES);
+                deck.shuffle();
             }
 
             poolCards.add(deck.dealCard());
@@ -365,7 +381,8 @@ public class MatchCardController implements Initializable {
         while (currentPlayer.getHand().size() < playerCardCount) {
 
             if (deck.isEmpty()) {
-                deck.restoreDeck(Suit.VALUES, Rank.VALUES);
+                deck = new Deck(Suit.VALUES, Rank.VALUES);
+                deck.shuffle();
             }
 
             currentPlayer.getHand().add(deck.dealCard());
