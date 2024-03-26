@@ -50,10 +50,10 @@ public class MatchCardController implements Initializable {
 
     private final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
 
-    private final int PLAYERCOUNT = 2;
-    private final int poolCardCount = 10;
-    private final int playerCardCount = 4;
-    private final int winningScore = 2;
+    private final int PLAYER_COUNT = 2;
+    private final int POOL_CARD_COUNT = 10;
+    private final int HAND_CARD_COUNT = 4;
+    private final int WINNING_SCORE = 20;
 
     private Deck deck = initializeDeck();
     private ArrayList<Player> players = initializePlayers();
@@ -116,6 +116,7 @@ public class MatchCardController implements Initializable {
         populateBoard(poolCards, false);
 
         switchPlayer();
+        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
     @FXML
@@ -152,7 +153,7 @@ public class MatchCardController implements Initializable {
         double currentPlayerScore = currentPlayer.getTotalScore();
         double nextPlayerScore = nextPlayer.getTotalScore();
 
-        if (currentPlayerScore >= winningScore || nextPlayerScore >= winningScore) {
+        if (currentPlayerScore >= WINNING_SCORE || nextPlayerScore >= WINNING_SCORE) {
             switchScene(event, "end-game-scene.fxml");
 
             updateScoreLabels(currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore);
@@ -361,15 +362,47 @@ public class MatchCardController implements Initializable {
         Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
         deck.shuffle();
 
+        //testing TO REMOVE
+        for (int i = 0; i < 25; i++) {
+            deck.dealCard();
+        }
+
         return deck;
     }
 
-    private void replaceCardPool() {
-        while (poolCards.size() < poolCardCount) {
+    private void resetHand(Player player) {
+        ArrayList<Card> currentHand = player.getHand();
+        currentHand.clear();
 
+        while(currentHand.size() < HAND_CARD_COUNT) {
+            currentHand.add(deck.dealCard());
+        }
+
+    }
+
+    private void resetPoolCards() {
+        poolCards.clear();
+
+        while(poolCards.size() < POOL_CARD_COUNT) {
+            poolCards.add(deck.dealCard());
+    }
+
+   }
+    private void replaceCardPool() {
+        while (poolCards.size() < POOL_CARD_COUNT) {
+            /**
+             * refills the deck and resets the pool and handcards of the players with new cards when deck is empty
+             */
             if (deck.isEmpty()) {
                 deck = new Deck(Suit.VALUES, Rank.VALUES);
                 deck.shuffle();
+                
+                resetPoolCards();
+                for (Player p : players) {
+                    resetHand(p);
+                }
+
+                break;
             }
 
             poolCards.add(deck.dealCard());
@@ -378,15 +411,20 @@ public class MatchCardController implements Initializable {
     }
 
     private void replaceHandCard(Player currentPlayer) {
-        while (currentPlayer.getHand().size() < playerCardCount) {
+        while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
 
             if (deck.isEmpty()) {
                 deck = new Deck(Suit.VALUES, Rank.VALUES);
                 deck.shuffle();
+
+                resetPoolCards();
+                for (Player p : players) {
+                    resetHand(p);
+                }
+
+                break;
             }
-
             currentPlayer.getHand().add(deck.dealCard());
-
         }
     }
 
@@ -394,7 +432,7 @@ public class MatchCardController implements Initializable {
 
         ArrayList<Card> poolCards = new ArrayList<Card>();
 
-        for (int i = 0; i < poolCardCount; i++) {
+        for (int i = 0; i < POOL_CARD_COUNT; i++) {
             poolCards.add(deck.dealCard());
         }
 
@@ -405,13 +443,13 @@ public class MatchCardController implements Initializable {
         ArrayList<Player> players = new ArrayList<Player>();
 
         // Create players
-        for (int i = 0; i < PLAYERCOUNT; i++) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
             players.add(new Player(i));
         }
 
         // Distribute cards to players
-        for (int i = 0; i < (playerCardCount * PLAYERCOUNT); i++) {
-            Player currentPlayer = players.get(i % PLAYERCOUNT);
+        for (int i = 0; i < (HAND_CARD_COUNT * PLAYER_COUNT); i++) {
+            Player currentPlayer = players.get(i % PLAYER_COUNT);
             currentPlayer.getHand().add(deck.dealCard());
         }
 
@@ -439,7 +477,7 @@ public class MatchCardController implements Initializable {
             registerClickListener(borderPane, imageView);
         }
     }
-
+    
     private void clearBoard(FlowPane flowPane, boolean isHandBoard) {
 
         for (int i = 0; i < flowPane.getChildren().size(); i++) {
