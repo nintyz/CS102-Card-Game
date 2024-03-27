@@ -6,11 +6,13 @@ update end game screen capture type + show the capture (DONE)
 
 Change successful capture alert style (DONE)
 
-see how to combine replaceCardPool and replaceHandCard
-
+(DONE)
 fix bug where if number of cards run out, new deck populated, duplicate cards in board/hand
     - reinitialise deck, players and poolcards
     - populate board again (might lose previous cards but trade off to prevent dupes)
+
+
+see how to combine replaceCardPool and replaceHandCard
 
 setMatchButtonState method - try to reorganise code (put in different function). 
                            - rename this method.
