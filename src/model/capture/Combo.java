@@ -1,8 +1,8 @@
-package model.captureModel;
+package model.capture;
 import java.util.*;
 
-import model.cardModel.Card;
-import model.cardModel.Rank;
+import model.card.Card;
+import model.card.Rank;
 
 /**
  * Combo.java

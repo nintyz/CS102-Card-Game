@@ -1,4 +1,4 @@
-package model.cardModel;
+package model.card;
 
 public class Card implements Comparable<Card> {
 

@@ -1,4 +1,5 @@
 package controller;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -11,16 +12,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import model.cardModel.Card;
-import model.gameModel.Player;
-import model.captureModel.*;
+import model.capture.Capture;
+import model.card.Card;
+import model.game.Player;
 
 /**
- * This class handles the switching of scenes between the main game scene and end scene and updating of JavaFX elements
-**/ 
+ * This class handles the switching of scenes between the main game scene and
+ * end scene and updating of JavaFX elements
+ **/
 
-public class SceneController{
+public class SceneController {
     private static MatchCardController controller;
     private static final String MAIN_SCENE = "resources/view/match-cards.fxml";
     private static final String END_SCENE = "resources/view/end-game-scene.fxml";
@@ -29,8 +30,9 @@ public class SceneController{
         controller = newController;
     }
 
-    public static MatchCardController switchEndScene(ActionEvent event, Player currentPlayer, double currentPlayerScore, Player nextPlayer,
-                                                     double nextPlayerScore, Capture capture) throws IOException {
+    public static MatchCardController switchEndScene(ActionEvent event, Player currentPlayer, double currentPlayerScore,
+            Player nextPlayer,
+            double nextPlayerScore, Capture capture) throws IOException {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -48,7 +50,7 @@ public class SceneController{
         populateCapturedCards(capture.getCaptureCards());
 
         return controller;
-        
+
     }
 
     public static MatchCardController switchMainScene(ActionEvent event) throws IOException {
@@ -63,7 +65,7 @@ public class SceneController{
         stage.show();
 
         return (MatchCardController) loader.getController();
-        
+
     }
 
     /**
@@ -73,7 +75,8 @@ public class SceneController{
     public static void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
             double nextPlayerScore) {
 
-        String currentPlayerScoreText = controller.getPlayerScoreText(currentPlayer, currentPlayerScore, nextPlayerScore);
+        String currentPlayerScoreText = controller.getPlayerScoreText(currentPlayer, currentPlayerScore,
+                nextPlayerScore);
         String nextPlayerScoreText = controller.getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
 
         controller.getPlayerOneScoreLabel().setText(currentPlayerScoreText);
