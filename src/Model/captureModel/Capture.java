@@ -1,4 +1,7 @@
+package Model.captureModel;
 import java.util.ArrayList;
+
+import Model.cardModel.Card;
 
 /**
  * Capture.java

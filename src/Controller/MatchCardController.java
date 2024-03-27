@@ -1,3 +1,4 @@
+package Controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -6,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Model.captureModel.Capture;
+import Model.cardModel.Card;
+import Model.cardModel.Rank;
+import Model.cardModel.Suit;
+import Model.gameModel.Deck;
+import Model.gameModel.Player;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -53,7 +60,7 @@ public class MatchCardController implements Initializable {
     private final int PLAYER_COUNT = 2;
     private final int POOL_CARD_COUNT = 10;
     private final int HAND_CARD_COUNT = 4;
-    private final int WINNING_SCORE = 20;
+    private final int WINNING_SCORE = 5;
 
     private Deck deck = initializeDeck();
     private ArrayList<Player> players = initializePlayers();

@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Model.cardModel.Card;
+import Model.cardModel.Rank;
+import Model.cardModel.Suit;
+import Model.gameModel.Deck;
+import Model.gameModel.Player;
+
 public class Game {
 
     final static int POOLCARD = 10, PLAYERCARD = 4;

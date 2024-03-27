@@ -1,5 +1,8 @@
+package Model.gameModel;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import Model.cardModel.Card;
 
 public class Hand {
 

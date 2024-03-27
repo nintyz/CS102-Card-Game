@@ -1,4 +1,7 @@
+package Model.captureModel;
 import java.util.*;
+
+import Model.cardModel.Card;
 
 /**
  * Pair.java

@@ -1,3 +1,5 @@
+package Model.cardModel;
+
 public class Card implements Comparable<Card> {
 
    private Suit suitValue;
