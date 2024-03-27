@@ -1,4 +1,5 @@
 package controller;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import model.captureModel.Capture;
 import model.cardModel.Card;
 import model.cardModel.Rank;
@@ -54,6 +56,8 @@ import model.gameModel.Player;
 public class MatchCardController implements Initializable {
 
     private MatchCardController controller = this;
+    private final String MAIN_SCENE = "match-cards.fxml";
+    private final String END_SCENE = "end-game-scene.fxml";
 
     private final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
 
@@ -115,9 +119,11 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void discardButton(ActionEvent event) {
+
         Player currentPlayer = players.get(1);
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         currentPlayer.getHand().remove(selectedHandCard);
+
         currentPlayer.getSelectedCards().clear();
         replaceHandCard(currentPlayer);
         populateBoard(poolCards, false);
@@ -150,8 +156,33 @@ public class MatchCardController implements Initializable {
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
+    public Label getPlayerOneScoreLabel() {
+        return playerOneScoreLabel;
+    }
+
+    public Label getPlayerTwoScoreLabel() {
+        return playerTwoScoreLabel;
+    }
+    
+    public Label getScoreLabel() {
+        return scoreLabel;
+    }
+
+    public Label getWinningTextLabel() {
+        return winningTextLabel;
+    }
+
+    public Label getWinningCaptureLabel() {
+        return winningCaptureLabel;
+    }
+
+    public HBox getEndingCapture() {
+        return endingCapture;
+    }
+
     /**
-     * This function compares player scores and switches scene if necessary
+     * This function compares player scores and switches scene when either player has hit or exceeded the
+     * winning score
      */
     private boolean compareScores(ActionEvent event, Capture capture) throws IOException {
         Player currentPlayer = players.get(0);
@@ -161,12 +192,12 @@ public class MatchCardController implements Initializable {
         double nextPlayerScore = nextPlayer.getTotalScore();
 
         if (currentPlayerScore >= WINNING_SCORE || nextPlayerScore >= WINNING_SCORE) {
-            switchScene(event, "end-game-scene.fxml");
-
-            updateScoreLabels(currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore);
-            updateWinningTextLabel(currentPlayer.getPlayerId());
-            updateWinningCaptureLabel(capture.getCaptureName());
-            populateCapturedCards(capture.getCaptureCards());
+            controller = SceneController.switchEndScene(event, currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore, capture);
+            // SceneController.setMatchCardController(controller);
+            // SceneController.updateScoreLabels(currentPlayer, currentPlayerScore, nextPlayer, nextPlayerScore);
+            // SceneController.updateWinningTextLabel(currentPlayer.getPlayerId());
+            // SceneController.updateWinningCaptureLabel(capture.getCaptureName());
+            // SceneController.populateCapturedCards(capture.getCaptureCards());
             return true;
         }
 
@@ -177,21 +208,21 @@ public class MatchCardController implements Initializable {
      * Function to update the score labels in the end game scene
      */
 
-    private void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
-            double nextPlayerScore) {
+    // private void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
+    //         double nextPlayerScore) {
 
-        String currentPlayerScoreText = getPlayerScoreText(currentPlayer, currentPlayerScore, nextPlayerScore);
-        String nextPlayerScoreText = getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
+    //     String currentPlayerScoreText = getPlayerScoreText(currentPlayer, currentPlayerScore, nextPlayerScore);
+    //     String nextPlayerScoreText = getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
 
-        controller.playerOneScoreLabel.setText(currentPlayerScoreText);
-        controller.playerTwoScoreLabel.setText(nextPlayerScoreText);
-    }
+    //     controller.playerOneScoreLabel.setText(currentPlayerScoreText);
+    //     controller.playerTwoScoreLabel.setText(nextPlayerScoreText);
+    // }
 
     /**
      * Function to get the score text for a player
      */
 
-    private String getPlayerScoreText(Player player, double score1, double score2) {
+    public String getPlayerScoreText(Player player, double score1, double score2) {
         return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
     }
 
@@ -203,45 +234,45 @@ public class MatchCardController implements Initializable {
      * Function to update the winning text label in the end game scene
      */
 
-    private void updateWinningTextLabel(int playerId) {
-        String winnerText = "Player " + (playerId + 1) + " wins!";
-        controller.winningTextLabel.setText(winnerText);
-    }
+    // private void updateWinningTextLabel(int playerId) {
+    //     String winnerText = "Player " + (playerId + 1) + " wins!";
+    //     controller.winningTextLabel.setText(winnerText);
+    // }
 
-    private void updateWinningCaptureLabel(String captureName) {
-        controller.winningCaptureLabel.setText(captureName);
-    }
+    // private void updateWinningCaptureLabel(String captureName) {
+    //     controller.winningCaptureLabel.setText(captureName);
+    // }
 
-    /**
-     * Function to update the captured cards in the end game scene
-     */
+    // /**
+    //  * Function to update the captured cards in the end game scene
+    //  */
 
-    private void populateCapturedCards(Card[] capturedCards) {
-        HBox endingCapture = controller.endingCapture;
-        endingCapture.getChildren().clear(); // Clear previous captured cards
+    // private void populateCapturedCards(Card[] capturedCards) {
+    //     HBox endingCapture = controller.endingCapture;
+    //     endingCapture.getChildren().clear(); // Clear previous captured cards
 
-        for (Card card : capturedCards) {
-            ImageView cardImageView = new ImageView(new Image("file:resources/img/" + card.getCardImage()));
-            cardImageView.setFitHeight(169.0);
-            cardImageView.setFitWidth(117.0);
-            endingCapture.getChildren().add(cardImageView);
-        }
-    }
+    //     for (Card card : capturedCards) {
+    //         ImageView cardImageView = new ImageView(new Image("file:resources/img/" + card.getCardImage()));
+    //         cardImageView.setFitHeight(169.0);
+    //         cardImageView.setFitWidth(117.0);
+    //         endingCapture.getChildren().add(cardImageView);
+    //     }
+    // }
 
-    private void switchScene(ActionEvent event, String sceneName) throws IOException {
+    // private void switchScene(ActionEvent event, String sceneName) throws IOException {
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    //     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        FXMLLoader loader = new FXMLLoader(new File("resources/view/" + sceneName).toURI().toURL());
-        Parent mainParent = loader.load();
-        Scene mainScene = new Scene(mainParent);
+    //     FXMLLoader loader = new FXMLLoader(new File("resources/view/" + sceneName).toURI().toURL());
+    //     Parent mainParent = loader.load();
+    //     Scene mainScene = new Scene(mainParent);
 
-        stage.setScene(mainScene);
-        stage.show();
+    //     stage.setScene(mainScene);
+    //     stage.show();
 
-        controller = (MatchCardController) loader.getController();
+    //     controller = (MatchCardController) loader.getController();
 
-    }
+    // }
 
     @FXML
     void startGame(ActionEvent event) {
@@ -255,7 +286,7 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void restartGame(ActionEvent event) throws IOException {
-        switchScene(event, "match-cards.fxml");
+        SceneController.switchMainScene(event);
 
         try {
             startGame(event);
