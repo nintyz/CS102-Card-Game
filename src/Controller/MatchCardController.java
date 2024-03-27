@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -7,12 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Model.captureModel.Capture;
-import Model.cardModel.Card;
-import Model.cardModel.Rank;
-import Model.cardModel.Suit;
-import Model.gameModel.Deck;
-import Model.gameModel.Player;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -37,6 +31,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.captureModel.Capture;
+import model.cardModel.Card;
+import model.cardModel.Rank;
+import model.cardModel.Suit;
+import model.gameModel.Deck;
+import model.gameModel.Player;
 
 /**
  * MatchCardController.java

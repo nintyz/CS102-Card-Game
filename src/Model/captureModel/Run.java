@@ -1,9 +1,9 @@
-package Model.captureModel;
+package model.captureModel;
 
 import java.util.*;
 
-import Model.cardModel.Card;
-import Model.cardModel.Suit;
+import model.cardModel.Card;
+import model.cardModel.Suit;
 
 /**
  * Run.java

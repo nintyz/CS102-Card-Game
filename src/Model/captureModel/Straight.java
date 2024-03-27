@@ -1,8 +1,8 @@
-package Model.captureModel;
+package model.captureModel;
 import java.util.*;
 
-import Model.cardModel.Card;
-import Model.cardModel.Rank;
+import model.cardModel.Card;
+import model.cardModel.Rank;
 
 /**
  * Straight.java
