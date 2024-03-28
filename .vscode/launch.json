@@ -8,16 +8,9 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "controller.App",
+            "mainClass": "App",
             "projectName": "CS102-Card-Game-1_53c07c3d",
             "vmArgs": "--module-path \"libraries/javafx-sdk-21.0.2/lib\" --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "Game",
-            "request": "launch",
-            "mainClass": "Game",
-            "projectName": "CS102-Card-Game-1_53c07c3d"
         },
         {
             "type": "java",
