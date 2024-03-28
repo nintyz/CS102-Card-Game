@@ -51,7 +51,6 @@ public class MatchCardController implements Initializable {
     private Deck deck = GameUtil.getDeck();
     private ArrayList<Player> players = GameUtil.getPlayers();
     private ArrayList<Card> poolCards = GameUtil.getPoolCards();
-    private final int WINNING_SCORE = GameUtil.getWinningScore();
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
 
@@ -100,46 +99,7 @@ public class MatchCardController implements Initializable {
     @FXML
     private Label winningCaptureLabel;
 
-    @FXML
-    void discardButton(ActionEvent event) {
-
-        Player currentPlayer = players.get(1);
-        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
-        currentPlayer.getHand().remove(selectedHandCard);
-
-        currentPlayer.getSelectedCards().clear();
-        GameUtil.replaceHandCard(currentPlayer);
-        populateBoard(poolCards, false);
-
-        switchPlayer();
-        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
-
-    }
-
-    @FXML
-    void matchButton(ActionEvent event) throws IOException {
-        Player currentPlayer = players.get(1);
-
-        Capture capture = attemptCapture(currentPlayer);
-
-        // return to main method when captureAttempt is null (capture is invalid)
-        if (capture == null) {
-            return;
-        }
-
-        /*
-         * checks if current player has reached the winning score, if yes switch to end
-         * game scene
-         */
-        if (winningScoreReached(event, capture)) {
-            return;
-        }
-
-        populateBoard(poolCards, false);
-        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
-    }
-
-    public Label getPlayerOneScoreLabel() {
+     public Label getPlayerOneScoreLabel() {
         return playerOneScoreLabel;
     }
 
@@ -163,54 +123,46 @@ public class MatchCardController implements Initializable {
         return endingCapture;
     }
 
-    /**
-     * This function compares player scores and switches scene when either player
-     * has hit or exceeded the
-     * winning score
-     */
-    private boolean winningScoreReached(ActionEvent event, Capture capture) throws IOException {
-
-        if (GameUtil.winningScoreReached(capture)) {
-            SceneController.switchEndScene(event, players.get(0), players.get(0).getTotalScore(), players.get(1),
-                    players.get(1).getTotalScore(), capture);
-                
-            return true;
-        }
-
-        return false;
-    }
-
     @FXML
-    void startGame(ActionEvent event) {
-        startGameButton.setVisible(false);
-        startGameLabel.setVisible(false);
-        handView.setVisible(true);
+    void discardButton(ActionEvent event) {
 
+        Player currentPlayer = players.get(1);
+        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        currentPlayer.getHand().remove(selectedHandCard);
+
+        currentPlayer.getSelectedCards().clear();
+        GameUtil.replaceHandCard(currentPlayer);
         populateBoard(poolCards, false);
+
         switchPlayer();
+        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
+
     }
 
     @FXML
-    void restartGame(ActionEvent event) throws IOException {
-        SceneController.switchMainScene(event);
+    void matchButton(ActionEvent event) throws IOException {
+        Player currentPlayer = players.get(1);
 
-        try {
-            startGame(event);
+        Capture capture = attemptCapture(currentPlayer);
 
-        } catch (Exception e) {
-            System.out.println("New Game Started!");
+        if (capture == null) {
+            return;
         }
 
-    }
+        /*
+         * checks if current player has reached the winning score, if yes switch to end
+         * game scene
+         */
+        if (GameUtil.winningScoreReached(capture)) {
 
-    @FXML
-    void quitGame(ActionEvent event) {
-        Platform.exit();
-    }
+            SceneController.switchEndScene(event, players.get(0), players.get(0).getTotalScore(), players.get(1),
+                                           players.get(1).getTotalScore(), capture);
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        handView.setVisible(false);
+            return;
+        }
+        
+        populateBoard(poolCards, false);
+        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
     private Capture attemptCapture(Player currentPlayer) {
@@ -294,6 +246,39 @@ public class MatchCardController implements Initializable {
         alert.setContentText("Click close to return to game screen.");
         alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
+    }
+    
+    @FXML
+    void startGame(ActionEvent event) {
+        startGameButton.setVisible(false);
+        startGameLabel.setVisible(false);
+        handView.setVisible(true);
+
+        populateBoard(poolCards, false);
+        switchPlayer();
+    }
+
+    @FXML
+    void restartGame(ActionEvent event) throws IOException {
+        SceneController.switchMainScene(event);
+
+        try {
+            startGame(event);
+
+        } catch (Exception e) {
+            System.out.println("New Game Started!");
+        }
+
+    }
+
+    @FXML
+    void quitGame(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        handView.setVisible(false);
     }
 
     private void populateBoard(List<Card> cards, Boolean isPlayer) {
