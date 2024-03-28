@@ -42,10 +42,6 @@ public class Player {
         this.totalScore += score;
     }
 
-    public void resetScore() {
-        this.totalScore = 0;
-    }
-
     public ArrayList<Card> getHand() {
         return this.hand.getHand();
     }

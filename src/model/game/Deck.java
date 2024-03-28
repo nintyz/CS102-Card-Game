@@ -46,25 +46,6 @@ public class Deck {
       }
    }
 
-
-   /**
-    * Adds a card to the deck.
-    * 
-    * @param card card to be added to the deck.
-    */
-   public void addCard(Card card) {
-      deck.add(card);
-   }
-
-   /**
-    * The size of a deck of cards.
-    * 
-    * @return the number of cards present in the full deck.
-    */
-   public int getSizeOfDeck() {
-      return deck.size();
-   }
-
    /**
     * The number of cards left in the deck.
     * 
@@ -106,23 +87,4 @@ public class Deck {
       else
          return false;
    }
-
-   /**
-    * Restores the deck to "full deck" status.
-    */
-   public void restoreDeck(List<Suit> suit, List<Rank> rank) {
-      for (Suit s : suit) {
-         for (Rank r: rank) {
-            deck.add(new Card(s, r));
-         }
-      }
-   }
-
-   public Card getCard(int index) {
-      return deck.get(index);
-   }
-   public void sortDeck() {
-      Collections.sort(deck);
-   }
-
 }

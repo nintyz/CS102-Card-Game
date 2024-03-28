@@ -34,19 +34,14 @@ public class Combo extends Capture {
         if (poolCards.size() < 2) {
             return null;
         }
-        // gets the value of zero index card to be compared with the other cards
-        Rank zeroIdxCard = Rank.ACE;
-        if (Rank.isAceHigh()) {
-            zeroIdxCard = Rank.TWO;
-        }
 
         // adds rank value of each poolcard to total
         for (Card card : poolCards) {
-            total += card.getRank().compareTo(zeroIdxCard) + 1;
+            total += card.getRank().getValue();
         }
         
         
-        if (handCard.getRank().compareTo(zeroIdxCard) + 1 != total) {
+        if (handCard.getRank().getValue() != total) {
             return null;
         } 
 

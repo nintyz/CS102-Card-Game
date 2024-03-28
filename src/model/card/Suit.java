@@ -45,15 +45,6 @@ public final class Suit implements Comparable<Suit> {
    }
 
    /**
-    * Returns a description of this suit.
-    * 
-    * @return the name of the suit.
-    */
-   public String getName() {
-      return name;
-   }
-
-   /**
     * The symbol associated with this suit. Returns the symbol, which
     * usually constitutes a single character, in the form of a string.
     * Symbol is used for the construction of the filenames of the card images.

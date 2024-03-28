@@ -27,22 +27,6 @@ public class Card implements Comparable<Card> {
       return rankValue.toString() + " of " + suitValue.toString();
    }
 
-   public String rankToString() {
-      return rankValue.toString();
-   }
-
-   public String suitToString() {
-      return suitValue.toString();
-   }
-
-   public static void setRankMajorSort() {
-      sortRankMajorOrder = true;
-   }
-
-   public static void setSuitMajorSort() {
-      sortRankMajorOrder = false;
-   }
-
    public int compareTo(Card otherCardObject) {
       Card otherCard = otherCardObject;
       int suitDiff = suitValue.compareTo(otherCard.suitValue);

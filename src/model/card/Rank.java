@@ -23,7 +23,6 @@ import java.util.List;
 public class Rank implements Comparable<Rank> {
    private String name;
    private String symbol;
-   private static boolean isAceHigh = false;
 
    /**
     * The rank ace.
@@ -99,39 +98,26 @@ public class Rank implements Comparable<Rank> {
    }
 
    /**
-    * Sets the king to be the card having highest rank. The ace is
-    * reduced to the lowest rank.
-    */
-   public static void setKingHigh() {
-      isAceHigh = false;
-   }
-
-   /**
-    * Sets the ace to be the card having highest rank. The two becomes
-    * the lowest rank.
-    */
-   public static void setAceHigh() {
-      isAceHigh = true;
-   }
-   public static boolean isAceHigh() {
-      return isAceHigh;
-   }
-   /**
-    * Returns a description of this rank.
-    * 
-    * @return the name of this rank.
-    */
-   public String getName() {
-      return name;
-   }
-
-   /**
     * Returns a description of this rank.
     * 
     * @return the name of this rank.
     */
    public String toString() {
       return name;
+   }
+
+   /**
+    * Returns value of this rank
+    * 
+    * @return the value of the rank in terms of int.
+    */
+   public int getValue() {
+      if (symbol.equals("ace")) {
+         return 1;
+      } else if (symbol.equals("king") || symbol.equals("queen") || symbol.equals("jack")) {
+         return 10;
+      }
+      return Integer.parseInt(symbol);
    }
 
    /**
@@ -151,18 +137,13 @@ public class Rank implements Comparable<Rank> {
     * 
     * @param otherRankObject the other rank.
     * @return the arithmetic difference between the compared ranks
-    *         based on their ordering in the listing of values. This result
-    *         may differ depending on whether the king or the ace is considered
-    *         the high card. Result will be < 0 if this rank is lower than
+    *         based on their ordering in the listing of values.
+    *         Result will be < 0 if this rank is lower than
     *         the other rank, 0 if the ranks are the same, or > 0 if this
     *         rank is higher than the other rank.
     */
    public int compareTo(Rank otherRankObject) {
-      Rank otherRank = otherRankObject;
-      if (isAceHigh)
-         return VALUES_ACE_HIGH.indexOf(this) - VALUES_ACE_HIGH.indexOf(otherRank);
-      else
-         return VALUES_KING_HIGH.indexOf(this) - VALUES_KING_HIGH.indexOf(otherRank);
+      return VALUES_KING_HIGH.indexOf(this) - VALUES_KING_HIGH.indexOf(otherRankObject);
    }
 
 }
