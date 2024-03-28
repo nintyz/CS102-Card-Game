@@ -28,6 +28,9 @@ public class Run extends Capture{
     }
     
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards) {
+
+        List<Card> temp = new ArrayList<>();
+
         // check if length of selected cards is at least 2
         if(poolCards.size() != 2) {
             return null;
@@ -38,18 +41,21 @@ public class Run extends Capture{
             if(!c.getSuit().equals(suit)) {
                 return null;
             }
+
+            temp.add(c);
         }
 
         //check if the ranks of the cards are in sequence
-        poolCards.add(handCard);
-        Collections.sort(poolCards);
+        temp.add(handCard);
+        Collections.sort(temp);
 
-        for (int i = 0; i < poolCards.size() - 1; i++) {
-            if(poolCards.get(i).getRank().compareTo(poolCards.get(i + 1).getRank()) != -1) {
+        for (int i = 0; i < temp.size() - 1; i++) {
+            if(temp.get(i).getRank().compareTo(temp.get(i + 1).getRank()) != -1) {
                 return null;
             }
         }
 
+        poolCards.add(handCard);
         Card[] run = poolCards.toArray(new Card[poolCards.size()]);
         return new Run(run);
     }
