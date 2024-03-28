@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
 import model.capture.Capture;
 import model.card.Card;
 import model.card.Rank;
