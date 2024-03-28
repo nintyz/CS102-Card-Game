@@ -75,9 +75,9 @@ public class SceneController {
     public static void updateScoreLabels(Player currentPlayer, double currentPlayerScore, Player nextPlayer,
             double nextPlayerScore) {
 
-        String currentPlayerScoreText = GameUtil.getPlayerScoreText(currentPlayer, currentPlayerScore,
+        String currentPlayerScoreText = controller.getPlayerScoreText(currentPlayer, currentPlayerScore,
                 nextPlayerScore);
-        String nextPlayerScoreText = GameUtil.getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
+        String nextPlayerScoreText = controller.getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
 
         controller.getPlayerOneScoreLabel().setText(currentPlayerScoreText);
         controller.getPlayerTwoScoreLabel().setText(nextPlayerScoreText);
