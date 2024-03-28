@@ -1,10 +1,9 @@
 package controller;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-import model.capture.Capture;
 import model.card.Card;
 import model.card.Rank;
 import model.card.Suit;
@@ -18,9 +17,9 @@ public class GameUtil {
     private static final int WINNING_SCORE = 7;
     private static final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
 
-    private static Deck deck = initializeDeck();
-    private static ArrayList<Player> players = initializePlayers();
-    private static ArrayList<Card> poolCards = initializeCardPool();
+    public static DecimalFormat getDecFormat() {
+        return DECFORMAT;
+    }
 
     public static Deck initializeDeck() {
         Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
@@ -29,9 +28,9 @@ public class GameUtil {
         return deck;
     }
 
-    public static ArrayList<Card> initializeCardPool() {
+    public static ArrayList<Card> initializeCardPool(Deck deck) {
 
-        ArrayList<Card> poolCards = new ArrayList<Card>();
+    ArrayList<Card> poolCards = new ArrayList<Card>();
 
         for (int i = 0; i < POOL_CARD_COUNT; i++) {
             poolCards.add(deck.dealCard());
@@ -40,7 +39,7 @@ public class GameUtil {
         return poolCards;
     }
 
-    public static ArrayList<Player> initializePlayers() {
+    public static ArrayList<Player> initializePlayers(Deck deck) {
         ArrayList<Player> players = new ArrayList<Player>();
 
         // Create players
@@ -64,22 +63,10 @@ public class GameUtil {
     }
 
 
-    public static Deck getDeck() {
-        return deck;
-    }
-
-    public static ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public static ArrayList<Card> getPoolCards() {
-        return poolCards;
-    }
-
     public static int getWinningScore() {
         return WINNING_SCORE;
     }
-    public static void clearSelectedCards() {
+    public static void clearSelectedCards(List<Player> players) {
 
         // Clear selected cards after each player's turn
         for (Player player : players) {
@@ -90,7 +77,7 @@ public class GameUtil {
     }
 
 
-    public static void resetHand(Player player) {
+    public static void resetHand(Player player, Deck deck) {
         ArrayList<Card> currentHand = player.getHand();
         currentHand.clear();
 
@@ -100,7 +87,7 @@ public class GameUtil {
 
     }
 
-    public static void resetPoolCards() {
+    public static void resetPoolCards(List<Card> poolCards, Deck deck) {
         poolCards.clear();
 
         while (poolCards.size() < POOL_CARD_COUNT) {
@@ -109,7 +96,7 @@ public class GameUtil {
 
     }
 
-    public static void replaceCardPool() {
+    public static void replaceCardPool(List<Card> poolCards, Deck deck, List<Player> players) {
         while (poolCards.size() < POOL_CARD_COUNT) {
             /**
              * refills the deck and resets the pool and handcards of the players with new
@@ -119,9 +106,9 @@ public class GameUtil {
                 deck = new Deck(Suit.VALUES, Rank.VALUES);
                 deck.shuffle();
 
-                resetPoolCards();
+                resetPoolCards(poolCards, deck);
                 for (Player p : players) {
-                    resetHand(p);
+                    resetHand(p, deck);
                 }
 
                 break;
@@ -132,16 +119,18 @@ public class GameUtil {
         }
     }
 
-    public static void replaceHandCard(Player currentPlayer) {
+    public static void replaceHandCard(List<Card> poolCards, Deck deck, List<Player> players) {
+        Player currentPlayer = players.get(1);
+        
         while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
 
             if (deck.isEmpty()) {
                 deck = new Deck(Suit.VALUES, Rank.VALUES);
                 deck.shuffle();
 
-                resetPoolCards();
+                resetPoolCards(poolCards, deck);
                 for (Player p : players) {
-                    resetHand(p);
+                    resetHand(p, deck);
                 }
 
                 break;
@@ -152,6 +141,10 @@ public class GameUtil {
         }
     }
 
+     /**
+     * Function to get the score text for a player
+     */
+
     public static String getPlayerScoreText(Player player, double score1, double score2) {
         return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
     }
@@ -160,7 +153,8 @@ public class GameUtil {
         return String.valueOf(DECFORMAT.format(score));
     }
 
-    public static boolean winningScoreReached(Capture capture) throws IOException {
+
+    public static boolean winningScoreReached(List<Player> players){
         return (players.get(0).getTotalScore() >= WINNING_SCORE || players.get(1).getTotalScore() >= WINNING_SCORE);
     }
 }
