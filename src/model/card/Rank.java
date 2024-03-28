@@ -77,18 +77,9 @@ public class Rank implements Comparable<Rank> {
     */
    public final static Rank KING = new Rank("King", "king");
 
-   private final static List<Rank> VALUES_KING_HIGH = Collections.unmodifiableList(
+   public final static List<Rank> VALUES = Collections.unmodifiableList(
          Arrays.asList(new Rank[] { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
                EIGHT, NINE, TEN, JACK, QUEEN, KING }));
-
-   private final static List<Rank> VALUES_ACE_HIGH = Collections.unmodifiableList(
-         Arrays.asList(new Rank[] { TWO, THREE, FOUR, FIVE, SIX, SEVEN,
-               EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE }));
-
-   /**
-    * List of all rank values. Used primarily for the purpose of iteration.
-    */
-   public final static List<Rank> VALUES = Collections.unmodifiableList(VALUES_KING_HIGH);
 
    // Constructor - declared private as only the predefined values should
    // be used by the client.
@@ -143,7 +134,7 @@ public class Rank implements Comparable<Rank> {
     *         rank is higher than the other rank.
     */
    public int compareTo(Rank otherRankObject) {
-      return VALUES_KING_HIGH.indexOf(this) - VALUES_KING_HIGH.indexOf(otherRankObject);
+      return VALUES.indexOf(this) - VALUES.indexOf(otherRankObject);
    }
 
 }
