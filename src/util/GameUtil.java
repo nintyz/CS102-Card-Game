@@ -1,4 +1,4 @@
-package controller;
+package util;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -11,10 +11,13 @@ import model.game.Deck;
 import model.game.Player;
 
 public class GameUtil {
+    public static final String MAIN_SCENE = "resources/view/match-cards.fxml";
+    public static final String END_SCENE = "resources/view/end-game-test.fxml";
+
     private static final int PLAYER_COUNT = 2;
     private static final int POOL_CARD_COUNT = 10;
     private static final int HAND_CARD_COUNT = 4;
-    private static final int WINNING_SCORE = 7;
+    private static final int WINNING_SCORE = 2;
     private static final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
 
     public static DecimalFormat getDecFormat() {
@@ -30,7 +33,7 @@ public class GameUtil {
 
     public static ArrayList<Card> initializeCardPool(Deck deck) {
 
-    ArrayList<Card> poolCards = new ArrayList<Card>();
+        ArrayList<Card> poolCards = new ArrayList<Card>();
 
         for (int i = 0; i < POOL_CARD_COUNT; i++) {
             poolCards.add(deck.dealCard());
@@ -62,10 +65,10 @@ public class GameUtil {
 
     }
 
-
     public static int getWinningScore() {
         return WINNING_SCORE;
     }
+
     public static void clearSelectedCards(List<Player> players) {
 
         // Clear selected cards after each player's turn
@@ -75,7 +78,6 @@ public class GameUtil {
         }
 
     }
-
 
     public static void resetHand(Player player, Deck deck) {
         ArrayList<Card> currentHand = player.getHand();
@@ -121,7 +123,7 @@ public class GameUtil {
 
     public static void replaceHandCard(List<Card> poolCards, Deck deck, List<Player> players) {
         Player currentPlayer = players.get(1);
-        
+
         while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
 
             if (deck.isEmpty()) {
@@ -137,24 +139,23 @@ public class GameUtil {
             }
 
             currentPlayer.getHand().add(deck.dealCard());
-            
+
         }
     }
 
-     /**
+    /**
      * Function to get the score text for a player
      */
 
-    public static String getPlayerScoreText(Player player, double score1, double score2) {
+    public String getPlayerScoreText(Player player, double score1, double score2) {
         return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
     }
 
-    public static String formatScore(double score) {
+    public String formatScore(double score) {
         return String.valueOf(DECFORMAT.format(score));
     }
 
-
-    public static boolean winningScoreReached(List<Player> players){
+    public static boolean winningScoreReached(List<Player> players) {
         return (players.get(0).getTotalScore() >= WINNING_SCORE || players.get(1).getTotalScore() >= WINNING_SCORE);
     }
 }
