@@ -11,6 +11,7 @@ fix bug where if number of cards run out, new deck populated, duplicate cards in
     - reinitialise deck, players and poolcards
     - populate board again (might lose previous cards but trade off to prevent dupes)
 
+clean up deck class (many unused methods) (DONE)
 
 see how to combine replaceCardPool and replaceHandCard
 
@@ -18,10 +19,6 @@ setMatchButtonState method - try to reorganise code (put in different function).
                            - rename this method.
 
 clearBoard isHandBoard - rename as well. 
-
-clean up deck class (many unused methods)
-
-
 
 
 
