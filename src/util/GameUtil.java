@@ -1,8 +1,11 @@
 package util;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import model.card.Card;
 import model.card.Rank;
@@ -12,12 +15,13 @@ import model.game.Player;
 
 public class GameUtil {
     public static final String MAIN_SCENE = "resources/view/match-cards.fxml";
-    public static final String END_SCENE = "resources/view/end-game-test.fxml";
+    public static final String END_SCENE = "resources/view/end-game.fxml";
+
+    private static final int WINNING_SCORE = Integer.parseInt(getConfig().getProperty("winningScore"));
 
     private static final int PLAYER_COUNT = 2;
     private static final int POOL_CARD_COUNT = 10;
     private static final int HAND_CARD_COUNT = 4;
-    private static final int WINNING_SCORE = 2;
     private static final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
 
     public static DecimalFormat getDecFormat() {
@@ -141,6 +145,20 @@ public class GameUtil {
             currentPlayer.getHand().add(deck.dealCard());
 
         }
+    }
+
+    private static Properties getConfig() {
+        // Get the configuration from the config file
+        Properties config = new Properties();
+
+        try (InputStream input = new FileInputStream("app.config")) {
+            config.load(input);
+
+        } catch (Exception e) {
+            System.out.println("Error reading config file: " + e.getMessage());
+        }
+
+        return config;
     }
 
     /**
