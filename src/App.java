@@ -37,6 +37,8 @@ public class App extends Application {
         stage.setResizable(false);
         stage.show();
 
+        // Exit the application when the window is closed
+        stage.setOnCloseRequest(e -> Platform.exit());
     }
 
     public static void main(String[] args) {
