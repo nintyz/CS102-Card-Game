@@ -16,16 +16,65 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MatchCardController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EndGameController">
    <children>
       <VBox alignment="CENTER" layoutX="413.0" layoutY="139.0" prefHeight="650.0" prefWidth="1000.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxWidth="723.0" minHeight="400.0" minWidth="630.0" prefHeight="432.0" prefWidth="723.0" prefWrapLength="300.0" rowValignment="TOP" vgap="20.0">
                <children>
-                  <FlowPane orientation="VERTICAL" prefHeight="326.0" prefWidth="583.0">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL">
                      <children>
-                        <Label fx:id="winningTextLabel" alignment="CENTER" prefHeight="66.0" prefWidth="583.0" text="nothing" />
-                        <GridPane alignment="CENTER" maxWidth="583.0">
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="winningTextLabel" alignment="CENTER" contentDisplay="CENTER" text="Player 1 Wins!">
+                                 <padding>
+                                    <Insets bottom="20.0" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Winning Capture: " />
+                                    <Label fx:id="winningCaptureLabel" alignment="CENTER" contentDisplay="CENTER" text="Run" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="endingCapture" alignment="CENTER" prefHeight="173.0" prefWidth="513.0" spacing="3.0">
+                                 <children>
+                                    <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/2_of_clubs.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/2_of_clubs.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/2_of_clubs.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/2_of_clubs.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/2_of_clubs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <GridPane alignment="CENTER">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.6666666666667" minWidth="10.0" prefWidth="387.6666666666667" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0000305175781" minWidth="10.0" prefWidth="195.0" />
@@ -33,40 +82,7 @@
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
-                           <children>
-                              <Label alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="272.5" text="Winning Capture:" GridPane.halignment="RIGHT" />
-                              <Label fx:id="winningCaptureLabel" alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="125.0" text="Run" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                           </children>
                         </GridPane>
-                        <HBox fx:id="endingCapture" alignment="CENTER" prefHeight="173.0" prefWidth="513.0" spacing="3.0">
-                           <children>
-                              <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/2_of_clubs.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/2_of_clubs.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/2_of_clubs.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/2_of_clubs.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/2_of_clubs.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
                      </children>
                   </FlowPane>
                </children>
