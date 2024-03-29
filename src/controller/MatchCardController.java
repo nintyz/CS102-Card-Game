@@ -1,8 +1,8 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,8 +13,12 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,10 +30,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import model.capture.Capture;
 import model.card.Card;
 import model.game.Deck;
 import model.game.Player;
+import util.GameUtil;
 
 /**
  * MatchCardController.java
@@ -79,24 +85,6 @@ public class MatchCardController implements Initializable {
     private Button startGameButton;
 
     @FXML
-    private HBox endingCapture;
-
-    @FXML
-    private Label playerOneScoreLabel;
-
-    @FXML
-    private Label playerTwoScoreLabel;
-
-    @FXML
-    private Button quitButton;
-
-    @FXML
-    private Label winningTextLabel;
-
-    @FXML
-    private Label winningCaptureLabel;
-
-    @FXML
     void discardButton(ActionEvent event) {
 
         Player currentPlayer = players.get(1);
@@ -127,38 +115,12 @@ public class MatchCardController implements Initializable {
          * game scene
          */
         if (GameUtil.winningScoreReached(players)) {
-            SceneController.switchEndScene(event, players.get(0), players.get(0).getTotalScore(), players.get(1),
-                players.get(1).getTotalScore(), capture);
-            
+            switchToEndScene(event, capture);
             return;
         }
 
         populateBoard(poolCards, false);
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
-    }
-
-    public Label getPlayerOneScoreLabel() {
-        return playerOneScoreLabel;
-    }
-
-    public Label getPlayerTwoScoreLabel() {
-        return playerTwoScoreLabel;
-    }
-
-    public Label getScoreLabel() {
-        return scoreLabel;
-    }
-
-    public Label getWinningTextLabel() {
-        return winningTextLabel;
-    }
-
-    public Label getWinningCaptureLabel() {
-        return winningCaptureLabel;
-    }
-
-    public HBox getEndingCapture() {
-        return endingCapture;
     }
 
     @FXML
@@ -169,19 +131,6 @@ public class MatchCardController implements Initializable {
 
         populateBoard(poolCards, false);
         switchPlayer();
-    }
-
-    @FXML
-    void restartGame(ActionEvent event) throws IOException {
-        SceneController.switchMainScene(event);
-
-        try {
-            startGame(event);
-
-        } catch (Exception e) {
-            System.out.println("New Game Started!");
-        }
-
     }
 
     @FXML
@@ -204,11 +153,11 @@ public class MatchCardController implements Initializable {
         // create and show invalidCaptureAlert when capture is null (i.e capture is
         // invalid), else show validCaptureAlert
         if (capture == null) {
-            getInvalidCaptureAlert();
+            invalidCaptureAlert();
             return capture;
         }
 
-        getValidCaptureAlert(capture);
+        validCaptureAlert(capture);
 
         // remove selected cards from pool and hand
         for (Card poolCard : selectedPoolCard) {
@@ -228,7 +177,7 @@ public class MatchCardController implements Initializable {
         return capture;
     }
 
-    private void getValidCaptureAlert(Capture capture) {
+    private void validCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Congratulations!");
 
@@ -268,11 +217,13 @@ public class MatchCardController implements Initializable {
         alert.showAndWait();
     }
 
-    private void getInvalidCaptureAlert() {
+    private void invalidCaptureAlert() {
         Alert alert = new Alert(Alert.AlertType.NONE);
+
         alert.setTitle("Oh No!");
         alert.setHeaderText("Invalid Capture! Please try again!");
         alert.setContentText("Click close to return to game screen.");
+
         alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
     }
@@ -404,223 +355,239 @@ public class MatchCardController implements Initializable {
 
     }
 
+    private void switchToEndScene(ActionEvent event, Capture capture) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(new File(GameUtil.END_SCENE).toURI().toURL());
+        Parent mainParent = loader.load();
+        Scene mainScene = new Scene(mainParent);
+
+        EndGameController endGameController = (EndGameController) loader.getController();
+        endGameController.setCurrentPlayer(players.get(0));
+        endGameController.setNextPlayer(players.get(1));
+        endGameController.setCapture(capture);
+
+        stage.setScene(mainScene);
+        stage.show();
+    }
 }
 
-//private MatchCardController controller = this;
+// private MatchCardController controller = this;
 
 // private final int PLAYER_COUNT = 2;
-    // private final int POOL_CARD_COUNT = 10;
-    // private final int HAND_CARD_COUNT = 4;
-    // private final int WINNING_SCORE = 7;
-
+// private final int POOL_CARD_COUNT = 10;
+// private final int HAND_CARD_COUNT = 4;
+// private final int WINNING_SCORE = 7;
 
 /**
-     * Function to update the winning text label in the end game scene
-     */
+ * Function to update the winning text label in the end game scene
+ */
 
-    // private void updateWinningTextLabel(int playerId) {
-    // String winnerText = "Player " + (playerId + 1) + " wins!";
-    // controller.winningTextLabel.setText(winnerText);
-    // }
+// private void updateWinningTextLabel(int playerId) {
+// String winnerText = "Player " + (playerId + 1) + " wins!";
+// controller.winningTextLabel.setText(winnerText);
+// }
 
-    // private void updateWinningCaptureLabel(String captureName) {
-    // controller.winningCaptureLabel.setText(captureName);
-    // }
+// private void updateWinningCaptureLabel(String captureName) {
+// controller.winningCaptureLabel.setText(captureName);
+// }
 
-    // /**
-    // * Function to update the captured cards in the end game scene
-    // */
+// /**
+// * Function to update the captured cards in the end game scene
+// */
 
-    // private void populateCapturedCards(Card[] capturedCards) {
-    // HBox endingCapture = controller.endingCapture;
-    // endingCapture.getChildren().clear(); // Clear previous captured cards
+// private void populateCapturedCards(Card[] capturedCards) {
+// HBox endingCapture = controller.endingCapture;
+// endingCapture.getChildren().clear(); // Clear previous captured cards
 
-    // for (Card card : capturedCards) {
-    // ImageView cardImageView = new ImageView(new Image("file:resources/img/" +
-    // card.getCardImage()));
-    // cardImageView.setFitHeight(169.0);
-    // cardImageView.setFitWidth(117.0);
-    // endingCapture.getChildren().add(cardImageView);
-    // }
-    // }
+// for (Card card : capturedCards) {
+// ImageView cardImageView = new ImageView(new Image("file:resources/img/" +
+// card.getCardImage()));
+// cardImageView.setFitHeight(169.0);
+// cardImageView.setFitWidth(117.0);
+// endingCapture.getChildren().add(cardImageView);
+// }
+// }
 
-    // private void switchScene(ActionEvent event, String sceneName) throws
-    // IOException {
+// private void switchScene(ActionEvent event, String sceneName) throws
+// IOException {
 
-    // Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+// Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-    // FXMLLoader loader = new FXMLLoader(new File("resources/view/" +
-    // sceneName).toURI().toURL());
-    // Parent mainParent = loader.load();
-    // Scene mainScene = new Scene(mainParent);
+// FXMLLoader loader = new FXMLLoader(new File("resources/view/" +
+// sceneName).toURI().toURL());
+// Parent mainParent = loader.load();
+// Scene mainScene = new Scene(mainParent);
 
-    // stage.setScene(mainScene);
-    // stage.show();
+// stage.setScene(mainScene);
+// stage.show();
 
-    // controller = (MatchCardController) loader.getController();
+// controller = (MatchCardController) loader.getController();
 
-    // }
+// }
 
-      // private ArrayList<Card> initializeCardPool() {
+// private ArrayList<Card> initializeCardPool() {
 
-    //     ArrayList<Card> poolCards = new ArrayList<Card>();
+// ArrayList<Card> poolCards = new ArrayList<Card>();
 
-    //     for (int i = 0; i < POOL_CARD_COUNT; i++) {
-    //         poolCards.add(deck.dealCard());
-    //     }
+// for (int i = 0; i < POOL_CARD_COUNT; i++) {
+// poolCards.add(deck.dealCard());
+// }
 
-    //     return poolCards;
-    // }
+// return poolCards;
+// }
 
-    // private ArrayList<Player> initializePlayers() {
-    //     ArrayList<Player> players = new ArrayList<Player>();
+// private ArrayList<Player> initializePlayers() {
+// ArrayList<Player> players = new ArrayList<Player>();
 
-    //     // Create players
-    //     for (int i = 0; i < PLAYER_COUNT; i++) {
-    //         players.add(new Player(i));
-    //     }
+// // Create players
+// for (int i = 0; i < PLAYER_COUNT; i++) {
+// players.add(new Player(i));
+// }
 
-    //     // Distribute cards to players
-    //     for (int i = 0; i < (HAND_CARD_COUNT * PLAYER_COUNT); i++) {
-    //         Player currentPlayer = players.get(i % PLAYER_COUNT);
-    //         currentPlayer.getHand().add(deck.dealCard());
-    //     }
+// // Distribute cards to players
+// for (int i = 0; i < (HAND_CARD_COUNT * PLAYER_COUNT); i++) {
+// Player currentPlayer = players.get(i % PLAYER_COUNT);
+// currentPlayer.getHand().add(deck.dealCard());
+// }
 
-    //     // Print hands of each player after distribution
-    //     for (Player player : players) {
-    //         System.out.println("Player's hand: " + player.getHand());
-    //     }
+// // Print hands of each player after distribution
+// for (Player player : players) {
+// System.out.println("Player's hand: " + player.getHand());
+// }
 
-    //     return players;
+// return players;
 
-    // }
+// }
 
-     /**
-     * Function to update the score labels in the end game scene
-     */
+/**
+ * Function to update the score labels in the end game scene
+ */
 
-    // private void updateScoreLabels(Player currentPlayer, double
-    // currentPlayerScore, Player nextPlayer,
-    // double nextPlayerScore) {
+// private void updateScoreLabels(Player currentPlayer, double
+// currentPlayerScore, Player nextPlayer,
+// double nextPlayerScore) {
 
-    // String currentPlayerScoreText = getPlayerScoreText(currentPlayer,
-    // currentPlayerScore, nextPlayerScore);
-    // String nextPlayerScoreText = getPlayerScoreText(currentPlayer,
-    // nextPlayerScore, currentPlayerScore);
+// String currentPlayerScoreText = getPlayerScoreText(currentPlayer,
+// currentPlayerScore, nextPlayerScore);
+// String nextPlayerScoreText = getPlayerScoreText(currentPlayer,
+// nextPlayerScore, currentPlayerScore);
 
-    // controller.playerOneScoreLabel.setText(currentPlayerScoreText);
-    // controller.playerTwoScoreLabel.setText(nextPlayerScoreText);
-    // }
+// controller.playerOneScoreLabel.setText(currentPlayerScoreText);
+// controller.playerTwoScoreLabel.setText(nextPlayerScoreText);
+// }
 
-    // SceneController.setMatchCardController(controller);
-            // SceneController.updateScoreLabels(currentPlayer, currentPlayerScore,
-            // nextPlayer, nextPlayerScore);
-            // SceneController.updateWinningTextLabel(currentPlayer.getPlayerId());
-            // SceneController.updateWinningCaptureLabel(capture.getCaptureName());
-            // SceneController.populateCapturedCards(capture.getCaptureCards());
+// SceneController.setMatchCardController(controller);
+// SceneController.updateScoreLabels(currentPlayer, currentPlayerScore,
+// nextPlayer, nextPlayerScore);
+// SceneController.updateWinningTextLabel(currentPlayer.getPlayerId());
+// SceneController.updateWinningCaptureLabel(capture.getCaptureName());
+// SceneController.populateCapturedCards(capture.getCaptureCards());
 
+// private void clearSelectedCards() {
 
-            // private void clearSelectedCards() {
+// // Clear selected cards after each player's turn
+// for (Player player : players) {
+// player.getSelectedCards().clear();
+// player.getSelectedHandCards().clear();
+// }
 
-    //     // Clear selected cards after each player's turn
-    //     for (Player player : players) {
-    //         player.getSelectedCards().clear();
-    //         player.getSelectedHandCards().clear();
-    //     }
+// }
 
-    // }
+// private Deck initializeDeck() {
+// Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
+// deck.shuffle();
 
-    // private Deck initializeDeck() {
-    //     Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
-    //     deck.shuffle();
+// return deck;
+// }
 
-    //     return deck;
-    // }
+/**
+ * This function compares player scores and switches scene when either player
+ * has hit or exceeded the
+ * winning score
+ */
+// private boolean winningScoreReached(ActionEvent event, Capture capture)
+// throws IOException {
 
-    /**
-     * This function compares player scores and switches scene when either player
-     * has hit or exceeded the
-     * winning score
-     */
-    // private boolean winningScoreReached(ActionEvent event, Capture capture) throws IOException {
-    
-    //     if (GameUtil.winningScoreReached(capture, players)) {
+// if (GameUtil.winningScoreReached(capture, players)) {
 
-    //         controller = SceneController.switchEndScene(event, players.get(0), players.get(0).getTotalScore(), players.get(1),
-    //                 players.get(1).getTotalScore(), capture);
+// controller = SceneController.switchEndScene(event, players.get(0),
+// players.get(0).getTotalScore(), players.get(1),
+// players.get(1).getTotalScore(), capture);
 
-    //         return true;
-    //     }
+// return true;
+// }
 
-    //     return false;
-    // }
+// return false;
+// }
 
-    // private void resetHand(Player player) {
-    //     ArrayList<Card> currentHand = player.getHand();
-    //     currentHand.clear();
+// private void resetHand(Player player) {
+// ArrayList<Card> currentHand = player.getHand();
+// currentHand.clear();
 
-    //     while (currentHand.size() < HAND_CARD_COUNT) {
-    //         currentHand.add(deck.dealCard());
-    //     }
+// while (currentHand.size() < HAND_CARD_COUNT) {
+// currentHand.add(deck.dealCard());
+// }
 
-    // }
+// }
 
-     // private void resetPoolCards() {
-    //     poolCards.clear();
+// private void resetPoolCards() {
+// poolCards.clear();
 
-    //     while (poolCards.size() < POOL_CARD_COUNT) {
-    //         poolCards.add(deck.dealCard());
-    //     }
+// while (poolCards.size() < POOL_CARD_COUNT) {
+// poolCards.add(deck.dealCard());
+// }
 
-    // }
+// }
 
-     // private void replaceCardPool() {
-    //     while (poolCards.size() < POOL_CARD_COUNT) {
-    //         /**
-    //          * refills the deck and resets the pool and handcards of the players with new
-    //          * cards when deck is empty
-    //          */
-    //         if (deck.isEmpty()) {
-    //             deck = new Deck(Suit.VALUES, Rank.VALUES);
-    //             deck.shuffle();
+// private void replaceCardPool() {
+// while (poolCards.size() < POOL_CARD_COUNT) {
+// /**
+// * refills the deck and resets the pool and handcards of the players with new
+// * cards when deck is empty
+// */
+// if (deck.isEmpty()) {
+// deck = new Deck(Suit.VALUES, Rank.VALUES);
+// deck.shuffle();
 
-    //             GameUtil.resetPoolCards(poolCards, deck);
-    //             for (Player p : players) {
-    //                 GameUtil.resetHand(p, deck);
-    //             }
+// GameUtil.resetPoolCards(poolCards, deck);
+// for (Player p : players) {
+// GameUtil.resetHand(p, deck);
+// }
 
-    //             break;
-    //         }
+// break;
+// }
 
-    //         poolCards.add(deck.dealCard());
+// poolCards.add(deck.dealCard());
 
-    //     }
-    // }
+// }
+// }
 
-    // private void replaceHandCard(Player currentPlayer) {
-    //     while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
+// private void replaceHandCard(Player currentPlayer) {
+// while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
 
-    //         if (deck.isEmpty()) {
-    //             deck = new Deck(Suit.VALUES, Rank.VALUES);
-    //             deck.shuffle();
+// if (deck.isEmpty()) {
+// deck = new Deck(Suit.VALUES, Rank.VALUES);
+// deck.shuffle();
 
-    //             GameUtil.resetPoolCards(poolCards, deck);
-    //             for (Player p : players) {
-    //                 GameUtil.resetHand(p, deck);
-    //             }
+// GameUtil.resetPoolCards(poolCards, deck);
+// for (Player p : players) {
+// GameUtil.resetHand(p, deck);
+// }
 
-    //             break;
-    //         }
+// break;
+// }
 
-    //         currentPlayer.getHand().add(deck.dealCard());
-            
-    //     }
-    // }
+// currentPlayer.getHand().add(deck.dealCard());
 
-    // public String getPlayerScoreText(Player player, double score1, double score2) {
-    //     return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
-    // }
+// }
+// }
 
-    // private String formatScore(double score) {
-    //     return String.valueOf(DECFORMAT.format(score));
-    // }
+// public String getPlayerScoreText(Player player, double score1, double score2)
+// {
+// return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
+// }
+
+// private String formatScore(double score) {
+// return String.valueOf(DECFORMAT.format(score));
+// }
