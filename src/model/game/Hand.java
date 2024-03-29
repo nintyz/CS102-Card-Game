@@ -1,6 +1,6 @@
 package model.game;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 import model.card.Card;
 

@@ -29,14 +29,6 @@ public class Deck {
    private ArrayList<Card> deck;
    private int index;
 
-   /**
-    * Creates an empty deck of cards.
-    */
-   public Deck() {
-      deck = new ArrayList<Card>();
-      index = 0;
-   }
-
    public Deck(List<Suit> suit, List<Rank> rank) {
       deck = new ArrayList<Card>();
       for (Suit s : suit) {
@@ -52,7 +44,7 @@ public class Deck {
     * @return the number of cards left to be dealt from the deck.
     */
    public int getNumberOfCardsRemaining() {
-      return deck.size() - index;
+      return deck.size();
    }
 
    /**
