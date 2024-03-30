@@ -365,6 +365,7 @@ public class MatchCardController implements Initializable {
         Parent mainParent = loader.load();
         Scene mainScene = new Scene(mainParent);
 
+        // Set parameters required for the end game scene
         EndGameController endGameController = (EndGameController) loader.getController();
         endGameController.setCurrentPlayer(players.get(0));
         endGameController.setNextPlayer(players.get(1));
