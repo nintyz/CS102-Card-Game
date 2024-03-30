@@ -41,5 +41,4 @@ public class SceneUtil {
     public static String formatScore(double score) {
         return String.valueOf(DEC_FORMAT.format(score));
     }
-
 }

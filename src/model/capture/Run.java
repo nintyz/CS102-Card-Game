@@ -35,26 +35,27 @@ public class Run extends Capture{
 
         List<Card> temp = new ArrayList<>();
 
-        // check if length of selected cards is at least 2
-        if(poolCards.size() != 2) {
+        if (poolCards.size() != 2) {
             return null;
         }
-        // check if all selected cards are of the same suit
+
+        // Check if all selected cards are of the same suit
         Suit suit = handCard.getSuit();
-        for(Card c: poolCards) {
-            if(!c.getSuit().equals(suit)) {
+        for (Card c: poolCards) {
+
+            if (!c.getSuit().equals(suit)) {
                 return null;
             }
 
             temp.add(c);
         }
 
-        //check if the ranks of the cards are in sequence
+        // Check if the rank values of the cards are in sequence
         temp.add(handCard);
         Collections.sort(temp);
 
         for (int i = 0; i < temp.size() - 1; i++) {
-            if(temp.get(i).getRank().compareTo(temp.get(i + 1).getRank()) != -1) {
+            if (temp.get(i).getRank().compareTo(temp.get(i + 1).getRank()) != -1) {
                 return null;
             }
         }

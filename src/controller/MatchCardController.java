@@ -42,6 +42,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import model.capture.Capture;
 import model.card.Card;
 import model.game.Deck;
@@ -111,15 +112,10 @@ public class MatchCardController implements Initializable {
 
         Capture capture = attemptCapture(currentPlayer);
 
-        // return to main method when captureAttempt is null (capture is invalid)
         if (capture == null) {
             return;
         }
 
-        /*
-         * checks if current player has reached the winning score, if yes switch to end
-         * game scene
-         */
         if (GameUtil.winningScoreReached(players)) {
             switchToEndScene(event, capture);
             return;
@@ -131,7 +127,6 @@ public class MatchCardController implements Initializable {
 
     @FXML
     void discardButton(ActionEvent event) {
-
         Player currentPlayer = players.get(1);
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         currentPlayer.getHand().remove(selectedHandCard);
@@ -150,7 +145,6 @@ public class MatchCardController implements Initializable {
     }
 
     private Capture attemptCapture(Player currentPlayer) {
-
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
 
@@ -159,11 +153,11 @@ public class MatchCardController implements Initializable {
         // create and show invalidCaptureAlert when capture is null (i.e capture is
         // invalid), else show validCaptureAlert
         if (capture == null) {
-            invalidCaptureAlert();
+            showInvalidCaptureAlert();
             return capture;
         }
-
-        validCaptureAlert(capture);
+        
+        showValidCaptureAlert(capture);
 
         // remove selected cards from pool and hand
         for (Card poolCard : selectedPoolCard) {
@@ -183,7 +177,7 @@ public class MatchCardController implements Initializable {
         return capture;
     }
 
-    private void invalidCaptureAlert() {
+    private void showInvalidCaptureAlert() {
         Alert alert = new Alert(Alert.AlertType.NONE);
 
         alert.setTitle("Oh No!");
@@ -194,7 +188,7 @@ public class MatchCardController implements Initializable {
         alert.showAndWait();
     }
 
-    private void validCaptureAlert(Capture capture) {
+    private void showValidCaptureAlert(Capture capture) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Congratulations!");
 
@@ -219,7 +213,6 @@ public class MatchCardController implements Initializable {
     }
 
     private Label validCaptureAlertHeader(Capture capture) {
-
         Label headerLabel = new Label(String.format("%s of value %.1f captured successfully!",
                 capture.getCaptureName(), capture.getScore()));
 
@@ -234,7 +227,6 @@ public class MatchCardController implements Initializable {
     }
 
     private FlowPane validCaptureAlertCaptures(Capture capture) {
-
         FlowPane imagePane = new FlowPane();
         imagePane.setAlignment(Pos.CENTER);
         imagePane.setHgap(4);
@@ -252,7 +244,6 @@ public class MatchCardController implements Initializable {
     }
 
     private void populateBoard(List<Card> cards, Boolean isPlayer) {
-
         FlowPane pool = isPlayer ? handCard : cardPool;
         clearBoard(pool, false);
 
@@ -268,7 +259,6 @@ public class MatchCardController implements Initializable {
     }
 
     private void clearBoard(FlowPane flowPane, boolean isHandBoard) {
-
         for (int i = 0; i < flowPane.getChildren().size(); i++) {
             BorderPane borderPane = (BorderPane) flowPane.getChildren().get(i);
 
@@ -283,7 +273,6 @@ public class MatchCardController implements Initializable {
 
             // Reset the state of the border of the ImageView
             borderPane.pseudoClassStateChanged(imageViewBorder, false);
-
         }
 
         if (!isHandBoard) {
@@ -292,11 +281,9 @@ public class MatchCardController implements Initializable {
                 player.getSelectedHandCards().clear();
             }
         }
-
     }
 
     private void registerClickListener(BorderPane borderPane, ImageView imageView) {
-
         // Assign a css class to the borderPane.
         borderPane.getStyleClass().add("image-view-wrapper");
 
@@ -317,7 +304,6 @@ public class MatchCardController implements Initializable {
 
             setMatchButtonState((Card) imageView.getUserData(), borderPane);
         });
-
     }
 
     private void setMatchButtonState(Card selectedCard, BorderPane borderPane) {
@@ -360,7 +346,6 @@ public class MatchCardController implements Initializable {
      * then switches to the next player on subsequent runs
      **/
     private void switchPlayer() {
-
         Player player = players.get(0);
 
         // Switch player label
@@ -378,7 +363,6 @@ public class MatchCardController implements Initializable {
 
         discardButton.setDisable(true);
         gameButton.setDisable(true);
-
     }
 
     private void switchToEndScene(ActionEvent event, Capture capture) throws IOException {

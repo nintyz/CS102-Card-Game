@@ -35,7 +35,6 @@ public class InitializeUtil {
     }
 
     public static ArrayList<Card> initializeCardPool(Deck deck) {
-
         ArrayList<Card> poolCards = new ArrayList<Card>();
 
         for (int i = 0; i < GameUtil.POOL_CARD_COUNT; i++) {
@@ -66,5 +65,4 @@ public class InitializeUtil {
 
         return players;
     }
-
 }

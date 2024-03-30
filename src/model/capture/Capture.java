@@ -47,7 +47,9 @@ public abstract class Capture {
     public static Capture returnHighestCapture(Card handCard, ArrayList<Card> poolCards) {
 
         for (Capture c : allPossibleCapture) {
+
             Capture capture = c.formCapture(handCard, poolCards);
+
             if (capture != null) {
                 return capture;
             }

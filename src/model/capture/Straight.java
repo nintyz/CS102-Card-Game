@@ -8,7 +8,7 @@
  * Last modified: 31 Mar 2024
  */
 
- 
+
 package model.capture;
 
 import java.util.*;
@@ -32,23 +32,23 @@ public class Straight extends Capture {
     }
 
     public Capture formCapture(Card handCard, ArrayList<Card> poolCards){
-        if(poolCards.size() != 2) {
+        if (poolCards.size() != 2) {
             return null;
         }
         
         Rank[] allCardRank = new Rank[poolCards.size() + 1];
 
-        //Get the RankValue of the handCard to be compared with that of the poolCards and store it in the Array
+        //Get the Rank Value of the handCard to be compared with that of the poolCards and store it in the array
         allCardRank[0] = handCard.getRank();
 
-        //Store the RankValues of the poolCards in the same Array
+        //Store the Rank Values of the poolCards in the same Array
         for (int i = 0; i < poolCards.size(); i++) {
             allCardRank[i + 1] = poolCards.get(i).getRank();
         }
         
         Arrays.sort(allCardRank);
        
-        //Compare the RankValues by checking whether the RankValues of its neighbours differ by 1
+        //Compare the Rank Values by checking whether the Rank Values of its neighbours differ by 1
         for (int i = 1; i < allCardRank.length; i++) {
             if (allCardRank[i].compareTo(allCardRank[i - 1]) != 1) {
                 return null;

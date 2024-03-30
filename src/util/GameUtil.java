@@ -57,16 +57,16 @@ public class GameUtil {
      * This method deals cards until the current player's hand or poolcards are full
      */
     public static void replaceMissingCards(List<Card> poolCards, Deck deck, List<Player> players, boolean isHand) {
-        
         List<Card> cardList = poolCards;
         int limit = POOL_CARD_COUNT;
+        
         if (isHand) {
             cardList = players.get(1).getHand();
             limit = HAND_CARD_COUNT;
         }
 
         while (cardList.size() < limit) {
-            
+
             if (deck.isEmpty()) {
                 resetDeckHandAndPoolCards(poolCards, players, deck);
                 break;
@@ -83,7 +83,6 @@ public class GameUtil {
      * with cards dealt from the deck
      */
     public static void resetDeckHandAndPoolCards(List<Card> poolCards, List<Player> players, Deck deck) {
-        
         deck = new Deck(Suit.VALUES, Rank.VALUES);
         deck.shuffle();
 
@@ -100,9 +99,8 @@ public class GameUtil {
             while (currentHand.size() < HAND_CARD_COUNT) {
                 currentHand.add(deck.dealCard());
             }
-
+            
         }
-
     }
 
     public static boolean winningScoreReached(List<Player> players) {

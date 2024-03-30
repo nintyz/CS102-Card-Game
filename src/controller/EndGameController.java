@@ -30,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import model.capture.Capture;
 import model.card.Card;
 import model.game.Player;
@@ -80,7 +81,6 @@ public class EndGameController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
         // Delay the processing of the initialize function until some undefined point in
         // the future, based on an internal timer that JavaFX uses to process events.
         // https://stackoverflow.com/a/68370305
@@ -91,7 +91,6 @@ public class EndGameController implements Initializable {
             populateWinningCapturedCards();
 
         });
-
     }
 
     /**
@@ -124,7 +123,6 @@ public class EndGameController implements Initializable {
      * Function to update the captured cards in the end game scene
      */
     private void populateWinningCapturedCards() {
-
         endingCapture.getChildren().clear(); // Clear previous captured cards
 
         for (Card card : capture.getCaptureCards()) {
