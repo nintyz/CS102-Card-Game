@@ -13,12 +13,13 @@ fix bug where if number of cards run out, new deck populated, duplicate cards in
 
 clean up deck class (many unused methods) (DONE)
 
-see how to combine replaceCardPool and replaceHandCard
+see how to combine replaceCardPool and replaceHandCard (DONE)
 
+clearBoard isHandBoard - rename as well. (DONE)
+
+(DONE, reorganise quit hard)
 setMatchButtonState method - try to reorganise code (put in different function). 
                            - rename this method.
-
-clearBoard isHandBoard - rename as well. 
 
 
 
