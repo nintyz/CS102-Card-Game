@@ -1,3 +1,13 @@
+/**
+ * model.capture.Capture.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package model.capture;
 
 import java.util.ArrayList;
@@ -5,18 +15,8 @@ import java.util.ArrayList;
 import model.card.Card;
 
 /**
- * model.capture.Capture.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This abstract class represents a generic capture
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
- * 
+ * This abstract class represents a generic capture.
  */
-
 public abstract class Capture {
     private static Capture[] allPossibleCapture = { new Run(), new Straight(), new Combo(), new Triple(), new Pair() };
 
@@ -25,8 +25,8 @@ public abstract class Capture {
     protected String captureName;
 
     /**
-     * abstract method to be implemented by specific capture classes, returns a
-     * Capture object of a specific type if valid, else return null
+     * This abstract method is to be implemented by specific capture classes such that it returns a
+     * Capture of that specific class if valid, else return null.
      */
     public abstract Capture formCapture(Card handCard, ArrayList<Card> poolCards);
 
@@ -38,14 +38,18 @@ public abstract class Capture {
         return captureName;
     }
 
-    // iterate through array of allPossibleCapture, return highest value valid
-    // capture object able to be formed, null otherwise
+    /**
+     * This method will return a Capture with the highest score possible that can be formed from the 
+     * handCard and poolCards selected
+     */
     public static Capture returnHighestCapture(Card handCard, ArrayList<Card> poolCards) {
+
         for (Capture c : allPossibleCapture) {
             Capture capture = c.formCapture(handCard, poolCards);
             if (capture != null) {
                 return capture;
             }
+
         }
         return null;
     }

@@ -19,7 +19,6 @@ import model.game.Player;
  * This class contains attibutes and methods aiding in the formatting of scene elements
  * 
  */
-
 public class SceneUtil {
 
     public static final String MAIN_SCENE = "resources/view/match-cards.fxml";

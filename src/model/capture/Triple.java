@@ -1,22 +1,25 @@
+/**
+ * model.capture.Triple.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package model.capture;
 import java.util.*;
 
 import model.card.Card;
-/**
- * model.capture.Triple.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class represents a Triple capture where the total capture cards is 3 and all cards have the same rank
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
- */
 
+/**
+ * This class represents a Triple capture where the total number of cards captured is 3
+ * and all cards have the same rank value
+ */
 public class Triple extends Capture {
     
-    public Triple(){};
+    public Triple(){}
 
     public Triple(Card[] captureCards) {
         multiplier = 1.5;

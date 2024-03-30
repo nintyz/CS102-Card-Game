@@ -1,3 +1,13 @@
+/**
+ * view.App.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 import java.io.File;
 import java.io.IOException;
 
@@ -10,17 +20,8 @@ import javafx.stage.Stage;
 import util.SceneUtil;
 
 /**
- * view.App.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class is the entry point of the application
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
+ * This class is the entry point of the JavaFX application
  */
-
 public class App extends Application {
 
     @Override

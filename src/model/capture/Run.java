@@ -1,3 +1,13 @@
+/**
+ * model.capture.Run.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package model.capture;
 
 import java.util.*;
@@ -6,20 +16,12 @@ import model.card.Card;
 import model.card.Suit;
 
 /**
- * model.capture.Run.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class represents a Run capture where the total number of cards captured is greater than two,
- * all cards have the same rank and they are in sequence
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
+ * This class represents a Run capture where the total number of cards captured is 3
+ * and all cards have the same suit value and their rank values are in sequence
  */
-
 public class Run extends Capture{ 
-    public Run(){};
+
+    public Run(){}
     
     public Run(Card[] captureCards) {
         multiplier = 2.0;

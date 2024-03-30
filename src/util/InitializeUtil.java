@@ -23,7 +23,6 @@ import model.game.Player;
  * This class contains methods to initialize the starting deck, cardpool and players.
  * 
  */
-
 public class InitializeUtil {
     
     public static Deck initializeDeck() {
@@ -37,7 +36,7 @@ public class InitializeUtil {
 
         ArrayList<Card> poolCards = new ArrayList<Card>();
 
-        for (int i = 0; i < GameUtil.getPoolCardCount(); i++) {
+        for (int i = 0; i < GameUtil.POOL_CARD_COUNT; i++) {
             poolCards.add(deck.dealCard());
         }
 
@@ -48,13 +47,13 @@ public class InitializeUtil {
         ArrayList<Player> players = new ArrayList<Player>();
 
         // Create players
-        for (int i = 0; i < GameUtil.getPlayerCount(); i++) {
+        for (int i = 0; i < GameUtil.PLAYER_COUNT; i++) {
             players.add(new Player(i));
         }
 
         // Distribute cards to players
-        for (int i = 0; i < (GameUtil.getHandCardCount() * GameUtil.getPlayerCount()); i++) {
-            Player currentPlayer = players.get(i % GameUtil.getPlayerCount());
+        for (int i = 0; i < (GameUtil.HAND_CARD_COUNT * GameUtil.PLAYER_COUNT); i++) {
+            Player currentPlayer = players.get(i % GameUtil.PLAYER_COUNT);
             currentPlayer.getHand().add(deck.dealCard());
         }
 

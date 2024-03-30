@@ -1,24 +1,25 @@
+/**
+ * model.capture.Pair.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package model.capture;
+
 import java.util.*;
 
 import model.card.Card;
 
 /**
- * model.capture.Pair.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class represents a Pair capture where the total capture cards is 2 and all cards have the same rank
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
- * 
+ * This class represents a Pair capture where the total capture cards is 2 and both cards have the same rank value
  */
-
 public class Pair extends Capture{
   
-    public Pair(){};
+    public Pair(){}
 
     //forms a Pair by placing both the handCard and poolCard in an array of length = 2
     public Pair(Card[] captureCards){

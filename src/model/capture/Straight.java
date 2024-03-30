@@ -1,3 +1,13 @@
+/**
+ * model.capture.Straight.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package model.capture;
 import java.util.*;
 
@@ -5,20 +15,12 @@ import model.card.Card;
 import model.card.Rank;
 
 /**
- * model.capture.Straight.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class represents a Straight capture where the rank of each card captured is in sequence
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
+ * This class represents a Straight capture where the total number of cards captured is 3
+ * and the rank value of each card captured is in sequence
  */
-
 public class Straight extends Capture {
     
-    public Straight(){};
+    public Straight(){}
 
     public Straight(Card[] captureCards){
         multiplier = 1.8;

@@ -28,16 +28,14 @@ import model.game.Player;
  * game logic into them
  * 
  */
-
-
 public class GameUtil {
     
-    //obtains value of winning score from app.config file and stores it into WINNING_SCORE
+    // obtains value of winning score from app.config file and stores it into WINNING_SCORE
     private static final int WINNING_SCORE = Integer.parseInt(getConfig().getProperty("winningScore"));
 
-    private static final int PLAYER_COUNT = 2;
-    private static final int POOL_CARD_COUNT = 10;
-    private static final int HAND_CARD_COUNT = 4;
+    static final int PLAYER_COUNT = 2;
+    static final int POOL_CARD_COUNT = 10;
+    static final int HAND_CARD_COUNT = 4;
 
     private static Properties getConfig() {
         // Get the configuration from the config file
@@ -54,11 +52,8 @@ public class GameUtil {
     }
    
     /**
-     *
      * This method deals cards until the current player's hand or poolcards are full
-     * 
      */
-
     public static void replaceMissingCards(List<Card> poolCards, Deck deck, List<Player> players, boolean isHand) {
         
         List<Card> cardList = poolCards;
@@ -81,13 +76,10 @@ public class GameUtil {
     }
 
     /**
-     * 
-     * This method clears and refills both the pool and each players hands with cards dealt from the deck
-     * @param poolCards
-     * @param players
-     * @param deck
+     * This method replaces the deck with a new standard deck,
+     * as well as clears and refills both the poolcards and the handcards of each player
+     * with cards dealt from the deck
      */
-
     public static void resetDeckHandAndPoolCards(List<Card> poolCards, List<Player> players, Deck deck) {
         
         deck = new Deck(Suit.VALUES, Rank.VALUES);
@@ -117,18 +109,6 @@ public class GameUtil {
 
     public static int getWinningScore() {
         return WINNING_SCORE;
-    }
-
-    public static int getPlayerCount() {
-        return PLAYER_COUNT;
-    }
-
-    public static int getPoolCardCount() {
-        return POOL_CARD_COUNT;
-    }
-
-    public static int getHandCardCount() {
-        return HAND_CARD_COUNT;
     }
 
 }

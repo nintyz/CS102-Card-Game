@@ -1,3 +1,13 @@
+/**
+ * controller.EndGameController.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package controller;
 
 import java.io.File;
@@ -25,21 +35,10 @@ import model.game.Player;
 import util.GameUtil;
 import util.SceneUtil;
 
-/**
- * controller.EndGameController.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
- */
-
  /**
-  * This class controls the FX elements of the application and intergrates the
+  * This class controls the FX elements of the end game scene and intergrates the
   * game logic into them
   */
-
 public class EndGameController implements Initializable {
 
     GameUtil gameUtil = new GameUtil();
