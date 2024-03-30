@@ -1,20 +1,24 @@
+/**
+ * game.Player.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
+
 package model.game;
+
 import java.util.ArrayList;
 
 import model.card.Card;
 
-/**
- * game.Player.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class represents a Player in the game
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
- */
 
+/**
+ * This class represents a Player in the game
+ */
 public class Player {
 
     private int playerId;

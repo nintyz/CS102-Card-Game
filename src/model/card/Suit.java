@@ -1,12 +1,14 @@
-package model.card;
 // Suit.java - John K. Estell - 8 May 2003
-
 // last modified: 23 Febraury 2004
 // Implementation of the "suit" value for a playing card.
+
+
+package model.card;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 
 /**
  * Specification of the suit values for a standard deck of cards.
@@ -38,7 +40,7 @@ public final class Suit implements Comparable<Suit> {
 
     private String name;
     private String symbol;
-
+    
     // Constructor - declared private as only the predefined values should
     // be used by the client.
     public Suit(String nameValue, String symbolValue) {

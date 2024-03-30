@@ -8,10 +8,12 @@
  * Last modified: 31 Mar 2024
  */
 
+
 package model.capture;
 import java.util.*;
 
 import model.card.Card;
+
 
 /**
  * This class represents a Triple capture where the total number of cards captured is 3
@@ -42,6 +44,7 @@ public class Triple extends Capture {
         Collections.sort(poolCards); 
         Card[] captureCards = poolCards.toArray(new Card[poolCards.size()]);
         return new Triple(captureCards);
+        
     }
 
 }

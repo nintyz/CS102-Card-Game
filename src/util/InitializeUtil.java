@@ -8,6 +8,7 @@
  * Last modified: 31 Mar 2024
  */
 
+
 package util;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import model.card.Rank;
 import model.card.Suit;
 import model.game.Deck;
 import model.game.Player;
+
 
 /**
  * 
@@ -63,7 +65,6 @@ public class InitializeUtil {
         }
 
         return players;
-
     }
 
 }

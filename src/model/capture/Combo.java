@@ -8,12 +8,14 @@
  * Last modified: 31 Mar 2024
  */
 
+
 package model.capture;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import model.card.Card;
+
 
 /**
  * This class represents a Combo capture where the number of poolcards selected is two, and the sum of the rank value of 

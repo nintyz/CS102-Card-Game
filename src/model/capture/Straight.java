@@ -8,11 +8,14 @@
  * Last modified: 31 Mar 2024
  */
 
+ 
 package model.capture;
+
 import java.util.*;
 
 import model.card.Card;
 import model.card.Rank;
+
 
 /**
  * This class represents a Straight capture where the total number of cards captured is 3

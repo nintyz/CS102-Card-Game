@@ -1,8 +1,9 @@
-package model.game;
 // Deck.java - John K. Estell - 8 May 2003
-
 // last modified: 23 Febraury 2004
 // Implementation of a deck of playing cards.  Uses the Card class.
+
+
+package model.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import java.util.List;
 import model.card.Card;
 import model.card.Rank;
 import model.card.Suit;
+
 
 /**
  * Represents a deck of playing cards. In order to have maximum flexibility,
@@ -27,6 +29,7 @@ import model.card.Suit;
  * @version 1.0
  */
 public class Deck {
+
     private ArrayList<Card> deck;
     private int index;
 
@@ -80,4 +83,5 @@ public class Deck {
         else
             return false;
     }
+
 }

@@ -8,6 +8,7 @@
  * Last modified: 31 Mar 2024
  */
 
+
 package controller;
 
 import java.io.File;
@@ -32,16 +33,14 @@ import javafx.stage.Stage;
 import model.capture.Capture;
 import model.card.Card;
 import model.game.Player;
-import util.GameUtil;
 import util.SceneUtil;
+
 
  /**
   * This class controls the FX elements of the end game scene and intergrates the
   * game logic into them
   */
 public class EndGameController implements Initializable {
-
-    GameUtil gameUtil = new GameUtil();
 
     private Player currentPlayer;
     private Player nextPlayer;
@@ -85,7 +84,6 @@ public class EndGameController implements Initializable {
         // Delay the processing of the initialize function until some undefined point in
         // the future, based on an internal timer that JavaFX uses to process events.
         // https://stackoverflow.com/a/68370305
-
         Platform.runLater(() -> {
             updateScoreLabels();
             updateWinningTextLabel();

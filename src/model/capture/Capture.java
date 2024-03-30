@@ -8,11 +8,13 @@
  * Last modified: 31 Mar 2024
  */
 
+
 package model.capture;
 
 import java.util.ArrayList;
 
 import model.card.Card;
+
 
 /**
  * This abstract class represents a generic capture.

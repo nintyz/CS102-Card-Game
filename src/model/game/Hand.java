@@ -1,21 +1,24 @@
+/**
+ * game.Hand.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
+
 package model.game;
 
 import java.util.ArrayList;
 
 import model.card.Card;
 
-/**
- * game.Hand.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class represents a Hand in the game
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
- */
 
+/**
+ * This class represents a Hand in the game
+ */
 public class Hand {
 
     private ArrayList<Card> hand;

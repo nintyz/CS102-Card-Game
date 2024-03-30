@@ -8,11 +8,13 @@
  * Last modified: 31 Mar 2024
  */
 
+
 package model.capture;
 
 import java.util.*;
 
 import model.card.Card;
+
 
 /**
  * This class represents a Pair capture where the total capture cards is 2 and both cards have the same rank value
