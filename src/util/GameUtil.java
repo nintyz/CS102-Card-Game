@@ -1,3 +1,13 @@
+/**
+ * util.GameUtil.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package util;
 
 import java.io.FileInputStream;
@@ -13,17 +23,12 @@ import model.game.Deck;
 import model.game.Player;
 
 /**
- * util.GameUtil.java
- * 
- * Last modified: 31 Mar 2024
  * 
  * This class contains game constants and methods directly manipulating non-javaFX elements of the game
  * game logic into them
  * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
  */
+
 
 public class GameUtil {
     
