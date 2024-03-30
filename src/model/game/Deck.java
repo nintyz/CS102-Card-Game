@@ -27,57 +27,57 @@ import model.card.Suit;
  * @version 1.0
  */
 public class Deck {
-   private ArrayList<Card> deck;
-   private int index;
+    private ArrayList<Card> deck;
+    private int index;
 
-   public Deck(List<Suit> suit, List<Rank> rank) {
-      deck = new ArrayList<Card>();
-      for (Suit s : suit) {
-         for (Rank r : rank) {
-            deck.add(new Card(s, r));
-         }
-      }
-   }
+    public Deck(List<Suit> suit, List<Rank> rank) {
+        deck = new ArrayList<Card>();
+        for (Suit s : suit) {
+            for (Rank r : rank) {
+                deck.add(new Card(s, r));
+            }
+        }
+    }
 
-   /**
-    * The number of cards left in the deck.
-    * 
-    * @return the number of cards left to be dealt from the deck.
-    */
-   public int getNumberOfCardsRemaining() {
-      return deck.size() - index;
-   }
+    /**
+     * The number of cards left in the deck.
+     * 
+     * @return the number of cards left to be dealt from the deck.
+     */
+    public int getNumberOfCardsRemaining() {
+        return deck.size() - index;
+    }
 
-   /**
-    * Deal one card from the deck.
-    * 
-    * @return a card from the deck, or the null reference if there
-    *         are no cards left in the deck.
-    */
-   public Card dealCard() {
-      if (index >= deck.size())
-         return null;
-      else
-         return (Card) deck.get(index++);
-   }
+    /**
+     * Deal one card from the deck.
+     * 
+     * @return a card from the deck, or the null reference if there
+     *         are no cards left in the deck.
+     */
+    public Card dealCard() {
+        if (index >= deck.size())
+            return null;
+        else
+            return (Card) deck.get(index++);
+    }
 
-   /**
-    * Shuffles the cards present in the deck.
-    */
-   public void shuffle() {
-      Collections.shuffle(deck);
-   }
+    /**
+     * Shuffles the cards present in the deck.
+     */
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
 
-   /**
-    * Looks for an empty deck.
-    * 
-    * @return <code>true</code> if there are no cards left to be dealt from the
-    *         deck.
-    */
-   public boolean isEmpty() {
-      if (index >= deck.size())
-         return true;
-      else
-         return false;
-   }
+    /**
+     * Looks for an empty deck.
+     * 
+     * @return <code>true</code> if there are no cards left to be dealt from the
+     *         deck.
+     */
+    public boolean isEmpty() {
+        if (index >= deck.size())
+            return true;
+        else
+            return false;
+    }
 }
