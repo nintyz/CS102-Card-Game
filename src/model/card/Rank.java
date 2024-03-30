@@ -103,11 +103,18 @@ public class Rank implements Comparable<Rank> {
     * @return the value of the rank in terms of int.
     */
    public int getValue() {
-      if (symbol.equals("ace")) {
-         return 1;
-      } else if (symbol.equals("king") || symbol.equals("queen") || symbol.equals("jack")) {
-         return 10;
+
+      switch (symbol) {
+         case "ace":
+            return 1;
+         case "jack":
+            return 11;
+         case "queen":
+            return 12;
+         case "king":
+            return 13;
       }
+      
       return Integer.parseInt(symbol);
    }
 
