@@ -24,9 +24,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        Platform.setImplicitExit(false);
-
+        
         // Load the main game FXML(UI) file
         Parent mainParent = FXMLLoader.load(new File("resources/view/match-cards.fxml").toURI().toURL());
         Scene mainScene = new Scene(mainParent);
