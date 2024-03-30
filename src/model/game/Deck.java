@@ -1,5 +1,6 @@
 package model.game;
 // Deck.java - John K. Estell - 8 May 2003
+
 // last modified: 23 Febraury 2004
 // Implementation of a deck of playing cards.  Uses the Card class.
 
@@ -32,7 +33,7 @@ public class Deck {
    public Deck(List<Suit> suit, List<Rank> rank) {
       deck = new ArrayList<Card>();
       for (Suit s : suit) {
-         for (Rank r: rank) {
+         for (Rank r : rank) {
             deck.add(new Card(s, r));
          }
       }
@@ -44,7 +45,7 @@ public class Deck {
     * @return the number of cards left to be dealt from the deck.
     */
    public int getNumberOfCardsRemaining() {
-      return deck.size();
+      return deck.size() - index;
    }
 
    /**
