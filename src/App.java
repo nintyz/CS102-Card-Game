@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.SceneUtil;
 
 /**
  * view.App.java
@@ -26,7 +27,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         
         // Load the main game FXML(UI) file
-        Parent mainParent = FXMLLoader.load(new File("resources/view/match-cards.fxml").toURI().toURL());
+        Parent mainParent = FXMLLoader.load(new File(SceneUtil.MAIN_SCENE).toURI().toURL());
         Scene mainScene = new Scene(mainParent);
 
         // Set the parameters of the stage(game window)
