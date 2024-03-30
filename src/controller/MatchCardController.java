@@ -141,7 +141,6 @@ public class MatchCardController implements Initializable {
         System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
-
     @FXML
     void quitGame(ActionEvent event) {
         Platform.exit();
@@ -198,15 +197,41 @@ public class MatchCardController implements Initializable {
 
         DialogPane dialogPane = alert.getDialogPane();
 
-        // create Label object
+        // alert header
+        Label headerLabel = validCaptureAlertHeader(capture);
+
+        // alert content (captured cards)
+        FlowPane imagePane = validCaptureAlertCaptures(capture);
+
+        // stack headerLabel and imagePane vertically
+        GridPane grid = new GridPane();
+        grid.add(headerLabel, 0, 0);
+        grid.add(imagePane, 0, 1);
+
+        dialogPane.setHeader(grid);
+
+        alert.setContentText("Click close to end your turn.");
+        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        alert.showAndWait();
+    }
+
+    private Label validCaptureAlertHeader(Capture capture) {
+
         Label headerLabel = new Label(String.format("%s of value %.1f captured successfully!",
                 capture.getCaptureName(), capture.getScore()));
+
         headerLabel.setAlignment(Pos.CENTER);
+
         headerLabel.setMaxWidth(Double.MAX_VALUE);
         headerLabel.setMaxHeight(Double.MAX_VALUE);
+
         headerLabel.setStyle("-fx-font-size: 20px;");
 
-        // create FlowPane object and adding the images of the capture cards
+        return headerLabel;
+    }
+
+    private FlowPane validCaptureAlertCaptures(Capture capture) {
+
         FlowPane imagePane = new FlowPane();
         imagePane.setAlignment(Pos.CENTER);
         imagePane.setHgap(4);
@@ -220,16 +245,7 @@ public class MatchCardController implements Initializable {
             imagePane.getChildren().add(cardImage);
         }
 
-        // Create new grid and add the headerLabel and imagePane
-        GridPane grid = new GridPane();
-        grid.add(headerLabel, 0, 0);
-        grid.add(imagePane, 0, 1);
-
-        dialogPane.setHeader(grid);
-
-        alert.setContentText("Click close to end your turn.");
-        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        alert.showAndWait();
+        return imagePane;
     }
 
     private void populateBoard(List<Card> cards, Boolean isPlayer) {
