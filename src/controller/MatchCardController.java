@@ -134,7 +134,7 @@ public class MatchCardController implements Initializable {
         currentPlayer.getHand().remove(selectedHandCard);
 
         currentPlayer.getSelectedCards().clear();
-        GameUtil.replaceMissingHandCard(poolCards, deck, players);
+        GameUtil.replaceMissingCards(poolCards, deck, players, true);
         populateBoard(poolCards, false);
 
         switchPlayer();
@@ -170,8 +170,8 @@ public class MatchCardController implements Initializable {
         currentPlayer.getHand().remove(selectedHandCard);
 
         // replace hand cards and pool cards after a successful capture
-        GameUtil.replaceMissingHandCard(poolCards, deck, players);
-        GameUtil.replaceMissingPoolCards(poolCards, deck, players);
+        GameUtil.replaceMissingCards(poolCards, deck, players, true);
+        GameUtil.replaceMissingCards(poolCards, deck, players, false);
 
         currentPlayer.setTotalScore(capture.getScore());
 

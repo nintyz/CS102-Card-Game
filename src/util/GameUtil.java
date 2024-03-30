@@ -64,75 +64,60 @@ public class GameUtil {
         return config;
     }
    
-    public static void replaceMissingPoolCards(List<Card> poolCards, Deck deck, List<Player> players) {
-        while (poolCards.size() < POOL_CARD_COUNT) {
+    /**
+     *
+     * This method deals cards until the current player's hand or poolcards are full
+     * 
+     */
+
+    public static void replaceMissingCards(List<Card> poolCards, Deck deck, List<Player> players, boolean isHand) {
+        
+        List<Card> cardList = poolCards;
+        int limit = POOL_CARD_COUNT;
+        if (isHand) {
+            cardList = players.get(1).getHand();
+            limit = HAND_CARD_COUNT;
+        }
+
+        while (cardList.size() < limit) {
             
             if (deck.isEmpty()) {
-                deck = new Deck(Suit.VALUES, Rank.VALUES);
-                deck.shuffle();
-
-                resetPoolCards(poolCards, deck);
-                for (Player p : players) {
-                    resetHand(p, deck);
-                }
-
+                resetDeckHandAndPoolCards(poolCards, players, deck);
                 break;
             }
 
-            poolCards.add(deck.dealCard());
-
-        }
-    }
-
-    public static void replaceMissingHandCard(List<Card> poolCards, Deck deck, List<Player> players) {
-        Player currentPlayer = players.get(1);
-
-        while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
-
-            if (deck.isEmpty()) {
-                deck = new Deck(Suit.VALUES, Rank.VALUES);
-                deck.shuffle();
-
-                resetPoolCards(poolCards, deck);
-                for (Player p : players) {
-                    resetHand(p, deck);
-                }
-
-                break;
-            }
-
-            currentPlayer.getHand().add(deck.dealCard());
+            cardList.add(deck.dealCard());
 
         }
     }
 
     /**
-     * This method clears and refills hand with new cards drawn from reinitialised deck 
-     * @param player
+     * 
+     * This method clears and refills both the pool and each players hands with cards dealt from the deck
+     * @param poolCards
+     * @param players
      * @param deck
      */
-    public static void resetHand(Player player, Deck deck) {
 
-        ArrayList<Card> currentHand = player.getHand();
-        currentHand.clear();
-
-        while (currentHand.size() < HAND_CARD_COUNT) {
-            currentHand.add(deck.dealCard());
-        }
-
-    }
-
-     /**
-     * This method clears and refills pool with new cards drawn from reinitialised deck 
-     * @param player
-     * @param deck
-     */
-    public static void resetPoolCards(List<Card> poolCards, Deck deck) {
+    public static void resetDeckHandAndPoolCards(List<Card> poolCards, List<Player> players, Deck deck) {
+        
+        deck = new Deck(Suit.VALUES, Rank.VALUES);
+        deck.shuffle();
 
         poolCards.clear();
-
         while (poolCards.size() < POOL_CARD_COUNT) {
             poolCards.add(deck.dealCard());
+        }
+        
+        for (Player player : players) {
+
+            ArrayList<Card> currentHand = player.getHand();
+            currentHand.clear();
+
+            while (currentHand.size() < HAND_CARD_COUNT) {
+                currentHand.add(deck.dealCard());
+            }
+
         }
 
     }
@@ -140,4 +125,5 @@ public class GameUtil {
     public static boolean winningScoreReached(List<Player> players) {
         return (players.get(0).getTotalScore() >= WINNING_SCORE || players.get(1).getTotalScore() >= WINNING_SCORE);
     }
+
 }
