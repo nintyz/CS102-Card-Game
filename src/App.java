@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import util.SceneUtil;
 
@@ -31,10 +32,12 @@ public class App extends Application {
         Parent mainParent = FXMLLoader.load(new File(SceneUtil.MAIN_SCENE).toURI().toURL());
         Scene mainScene = new Scene(mainParent);
 
-        // Set the parameters of the stage(game window)
+        // Settings for stage (game window)
         stage.setTitle("Matching Game");
-        stage.setScene(mainScene);
+        stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
         stage.setResizable(false);
+
+        stage.setScene(mainScene);
         stage.show();
 
         // Exit the application when the window is closed

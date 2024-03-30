@@ -8,7 +8,6 @@
  * Last modified: 31 Mar 2024
  */
 
-
 package controller;
 
 import java.io.File;
@@ -42,7 +41,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import model.capture.Capture;
 import model.card.Card;
 import model.game.Deck;
@@ -50,7 +48,6 @@ import model.game.Player;
 import util.GameUtil;
 import util.InitializeUtil;
 import util.SceneUtil;
-
 
 /**
  * This class controls the FX elements of the main game scene and integrates the
@@ -156,7 +153,7 @@ public class MatchCardController implements Initializable {
             showInvalidCaptureAlert();
             return capture;
         }
-        
+
         showValidCaptureAlert(capture);
 
         // remove selected cards from pool and hand
@@ -184,6 +181,9 @@ public class MatchCardController implements Initializable {
         alert.setHeaderText("Invalid Capture! Please try again!");
         alert.setContentText("Click close to return to game screen.");
 
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
+
         alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
     }
@@ -193,6 +193,8 @@ public class MatchCardController implements Initializable {
         alert.setTitle("Congratulations!");
 
         DialogPane dialogPane = alert.getDialogPane();
+        Stage stage = (Stage) dialogPane.getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
 
         // alert header
         Label headerLabel = validCaptureAlertHeader(capture);
@@ -208,7 +210,7 @@ public class MatchCardController implements Initializable {
         dialogPane.setHeader(grid);
 
         alert.setContentText("Click close to end your turn.");
-        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialogPane.getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
     }
 
@@ -258,13 +260,13 @@ public class MatchCardController implements Initializable {
         }
     }
 
-    private void clearBoard(FlowPane flowPane, boolean isHandBoard) {
+    private void clearBoard(FlowPane flowPane, boolean isHand) {
         for (int i = 0; i < flowPane.getChildren().size(); i++) {
             BorderPane borderPane = (BorderPane) flowPane.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
 
-            if (!isHandBoard) {
+            if (!isHand) {
                 // Remove the click listener and the image
                 imageView.setOnMouseClicked(null);
                 imageView.setImage(null);
@@ -275,7 +277,7 @@ public class MatchCardController implements Initializable {
             borderPane.pseudoClassStateChanged(imageViewBorder, false);
         }
 
-        if (!isHandBoard) {
+        if (!isHand) {
             for (Player player : players) {
                 player.getSelectedCards().clear();
                 player.getSelectedHandCards().clear();
@@ -302,11 +304,11 @@ public class MatchCardController implements Initializable {
             System.out.println("You clicked on card " + imageView.getUserData());
             imageViewBorderActive.set(!imageViewBorderActive.get());
 
-            setMatchButtonState((Card) imageView.getUserData(), borderPane);
+            setMatchDiscardButtonState((Card) imageView.getUserData(), borderPane);
         });
     }
 
-    private void setMatchButtonState(Card selectedCard, BorderPane borderPane) {
+    private void setMatchDiscardButtonState(Card selectedCard, BorderPane borderPane) {
         Player currentPlayer = players.get(1);
 
         boolean isSelected = currentPlayer.getSelectedCards().contains(selectedCard);
