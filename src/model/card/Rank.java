@@ -1,5 +1,6 @@
 package model.card;
 // Rank.java - John K. Estell - 8 May 2003
+
 // last modified: 16 Febraury 2004
 // Implementation of the "rank" value for a playing card.
 
@@ -21,8 +22,6 @@ import java.util.List;
  * containing a subset of the standard ranks, e.g. pinochle.
  */
 public class Rank implements Comparable<Rank> {
-   private String name;
-   private String symbol;
 
    /**
     * The rank ace.
@@ -81,6 +80,9 @@ public class Rank implements Comparable<Rank> {
          Arrays.asList(new Rank[] { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
                EIGHT, NINE, TEN, JACK, QUEEN, KING }));
 
+   private String name;
+   private String symbol;
+
    // Constructor - declared private as only the predefined values should
    // be used by the client.
    public Rank(String nameValue, String symbolValue) {
@@ -114,7 +116,7 @@ public class Rank implements Comparable<Rank> {
          case "king":
             return 13;
       }
-      
+
       return Integer.parseInt(symbol);
    }
 
