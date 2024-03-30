@@ -1,3 +1,13 @@
+/**
+ * controller.MatchCardController.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package controller;
 
 import java.io.File;
@@ -40,16 +50,8 @@ import util.InitializeUtil;
 import util.SceneUtil;
 
 /**
- * controller.MatchCardController.java
- * 
- * Last modified: 31 Mar 2024
- * 
- * This class controls the FX elements of the application and intergrates the
+ * This class controls the FX elements of the main game scene and integrates the
  * game logic into them
- * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
  */
 
 public class MatchCardController implements Initializable {

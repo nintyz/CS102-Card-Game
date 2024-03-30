@@ -1,3 +1,13 @@
+/**
+ * util.SceneUtil.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package util;
 
 import java.text.DecimalFormat;
@@ -5,15 +15,9 @@ import java.text.DecimalFormat;
 import model.game.Player;
 
 /**
- * util.SceneUtil.java
- * 
- * Last modified: 31 Mar 2024
  * 
  * This class contains attibutes and methods aiding in the formatting of scene elements
  * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
  */
 
 public class SceneUtil {

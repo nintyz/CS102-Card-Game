@@ -30,13 +30,15 @@ import util.SceneUtil;
  * 
  * Last modified: 31 Mar 2024
  * 
- * This class controls the FX elements of the application and intergrates the
- * game logic into them
- * 
  * @author Aaron, Andre, En Ting, Gerald, Xavier
  * 
  * @version 1.0
  */
+
+ /**
+  * This class controls the FX elements of the application and intergrates the
+  * game logic into them
+  */
 
 public class EndGameController implements Initializable {
 

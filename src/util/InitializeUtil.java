@@ -1,3 +1,13 @@
+/**
+ * util.InitializeUtil.java
+ * 
+ * @version 1.0
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * Last modified: 31 Mar 2024
+ */
+
 package util;
 
 import java.util.ArrayList;
@@ -9,15 +19,9 @@ import model.game.Deck;
 import model.game.Player;
 
 /**
- * util.InitializeUtil.java
- * 
- * Last modified: 31 Mar 2024
  * 
  * This class contains methods to initialize the starting deck, cardpool and players.
  * 
- * @author Aaron, Andre, En Ting, Gerald, Xavier
- * 
- * @version 1.0
  */
 
 public class InitializeUtil {
