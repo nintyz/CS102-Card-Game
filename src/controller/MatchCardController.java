@@ -106,7 +106,7 @@ public class MatchCardController implements Initializable {
     void matchButton(ActionEvent event) throws IOException {
         Player currentPlayer = players.get(1);
 
-        Capture capture = capture(currentPlayer);
+        Capture capture = attemptCapture(currentPlayer);
 
         // return to main method when captureAttempt is null (capture is invalid)
         if (capture == null) {
@@ -134,7 +134,7 @@ public class MatchCardController implements Initializable {
         currentPlayer.getHand().remove(selectedHandCard);
 
         currentPlayer.getSelectedCards().clear();
-        GameUtil.replaceHandCard(poolCards, deck, players);
+        GameUtil.replaceMissingHandCard(poolCards, deck, players);
         populateBoard(poolCards, false);
 
         switchPlayer();
@@ -147,7 +147,7 @@ public class MatchCardController implements Initializable {
         Platform.exit();
     }
 
-    private Capture capture(Player currentPlayer) {
+    private Capture attemptCapture(Player currentPlayer) {
 
         Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
         ArrayList<Card> selectedPoolCard = currentPlayer.getSelectedCards();
@@ -171,8 +171,8 @@ public class MatchCardController implements Initializable {
         currentPlayer.getHand().remove(selectedHandCard);
 
         // replace hand cards and pool cards after a successful capture
-        GameUtil.replaceHandCard(poolCards, deck, players);
-        GameUtil.replaceCardPool(poolCards, deck, players);
+        GameUtil.replaceMissingHandCard(poolCards, deck, players);
+        GameUtil.replaceMissingPoolCards(poolCards, deck, players);
 
         currentPlayer.setTotalScore(capture.getScore());
 
@@ -268,7 +268,10 @@ public class MatchCardController implements Initializable {
         }
 
         if (!isHandBoard) {
-            GameUtil.clearSelectedCards(players);
+            for (Player player : players) {
+                player.getSelectedCards().clear();
+                player.getSelectedHandCards().clear();
+            }
         }
 
     }

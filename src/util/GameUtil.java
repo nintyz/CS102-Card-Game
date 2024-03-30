@@ -50,6 +50,19 @@ public class GameUtil {
         return HAND_CARD_COUNT;
     }
 
+    private static Properties getConfig() {
+        // Get the configuration from the config file
+        Properties config = new Properties();
+
+        try (InputStream input = new FileInputStream("app.config")) {
+            config.load(input);
+
+        } catch (Exception e) {
+            System.out.println("Error reading config file: " + e.getMessage());
+        }
+
+        return config;
+    }
    
     public static void replaceMissingPoolCards(List<Card> poolCards, Deck deck, List<Player> players) {
         while (poolCards.size() < POOL_CARD_COUNT) {
@@ -122,21 +135,6 @@ public class GameUtil {
             poolCards.add(deck.dealCard());
         }
 
-    }
-
-   
-    private static Properties getConfig() {
-        // Get the configuration from the config file
-        Properties config = new Properties();
-
-        try (InputStream input = new FileInputStream("app.config")) {
-            config.load(input);
-
-        } catch (Exception e) {
-            System.out.println("Error reading config file: " + e.getMessage());
-        }
-
-        return config;
     }
 
     public static boolean winningScoreReached(List<Player> players) {
