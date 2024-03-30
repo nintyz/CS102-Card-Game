@@ -1,5 +1,20 @@
 package model.card;
 
+// Card.java - John K. Estell - 8 May 2003
+// last modified: 23 Febraury 2004
+// Implementation of a playing card.  Uses classes Rank and Suit for
+// expressing the card value.
+
+/**
+ * Representation of a single playing card. A card consists of a suit value
+ * (e.g. hearts, spades), a rank value (e.g. ace, 7, king), and an image of
+ * the front of the card.  A card object is immutable; once instantiated, the
+ * values cannot change.
+ *
+ * @author John K. Estell
+ * @version 1.0
+ */
+
 public class Card implements Comparable<Card> {
 
    private Suit suitValue;

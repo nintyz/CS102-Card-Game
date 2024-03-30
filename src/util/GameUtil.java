@@ -26,7 +26,8 @@ import model.game.Player;
  */
 
 public class GameUtil {
-
+    
+    //obtains value of winning score from app.config file and stores it into WINNING_SCORE
     private static final int WINNING_SCORE = Integer.parseInt(getConfig().getProperty("winningScore"));
 
     private static final int PLAYER_COUNT = 2;
@@ -49,42 +50,10 @@ public class GameUtil {
         return HAND_CARD_COUNT;
     }
 
-
-    public static void clearSelectedCards(List<Player> players) {
-
-        // Clear selected cards after each player's turn
-        for (Player player : players) {
-            player.getSelectedCards().clear();
-            player.getSelectedHandCards().clear();
-        }
-
-    }
-
-    public static void resetHand(Player player, Deck deck) {
-        ArrayList<Card> currentHand = player.getHand();
-        currentHand.clear();
-
-        while (currentHand.size() < HAND_CARD_COUNT) {
-            currentHand.add(deck.dealCard());
-        }
-
-    }
-
-    public static void resetPoolCards(List<Card> poolCards, Deck deck) {
-        poolCards.clear();
-
+   
+    public static void replaceMissingPoolCards(List<Card> poolCards, Deck deck, List<Player> players) {
         while (poolCards.size() < POOL_CARD_COUNT) {
-            poolCards.add(deck.dealCard());
-        }
-
-    }
-
-    public static void replaceCardPool(List<Card> poolCards, Deck deck, List<Player> players) {
-        while (poolCards.size() < POOL_CARD_COUNT) {
-            /**
-             * refills the deck and resets the pool and handcards of the players with new
-             * cards when deck is empty
-             */
+            
             if (deck.isEmpty()) {
                 deck = new Deck(Suit.VALUES, Rank.VALUES);
                 deck.shuffle();
@@ -102,7 +71,7 @@ public class GameUtil {
         }
     }
 
-    public static void replaceHandCard(List<Card> poolCards, Deck deck, List<Player> players) {
+    public static void replaceMissingHandCard(List<Card> poolCards, Deck deck, List<Player> players) {
         Player currentPlayer = players.get(1);
 
         while (currentPlayer.getHand().size() < HAND_CARD_COUNT) {
@@ -124,6 +93,38 @@ public class GameUtil {
         }
     }
 
+    /**
+     * This method clears and refills hand with new cards drawn from reinitialised deck 
+     * @param player
+     * @param deck
+     */
+    public static void resetHand(Player player, Deck deck) {
+
+        ArrayList<Card> currentHand = player.getHand();
+        currentHand.clear();
+
+        while (currentHand.size() < HAND_CARD_COUNT) {
+            currentHand.add(deck.dealCard());
+        }
+
+    }
+
+     /**
+     * This method clears and refills pool with new cards drawn from reinitialised deck 
+     * @param player
+     * @param deck
+     */
+    public static void resetPoolCards(List<Card> poolCards, Deck deck) {
+
+        poolCards.clear();
+
+        while (poolCards.size() < POOL_CARD_COUNT) {
+            poolCards.add(deck.dealCard());
+        }
+
+    }
+
+   
     private static Properties getConfig() {
         // Get the configuration from the config file
         Properties config = new Properties();

@@ -21,6 +21,7 @@ public class SceneUtil {
     public static final String MAIN_SCENE = "resources/view/match-cards.fxml";
     public static final String END_SCENE = "resources/view/end-game.fxml";
 
+    // creates new DecimalFormat Object of the specified pattern
     private static final DecimalFormat DEC_FORMAT = new DecimalFormat("#.##");
 
     public static DecimalFormat getDecFormat() {
@@ -31,6 +32,7 @@ public class SceneUtil {
         return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
     }
 
+    // formats score based on the pre-set decimal format 
     public static String formatScore(double score) {
         return String.valueOf(DEC_FORMAT.format(score));
     }

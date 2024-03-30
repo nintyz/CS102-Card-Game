@@ -89,7 +89,7 @@ public class EndGameController implements Initializable {
             updateScoreLabels();
             updateWinningTextLabel();
             updateWinningCaptureLabel();
-            populateCapturedCards();
+            populateWinningCapturedCards();
 
         });
 
@@ -124,7 +124,7 @@ public class EndGameController implements Initializable {
     /**
      * Function to update the captured cards in the end game scene
      */
-    private void populateCapturedCards() {
+    private void populateWinningCapturedCards() {
 
         endingCapture.getChildren().clear(); // Clear previous captured cards
 

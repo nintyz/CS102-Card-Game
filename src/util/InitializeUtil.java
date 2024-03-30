@@ -22,7 +22,7 @@ import model.game.Player;
 
 public class InitializeUtil {
     
-     public static Deck initializeDeck() {
+    public static Deck initializeDeck() {
         Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
         deck.shuffle();
 
