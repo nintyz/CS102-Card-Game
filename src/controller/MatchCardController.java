@@ -87,19 +87,19 @@ public class MatchCardController implements Initializable {
     @FXML
     private Button startGameButton;
 
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        handView.setVisible(false);
+    }
+
     @FXML
-    void discardButton(ActionEvent event) {
+    void startGame(ActionEvent event) {
+        startGameButton.setVisible(false);
+        startGameLabel.setVisible(false);
+        handView.setVisible(true);
 
-        Player currentPlayer = players.get(1);
-        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
-        currentPlayer.getHand().remove(selectedHandCard);
-
-        currentPlayer.getSelectedCards().clear();
-        GameUtil.replaceHandCard(poolCards, deck, players);
         populateBoard(poolCards, false);
-
         switchPlayer();
-        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
 
     @FXML
@@ -127,23 +127,24 @@ public class MatchCardController implements Initializable {
     }
 
     @FXML
-    void startGame(ActionEvent event) {
-        startGameButton.setVisible(false);
-        startGameLabel.setVisible(false);
-        handView.setVisible(true);
+    void discardButton(ActionEvent event) {
 
+        Player currentPlayer = players.get(1);
+        Card selectedHandCard = currentPlayer.getSelectedHandCards().get(0);
+        currentPlayer.getHand().remove(selectedHandCard);
+
+        currentPlayer.getSelectedCards().clear();
+        GameUtil.replaceHandCard(poolCards, deck, players);
         populateBoard(poolCards, false);
+
         switchPlayer();
+        System.out.println("Deck size: " + deck.getNumberOfCardsRemaining());
     }
+
 
     @FXML
     void quitGame(ActionEvent event) {
         Platform.exit();
-    }
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        handView.setVisible(false);
     }
 
     private Capture capture(Player currentPlayer) {
@@ -178,6 +179,17 @@ public class MatchCardController implements Initializable {
         switchPlayer();
 
         return capture;
+    }
+
+    private void invalidCaptureAlert() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+
+        alert.setTitle("Oh No!");
+        alert.setHeaderText("Invalid Capture! Please try again!");
+        alert.setContentText("Click close to return to game screen.");
+
+        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        alert.showAndWait();
     }
 
     private void validCaptureAlert(Capture capture) {
@@ -216,17 +228,6 @@ public class MatchCardController implements Initializable {
         dialogPane.setHeader(grid);
 
         alert.setContentText("Click close to end your turn.");
-        alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        alert.showAndWait();
-    }
-
-    private void invalidCaptureAlert() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-
-        alert.setTitle("Oh No!");
-        alert.setHeaderText("Invalid Capture! Please try again!");
-        alert.setContentText("Click close to return to game screen.");
-
         alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
     }
