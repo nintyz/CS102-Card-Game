@@ -2,7 +2,6 @@ package util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -13,65 +12,43 @@ import model.card.Suit;
 import model.game.Deck;
 import model.game.Player;
 
+/**
+ * util.GameUtil.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class contains game constants and methods directly manipulating non-javaFX elements of the game
+ * game logic into them
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
+
 public class GameUtil {
-    public static final String MAIN_SCENE = "resources/view/match-cards.fxml";
-    public static final String END_SCENE = "resources/view/end-game.fxml";
 
     private static final int WINNING_SCORE = Integer.parseInt(getConfig().getProperty("winningScore"));
 
     private static final int PLAYER_COUNT = 2;
     private static final int POOL_CARD_COUNT = 10;
     private static final int HAND_CARD_COUNT = 4;
-    private static final DecimalFormat DECFORMAT = new DecimalFormat("#.##");
-
-    public static DecimalFormat getDecFormat() {
-        return DECFORMAT;
-    }
-
-    public static Deck initializeDeck() {
-        Deck deck = new Deck(Suit.VALUES, Rank.VALUES);
-        deck.shuffle();
-
-        return deck;
-    }
-
-    public static ArrayList<Card> initializeCardPool(Deck deck) {
-
-        ArrayList<Card> poolCards = new ArrayList<Card>();
-
-        for (int i = 0; i < POOL_CARD_COUNT; i++) {
-            poolCards.add(deck.dealCard());
-        }
-
-        return poolCards;
-    }
-
-    public static ArrayList<Player> initializePlayers(Deck deck) {
-        ArrayList<Player> players = new ArrayList<Player>();
-
-        // Create players
-        for (int i = 0; i < PLAYER_COUNT; i++) {
-            players.add(new Player(i));
-        }
-
-        // Distribute cards to players
-        for (int i = 0; i < (HAND_CARD_COUNT * PLAYER_COUNT); i++) {
-            Player currentPlayer = players.get(i % PLAYER_COUNT);
-            currentPlayer.getHand().add(deck.dealCard());
-        }
-
-        // Print hands of each player after distribution
-        for (Player player : players) {
-            System.out.println("Player's hand: " + player.getHand());
-        }
-
-        return players;
-
-    }
 
     public static int getWinningScore() {
         return WINNING_SCORE;
     }
+
+    public static int getPlayerCount() {
+        return PLAYER_COUNT;
+    }
+
+    public static int getPoolCardCount() {
+        return POOL_CARD_COUNT;
+    }
+
+    public static int getHandCardCount() {
+        return HAND_CARD_COUNT;
+    }
+
 
     public static void clearSelectedCards(List<Player> players) {
 
@@ -159,18 +136,6 @@ public class GameUtil {
         }
 
         return config;
-    }
-
-    /**
-     * Function to get the score text for a player
-     */
-
-    public String getPlayerScoreText(Player player, double score1, double score2) {
-        return player.getPlayerId() == 0 ? formatScore(score1) : formatScore(score2);
-    }
-
-    public String formatScore(double score) {
-        return String.valueOf(DECFORMAT.format(score));
     }
 
     public static boolean winningScoreReached(List<Player> players) {

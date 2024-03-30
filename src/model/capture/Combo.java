@@ -6,7 +6,7 @@ import java.util.Collections;
 import model.card.Card;
 
 /**
- * Combo.java
+ * model.capture.Combo.java
  * 
  * Last modified: 31 Mar 2024
  * 

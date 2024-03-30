@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * App.java
+ * view.App.java
  * 
  * Last modified: 31 Mar 2024
  * 

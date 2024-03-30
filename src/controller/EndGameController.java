@@ -23,6 +23,20 @@ import model.capture.Capture;
 import model.card.Card;
 import model.game.Player;
 import util.GameUtil;
+import util.SceneUtil;
+
+/**
+ * controller.EndGameController.java
+ * 
+ * Last modified: 31 Mar 2024
+ * 
+ * This class controls the FX elements of the application and intergrates the
+ * game logic into them
+ * 
+ * @author Aaron, Andre, En Ting, Gerald, Xavier
+ * 
+ * @version 1.0
+ */
 
 public class EndGameController implements Initializable {
 
@@ -88,8 +102,8 @@ public class EndGameController implements Initializable {
         double currentPlayerScore = currentPlayer.getTotalScore();
         double nextPlayerScore = nextPlayer.getTotalScore();
 
-        String playerOneScore = gameUtil.getPlayerScoreText(currentPlayer, currentPlayerScore, nextPlayerScore);
-        String playerTwoScore = gameUtil.getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
+        String playerOneScore = SceneUtil.getPlayerScoreText(currentPlayer, currentPlayerScore, nextPlayerScore);
+        String playerTwoScore = SceneUtil.getPlayerScoreText(currentPlayer, nextPlayerScore, currentPlayerScore);
 
         playerOneScoreLabel.setText(playerOneScore);
         playerTwoScoreLabel.setText(playerTwoScore);
@@ -125,7 +139,7 @@ public class EndGameController implements Initializable {
     private void switchToMainScene(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        FXMLLoader loader = new FXMLLoader(new File(GameUtil.MAIN_SCENE).toURI().toURL());
+        FXMLLoader loader = new FXMLLoader(new File(SceneUtil.MAIN_SCENE).toURI().toURL());
         Parent mainParent = loader.load();
         Scene mainScene = new Scene(mainParent);
 

@@ -5,7 +5,7 @@ import model.card.Card;
 import model.card.Rank;
 
 /**
- * Straight.java
+ * model.capture.Straight.java
  * 
  * Last modified: 31 Mar 2024
  * 

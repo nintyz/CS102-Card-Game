@@ -4,7 +4,7 @@ import java.util.*;
 import model.card.Card;
 
 /**
- * Pair.java
+ * model.capture.Pair.java
  * 
  * Last modified: 31 Mar 2024
  * 

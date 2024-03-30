@@ -3,7 +3,7 @@ import java.util.*;
 
 import model.card.Card;
 /**
- * Triple.java
+ * model.capture.Triple.java
  * 
  * Last modified: 31 Mar 2024
  * 

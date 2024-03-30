@@ -6,7 +6,7 @@ import model.card.Card;
 import model.card.Suit;
 
 /**
- * Run.java
+ * model.capture.Run.java
  * 
  * Last modified: 31 Mar 2024
  * 

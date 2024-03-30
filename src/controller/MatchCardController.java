@@ -36,9 +36,11 @@ import model.card.Card;
 import model.game.Deck;
 import model.game.Player;
 import util.GameUtil;
+import util.InitializeUtil;
+import util.SceneUtil;
 
 /**
- * MatchCardController.java
+ * controller.MatchCardController.java
  * 
  * Last modified: 31 Mar 2024
  * 
@@ -51,9 +53,10 @@ import util.GameUtil;
  */
 
 public class MatchCardController implements Initializable {
-    private Deck deck = GameUtil.initializeDeck();
-    private ArrayList<Player> players = GameUtil.initializePlayers(deck);
-    private ArrayList<Card> poolCards = GameUtil.initializeCardPool(deck);
+
+    private Deck deck = InitializeUtil.initializeDeck();
+    private ArrayList<Player> players = InitializeUtil.initializePlayers(deck);
+    private ArrayList<Card> poolCards = InitializeUtil.initializeCardPool(deck);
 
     private PseudoClass imageViewBorder = PseudoClass.getPseudoClass("border");
 
@@ -341,7 +344,7 @@ public class MatchCardController implements Initializable {
         playerLabel.setText(Integer.toString(player.getPlayerId() + 1));
 
         // Switch player score
-        scoreLabel.setText(String.valueOf(GameUtil.getDecFormat().format(player.getTotalScore())));
+        scoreLabel.setText(String.valueOf(SceneUtil.getDecFormat().format(player.getTotalScore())));
 
         // Populate hand with the new player's hand
         populateBoard(player.getHand(), true);
@@ -358,7 +361,7 @@ public class MatchCardController implements Initializable {
     private void switchToEndScene(ActionEvent event, Capture capture) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        FXMLLoader loader = new FXMLLoader(new File(GameUtil.END_SCENE).toURI().toURL());
+        FXMLLoader loader = new FXMLLoader(new File(SceneUtil.END_SCENE).toURI().toURL());
         Parent mainParent = loader.load();
         Scene mainScene = new Scene(mainParent);
 

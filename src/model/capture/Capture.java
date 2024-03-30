@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import model.card.Card;
 
 /**
- * Capture.java
+ * model.capture.Capture.java
  * 
  * Last modified: 31 Mar 2024
  * 

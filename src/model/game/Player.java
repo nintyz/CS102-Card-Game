@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import model.card.Card;
 
 /**
- * Player.java
+ * game.Player.java
  * 
  * Last modified: 31 Mar 2024
  * 
