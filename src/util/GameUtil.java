@@ -39,22 +39,6 @@ public class GameUtil {
     private static final int POOL_CARD_COUNT = 10;
     private static final int HAND_CARD_COUNT = 4;
 
-    public static int getWinningScore() {
-        return WINNING_SCORE;
-    }
-
-    public static int getPlayerCount() {
-        return PLAYER_COUNT;
-    }
-
-    public static int getPoolCardCount() {
-        return POOL_CARD_COUNT;
-    }
-
-    public static int getHandCardCount() {
-        return HAND_CARD_COUNT;
-    }
-
     private static Properties getConfig() {
         // Get the configuration from the config file
         Properties config = new Properties();
@@ -129,6 +113,22 @@ public class GameUtil {
 
     public static boolean winningScoreReached(List<Player> players) {
         return (players.get(0).getTotalScore() >= WINNING_SCORE || players.get(1).getTotalScore() >= WINNING_SCORE);
+    }
+
+    public static int getWinningScore() {
+        return WINNING_SCORE;
+    }
+
+    public static int getPlayerCount() {
+        return PLAYER_COUNT;
+    }
+
+    public static int getPoolCardCount() {
+        return POOL_CARD_COUNT;
+    }
+
+    public static int getHandCardCount() {
+        return HAND_CARD_COUNT;
     }
 
 }

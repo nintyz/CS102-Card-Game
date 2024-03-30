@@ -17,9 +17,10 @@ package model.card;
 
 public class Card implements Comparable<Card> {
 
+   private static boolean sortRankMajorOrder = true;
+
    private Suit suitValue;
    private Rank rankValue;
-   private static boolean sortRankMajorOrder = true;
 
    public Card(Suit suit, Rank rank) {
       this.suitValue = suit;
