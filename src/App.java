@@ -34,7 +34,7 @@ public class App extends Application {
 
         // Settings for stage (game window)
         stage.setTitle("CaptureQuest");
-        stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
+        stage.getIcons().add(new Image("file:resources/images/black_joker.png"));
         stage.setResizable(false);
 
         stage.setScene(mainScene);
