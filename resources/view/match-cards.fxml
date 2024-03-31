@@ -29,7 +29,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -41,7 +41,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -53,7 +53,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -65,7 +65,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -77,7 +77,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -89,7 +89,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -101,7 +101,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -113,7 +113,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -125,7 +125,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -137,7 +137,7 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </BorderPane.margin>
                            <image>
-                              <Image url="@../img/back.png" />
+                              <Image url="@../images/back.png" />
                            </image>
                         </ImageView>
                      </center>

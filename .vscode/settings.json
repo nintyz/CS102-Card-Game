@@ -4,13 +4,13 @@
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.base.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.controls.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.fxml.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.graphics.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.media.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.swing.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx.web.jar",
-        "libraries/javafx-sdk-21.0.2/lib/javafx-swt.jar"
+        "lib/javafx-sdk-21.0.2/lib/javafx.base.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx.controls.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx.fxml.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx.graphics.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx.media.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx.swing.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx.web.jar",
+        "lib/javafx-sdk-21.0.2/lib/javafx-swt.jar"
     ]
 }

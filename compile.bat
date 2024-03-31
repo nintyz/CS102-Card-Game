@@ -1,1 +1,1 @@
-javac --module-path libraries\javafx-sdk-21.0.2\lib --add-modules javafx.controls,javafx.fxml -d classes -cp libraries/javafx-sdk-21.0.2/lib/*;src src/App.java src/controller/MatchCardController.java src/controller/EndGameController.java 
+javac --module-path lib\javafx-sdk-21.0.2\lib --add-modules javafx.controls,javafx.fxml -d classes -cp lib/javafx-sdk-21.0.2/lib/*;src src/App.java src/controller/MatchCardController.java src/controller/EndGameController.java 

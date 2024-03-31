@@ -1,1 +1,1 @@
-java --module-path libraries\javafx-sdk-21.0.2\lib --add-modules javafx.controls,javafx.fxml -cp libraries/javafx-sdk-21.0.2/lib/*;classes App
+java --module-path lib\javafx-sdk-21.0.2\lib --add-modules javafx.controls,javafx.fxml -cp lib/javafx-sdk-21.0.2/lib/*;classes App

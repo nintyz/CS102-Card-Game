@@ -126,7 +126,7 @@ public class EndGameController implements Initializable {
         endingCapture.getChildren().clear(); // Clear previous captured cards
 
         for (Card card : capture.getCaptureCards()) {
-            ImageView cardImageView = new ImageView(new Image("file:resources/img/" + card.getCardImage()));
+            ImageView cardImageView = new ImageView(new Image("file:resources/images/" + card.getCardImage()));
             cardImageView.setFitHeight(169.0);
             cardImageView.setFitWidth(117.0);
             endingCapture.getChildren().add(cardImageView);

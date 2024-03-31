@@ -47,27 +47,27 @@
                                  <children>
                                     <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../img/2_of_clubs.png" />
+                                          <Image url="@../images/2_of_clubs.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../img/2_of_clubs.png" />
+                                          <Image url="@../images/2_of_clubs.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../img/2_of_clubs.png" />
+                                          <Image url="@../images/2_of_clubs.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../img/2_of_clubs.png" />
+                                          <Image url="@../images/2_of_clubs.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fitHeight="169.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../img/2_of_clubs.png" />
+                                          <Image url="@../images/2_of_clubs.png" />
                                        </image>
                                     </ImageView>
                                  </children>

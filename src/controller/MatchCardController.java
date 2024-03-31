@@ -182,7 +182,7 @@ public class MatchCardController implements Initializable {
         alert.setContentText("Click close to return to game screen.");
 
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
+        stage.getIcons().add(new Image("file:resources/images/black_joker.png"));
 
         alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         alert.showAndWait();
@@ -194,7 +194,7 @@ public class MatchCardController implements Initializable {
 
         DialogPane dialogPane = alert.getDialogPane();
         Stage stage = (Stage) dialogPane.getScene().getWindow();
-        stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
+        stage.getIcons().add(new Image("file:resources/images/black_joker.png"));
 
         // alert header
         Label headerLabel = getValidCaptureAlertHeader(capture);
@@ -234,7 +234,7 @@ public class MatchCardController implements Initializable {
         imagePane.setHgap(4);
 
         for (Card c : capture.getCaptureCards()) {
-            ImageView cardImage = new ImageView("file:resources/img/" + c.getCardImage());
+            ImageView cardImage = new ImageView("file:resources/images/" + c.getCardImage());
             cardImage.setFitHeight(120);
             cardImage.setFitWidth(120);
             cardImage.setPreserveRatio(true);
@@ -257,7 +257,7 @@ public class MatchCardController implements Initializable {
             BorderPane borderPane = (BorderPane) pool.getChildren().get(i);
 
             ImageView imageView = (ImageView) borderPane.getChildren().get(0);
-            imageView.setImage(new Image("file:resources/img/" + cards.get(i).getCardImage()));
+            imageView.setImage(new Image("file:resources/images/" + cards.get(i).getCardImage()));
             imageView.setUserData(cards.get(i));
 
             registerClickListener(borderPane, imageView);
