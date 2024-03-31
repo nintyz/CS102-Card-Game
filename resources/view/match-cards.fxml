@@ -154,7 +154,7 @@
                <children>
                   <VBox alignment="CENTER" spacing="30.0">
                      <children>
-                        <Label fx:id="startGameLabel" text="Matching Game" />
+                        <Label fx:id="startGameLabel" text="CaptureQuest" />
                         <HBox fx:id="handView" alignment="CENTER" spacing="40.0">
                            <children>
                               <GridPane prefHeight="58.0" prefWidth="201.0">

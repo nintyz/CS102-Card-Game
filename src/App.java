@@ -33,7 +33,7 @@ public class App extends Application {
         Scene mainScene = new Scene(mainParent);
 
         // Settings for stage (game window)
-        stage.setTitle("Matching Game");
+        stage.setTitle("CaptureQuest");
         stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
         stage.setResizable(false);
 
