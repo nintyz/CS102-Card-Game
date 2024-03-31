@@ -1,9 +1,9 @@
 # CS102-Card-Game
 Number of Players: 2
 Description:
-- Game starts with 8 cards dealt to the Cardpool, and 4 cards to each player
+- Game starts with 10 cards dealt to the Cardpool, and 4 cards to each player
 - Players take turns forming captures to score points
-- First player to accumulate a total score greater than the winning score wins
+- First player to accumulate a total score greater than the winning score (default 21 ) wins
 - Winning Score can be configured in the app.config file
 
 Rules:
