@@ -1,6 +1,6 @@
 .root {
     -fx-font-size: 24pt;
-    -fx-background-color: #26C6DA;
+    -fx-background-color: #3d855e;
 }
 
 .label {
@@ -13,7 +13,8 @@
 }
 
 .image-view-wrapper:border {
-    -fx-background-color: #de0909;
+    -fx-background-color: #FF0000;
+    ;
 }
 
 .endgame {
