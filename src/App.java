@@ -1,5 +1,5 @@
 /**
- * view.App.java
+ * App.java
  * 
  * @version 1.0
  * 
