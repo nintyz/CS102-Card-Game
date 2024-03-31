@@ -23,7 +23,6 @@ public class Pair extends Capture{
   
     public Pair(){}
 
-    //forms a Pair by placing both the handCard and poolCard in an array of length = 2
     public Pair(Card[] captureCards){
         multiplier = 1.0;
         captureName = "Pair";

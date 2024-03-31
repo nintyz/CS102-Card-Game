@@ -35,7 +35,7 @@ public class Triple extends Capture {
             return null;
         }
 
-        //checks if the rank of any card is different from the rest, return null
+        //if the rank of any card is different from the rest, return null
         if (!handCard.getRank().equals(poolCards.get(0).getRank()) || !handCard.getRank().equals(poolCards.get(1).getRank())) {
             return null;
         }

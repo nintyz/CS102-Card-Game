@@ -50,10 +50,10 @@ public class Run extends Capture{
             temp.add(c);
         }
 
-        // Check if the rank values of the cards are in sequence
         temp.add(handCard);
         Collections.sort(temp);
-
+    
+        // Check if the rank values of the cards are in sequence
         for (int i = 0; i < temp.size() - 1; i++) {
             if (temp.get(i).getRank().compareTo(temp.get(i + 1).getRank()) != -1) {
                 return null;

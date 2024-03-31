@@ -72,7 +72,7 @@ public class Card implements Comparable<Card> {
    public boolean equals(Object o) {
       Card card = (Card) o;
       if ((rankValue.toString().equals(card.rankValue.toString())) &&
-            (suitValue.toString().equals(card.suitValue.toString())))
+          (suitValue.toString().equals(card.suitValue.toString()))) 
          return true;
       else
          return false;

@@ -107,7 +107,7 @@ public class GameUtil {
         return deck;
     }
 
-    public static boolean winningScoreReached(List<Player> players) {
+    public static boolean reachedWinningScore(List<Player> players) {
         return (players.get(0).getTotalScore() >= WINNING_SCORE || players.get(1).getTotalScore() >= WINNING_SCORE);
     }
 

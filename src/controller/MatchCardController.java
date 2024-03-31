@@ -113,7 +113,7 @@ public class MatchCardController implements Initializable {
             return;
         }
 
-        if (GameUtil.winningScoreReached(players)) {
+        if (GameUtil.reachedWinningScore(players)) {
             switchToEndScene(event, capture);
             return;
         }
@@ -197,10 +197,10 @@ public class MatchCardController implements Initializable {
         stage.getIcons().add(new Image("file:resources/img/black_joker.png"));
 
         // alert header
-        Label headerLabel = validCaptureAlertHeader(capture);
+        Label headerLabel = getValidCaptureAlertHeader(capture);
 
         // alert content (captured cards)
-        FlowPane imagePane = validCaptureAlertCaptures(capture);
+        FlowPane imagePane = getValidCaptureAlertCaptures(capture);
 
         // stack headerLabel and imagePane vertically
         GridPane grid = new GridPane();
@@ -214,7 +214,7 @@ public class MatchCardController implements Initializable {
         alert.showAndWait();
     }
 
-    private Label validCaptureAlertHeader(Capture capture) {
+    private Label getValidCaptureAlertHeader(Capture capture) {
         Label headerLabel = new Label(String.format("%s of value %.1f captured successfully!",
                 capture.getCaptureName(), capture.getScore()));
 
@@ -228,7 +228,7 @@ public class MatchCardController implements Initializable {
         return headerLabel;
     }
 
-    private FlowPane validCaptureAlertCaptures(Capture capture) {
+    private FlowPane getValidCaptureAlertCaptures(Capture capture) {
         FlowPane imagePane = new FlowPane();
         imagePane.setAlignment(Pos.CENTER);
         imagePane.setHgap(4);
@@ -245,6 +245,10 @@ public class MatchCardController implements Initializable {
         return imagePane;
     }
 
+    /**
+     * This method fills up either the cardPool or handCard flowPane with images of the cards passed into
+     * the cards parameter
+     */
     private void populateBoard(List<Card> cards, Boolean isPlayer) {
         FlowPane pool = isPlayer ? handCard : cardPool;
         clearBoard(pool, false);
@@ -260,6 +264,9 @@ public class MatchCardController implements Initializable {
         }
     }
 
+    /**
+     * This method empties the cardPool or handCard flowPane of card images
+     */
     private void clearBoard(FlowPane flowPane, boolean isHand) {
         for (int i = 0; i < flowPane.getChildren().size(); i++) {
             BorderPane borderPane = (BorderPane) flowPane.getChildren().get(i);
